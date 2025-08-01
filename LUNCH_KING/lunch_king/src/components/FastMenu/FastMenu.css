@@ -1,5 +1,61 @@
 .fast-menu-container {
-    background-color: bisque;
+    background-image: linear-gradient(to bottom, #b22222,#ff8383 );
     height: 100vh;
     width: 20vw;
+}
+
+.icom-fast-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.icom-fast-menu img {
+    width: 90%;
+    background-repeat: no-repeat;
+   
+}
+.icom-fast-menu h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    padding: 10px;
+    text-align: center;
+    text-shadow: 1px 1px 5px #000;
+    text-decoration: underline;
+}
+
+.items-fast-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.details-items-fast-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.details-items-fast-menu img {
+    width: 20%;
+    background-repeat: no-repeat;
+    margin-left: 40%;
+    margin-top: 10px;
+}
+
+.details-items-fast-menu p {
+    color: #fff;
+    font-size: 1.3rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    padding: 10px;
+    text-align: center;
+    text-shadow: 1px 1px 5px #000;
 }

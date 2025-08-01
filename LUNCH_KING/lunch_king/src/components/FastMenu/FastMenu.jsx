@@ -1,4 +1,9 @@
+//CSS
 import "./FastMenu.css"
+//IMAGENS
+import logoSystem from "../../assets/images/logo-system.png"
+import lunchFastMenu from "../../assets/images/Lunch_FastMenu.png"
+
 
 const FastMenu = () => {
 
@@ -6,13 +11,13 @@ const FastMenu = () => {
 
     <div className="fast-menu-container">
         <div className="icom-fast-menu">
-            <img src="#" alt="icone do sistema" />
+            <img src={logoSystem} alt="icone do sistema"/>
             <h3>Cardápio</h3>
         </div>
 
         <div className="items-fast-menu">
             <div className="details-items-fast-menu">
-                <a href="#"><img src="#" alt="" /></a>
+                <a href="#"><img src={lunchFastMenu} alt="" /></a>
                 <p>Lanches</p>
             </div>
             <div className="details-items-fast-menu">
