@@ -1,0 +1,48 @@
+{
+    "users": [
+        {
+            "idUser": 0,
+            "profileUser": "",
+            "nameUser": "",
+            "passwordUser": "",
+            "photoUser": ""
+        }
+    ],
+    "products": [
+        {
+            "idProduct": 0,
+            "descriptionProduct": "",
+            "typeProduct": "",
+            "valueSaleProduct": 0.0,
+            "photoProduct": ""
+        }
+    ],
+    "commands": [
+        {
+            "idCommand": 0,
+            "tableCommand": "",
+            "deliveryAddress": "",
+            "orderCommand": [],
+            "valueCommand": 0.0,
+            "dateCommand": "",
+            "hourCommand": ""
+        }
+    ],
+    "sales": [
+        {
+            "idSale": 0,
+            "idSaleCommand": 0,
+            "tableCommandSale": "",
+            "delAddressSale": "",
+            "orderCommandSale": [],
+            "valueCommandSale": 0.0,
+            "paymentMethod": "",
+            "valueSale": 0.0,
+            "inputValueSale": 0.0,
+            "changeValueSale": 0.0,
+            "paymentStatus": false,
+            "dateSale": "",
+            "hourSale": ""
+        }
+    ]
+}

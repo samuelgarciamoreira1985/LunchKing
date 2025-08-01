@@ -1,0 +1,9 @@
+.footer-main-container {
+    background-color: rgb(201, 134, 134);
+    position: fixed;
+    bottom: 0;
+}
+
+.social-media-footer > ul > li{
+    list-style-type: none;
+}
