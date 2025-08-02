@@ -12,9 +12,9 @@
 }
 
 .icom-fast-menu img {
-    width: 90%;
+    width: 70%;
     background-repeat: no-repeat;
-   
+    margin-top: 10px;
 }
 .icom-fast-menu h3 {
     color: #fff;
@@ -30,32 +30,46 @@
 
 .items-fast-menu {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .details-items-fast-menu {
+    width: 45%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.details-items-fast-menu:hover{
+    background-color: #000;
+    color: #fff;
 }
 
 .details-items-fast-menu img {
-    width: 20%;
+    width: 100%;
+    height: 95px;
     background-repeat: no-repeat;
-    margin-left: 40%;
+    margin-left: 1%;
     margin-top: 10px;
 }
 
 .details-items-fast-menu p {
-    color: #fff;
+    color: #f30b0b34;
     font-size: 1.3rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 600;
     font-style: italic;
     padding: 10px;
     text-align: center;
-    text-shadow: 1px 1px 5px #000;
+    text-shadow: .1px .1px .1px #000;
+}
+
+.details-items-fast-menu:hover p {
+    color: #fff;
 }
