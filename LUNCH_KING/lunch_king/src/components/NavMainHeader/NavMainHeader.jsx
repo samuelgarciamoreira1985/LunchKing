@@ -6,11 +6,13 @@ const NavMainHeader = () => {
   return (
 
     <div className="nav-main-container">
-        <a href="#">Produtos</a>
-        <a href="#">Comandas</a>
-        <a href="#">Vendas</a>
-        <a href="#">Ajuda</a>
-        <a href="#">Quem somos</a>
+        <div className="nav-details">
+          <a href="#" id="first-nav">Produtos</a>
+          <a href="#">Comandas</a>
+          <a href="#">Vendas</a>
+          <a href="#">Ajuda</a>
+          <a href="#" id="last-nav">Quem somos</a>
+        </div>
     </div>
     
   )
