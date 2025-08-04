@@ -1,3 +1,6 @@
+// ÍCONES
+import { FaShoppingCart } from "react-icons/fa";
+
 //CSS
 import "./NavMainHeader.css"
 
@@ -7,7 +10,7 @@ const NavMainHeader = () => {
 
     <div className="nav-main-container">
         <div className="nav-details">
-          <a href="#" id="first-nav">Produtos</a>
+          <a href="#" id="first-nav"><FaShoppingCart />Produtos</a>
           <a href="#">Comandas</a>
           <a href="#">Vendas</a>
           <a href="#">Ajuda</a>
