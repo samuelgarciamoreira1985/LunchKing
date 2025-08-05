@@ -1,3 +1,5 @@
+// REACT
+import { Link } from "react-router-dom"
 // CSS
 import "./MainHeader.css"
 //IMAGENS
@@ -11,7 +13,7 @@ const MainHeader = () => {
 
     <div className="main-header-container">
         <div className="icon-header">
-            <a href=""><img src={logoSystemMainHeader} alt="Ícone do sistema" /></a>
+            <Link to="/"><img src={logoSystemMainHeader} alt="Ícone do sistema" /></Link>
         </div>
 
             <form className="form-inputs-search">
