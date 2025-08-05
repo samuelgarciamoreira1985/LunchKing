@@ -7,10 +7,11 @@
 .nav-details {
     display: flex;
     flex-direction: row;
-    margin-left: 50%;
+    margin-left: 25%;
 }
 
 .nav-main-container a {
+    width: 200px;
     padding: 10px;
     margin-left: 3px;
     color: #fff;

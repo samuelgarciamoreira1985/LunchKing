@@ -2,6 +2,8 @@
 import "./MainHeader.css"
 //IMAGENS
 import logoSystemMainHeader from "../../assets/images/logo-system.png"
+// ÍCONES
+import { FcSearch } from "react-icons/fc"
 
 const MainHeader = () => {
 
@@ -29,7 +31,7 @@ const MainHeader = () => {
                     max={50}
                     min={1}
                     />
-                    <input type="submit" id="id-btn-buscar" value="Buscar"/>
+                    <button id="id-btn-buscar"><FcSearch className="icon-search"/></button>
                 </fieldset>
             </form>
         </div>
