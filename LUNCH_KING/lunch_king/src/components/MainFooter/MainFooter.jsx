@@ -1,3 +1,5 @@
+// REACT
+import { Link } from "react-router-dom"
 // CSS
 import "./MainFooter.css"
 // ÍCONES
@@ -35,7 +37,7 @@ const MainFooter = () => {
         <div className="system-map-footer"> 
             <h3>Mapa do sistema</h3>
             <a href="#">Usuários</a>
-            <a href="#">Produtos</a>
+            <Link to="/listproducts">Produtos</Link>
             <a href="#">Comandas</a>
             <a href="#">Vendas</a>
         </div>

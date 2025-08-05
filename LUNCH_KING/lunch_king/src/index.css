@@ -14,3 +14,7 @@
     font-family: Helvetica;
     box-sizing: border-box;
 }
+
+body {
+    background-image: linear-gradient(to right, rgba(153, 151, 151, 0.753), rgba(221, 221, 221, 0.76));
+}

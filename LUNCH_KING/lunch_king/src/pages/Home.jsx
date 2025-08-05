@@ -1,11 +1,16 @@
-import React from 'react'
+// CSS
+import "./Home.css"
+// IMAGENS
+import iconSystem from "../assets/images/logo-system.png"
 
 const Home = () => {
 
   return (
 
-    <div>
-        <h2>Home</h2>
+    <div className="home-container">
+        
+        <img src={iconSystem} className="img-system-home" alt="imagem do sistema" />
+        <button id="btn-logout">Deslogar</button>
     </div>
 
   )

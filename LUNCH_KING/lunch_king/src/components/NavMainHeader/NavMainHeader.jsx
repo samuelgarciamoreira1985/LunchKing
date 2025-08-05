@@ -1,3 +1,5 @@
+// REACT
+import { Link } from "react-router-dom"
 // ÍCONES
 import { FaShoppingCart } from "react-icons/fa"
 import { IoClipboardSharp } from "react-icons/io5"
@@ -14,7 +16,7 @@ const NavMainHeader = () => {
 
     <div className="nav-main-container">
         <div className="nav-details">
-          <a href="#" id="first-nav"><FaShoppingCart /> Produtos</a>
+          <Link to="/products" id="first-nav"><FaShoppingCart /> Produtos</Link>
           <a href="#"><IoClipboardSharp /> Comandas</a>
           <a href="#"><RiMoneyDollarCircleFill /> Vendas</a>
           <a href="#"><MdOutlineHelp /> Ajuda</a>

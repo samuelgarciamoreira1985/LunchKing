@@ -10,11 +10,25 @@
     ],
     "products": [
         {
-            "idProduct": 0,
-            "descriptionProduct": "",
-            "typeProduct": "",
-            "valueSaleProduct": 0.0,
-            "photoProduct": ""
+            "idProduct": 1,
+            "descriptionProduct": "HOT-DOG ESPECIAL",
+            "typeProduct": "LANCHES",
+            "valueSaleProduct": 12.50,
+            "photoProduct": "/assets/images/HotDogEspecial.png"
+        },
+        {
+            "idProduct": 2,
+            "descriptionProduct": "COCA-COLA 350 ML",
+            "typeProduct": "BEBIDAS",
+            "valueSaleProduct": 3.50,
+            "photoProduct": "/assets/images/Coca-Cola350ML"
+        },
+        {
+            "idProduct": 3,
+            "descriptionProduct": "PASTEL DE CARNE",
+            "typeProduct": "PASTÉIS",
+            "valueSaleProduct": 7.30,
+            "photoProduct": "/assets/images/MeatPastry.png"
         }
     ],
     "commands": [
