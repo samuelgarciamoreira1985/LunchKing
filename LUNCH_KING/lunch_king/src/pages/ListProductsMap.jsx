@@ -18,10 +18,10 @@ const ListProductsMap = () => {
         <ul id="general-list-products">
           {itemProduct && itemProduct.map((product) => (
             <li className="item-list-product" key={product.idProduct}>
-            <img src={product.photoProduct} alt="foto do produto" />
+            <div className="group-photo-product"><img src={product.photoProduct} alt="foto do produto" /></div>
             <p>{product.descriptionProduct}</p>
             <p>{product.typeProduct}</p>
-            <p>R$ {product.valueSaleProduct}</p>
+            <p style={{color: "red",fontWeight: "bolder"}}>R$ {product.valueSaleProduct}</p>
             </li>
           ))}
         </ul>

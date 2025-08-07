@@ -85,7 +85,43 @@
             "typeProduct": "LANCHES",
             "valueSaleProduct": 16.50,
             "photoProduct": "/img/X Burguer Frango.png"
+        },
+        {
+            "idProduct": 12,
+            "descriptionProduct": "COCADA QUEIMADA",
+            "typeProduct": "INDUSTRIAIS",
+            "valueSaleProduct": 2.55,
+            "photoProduct": "/img/Coconut.png"
+        },
+        {
+            "idProduct": 13,
+            "descriptionProduct": "BOLO DE MORANGO",
+            "typeProduct": "SOBREMESAS",
+            "valueSaleProduct": 7.45,
+            "photoProduct": "/img/Strawberry cake.png"
+        },
+        {
+            "idProduct": 14,
+            "descriptionProduct": "PASTEL DE FRANGO",
+            "typeProduct": "PASTÉIS",
+            "valueSaleProduct": 7.30,
+            "photoProduct": "/img/Chicken pastry.png"
+        },
+        {
+            "idProduct": 15,
+            "descriptionProduct": "SCHWEPPES 350 ML",
+            "typeProduct": "BEBIDAS",
+            "valueSaleProduct": 5.45,
+            "photoProduct": "/img/Schweppes Citrus 350 ML.png"
+        },
+        {
+            "idProduct": 16,
+            "descriptionProduct": "X-SALADA",
+            "typeProduct": "LANCHES",
+            "valueSaleProduct": 15.20,
+            "photoProduct": "/img/X-Salada.png"
         }
+        
     ],
     "commands": [
         {
