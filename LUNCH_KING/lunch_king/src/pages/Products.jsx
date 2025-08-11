@@ -1,13 +1,31 @@
+// REACT
+import { useState } from "react"
 // CSS
 import "./Products.css"
 // ÍCONES
-import { MdLunchDining } from "react-icons/md" 
+import { MdLunchDining, MdCreateNewFolder  } from "react-icons/md" 
 import { GiFrenchFries, GiSlicedBread, GiStairsCake  } from "react-icons/gi"
 import { FaCandyCane } from "react-icons/fa6"
 import { RiDrinks2Fill } from "react-icons/ri"
-import { useState } from "react"
+import { IoSearchCircleSharp } from "react-icons/io5"
+import { GrUpdate } from "react-icons/gr"
+import { TiCancel } from "react-icons/ti"
+import { BiSolidSave } from "react-icons/bi"
+// IMAGENS
+import photo_product from "../assets/images/products_photo.png"
 
 const Products = () => {
+
+  const [valueSaleProduct, setValueSaleProduct] = useState("")
+
+  const validDigits = (textDigited) => {
+    return textDigited.replace(/[^0-9.]/g, "")
+  }
+
+  const ChangeMaskValueSale = (e) => {
+    const updateTextDigited = validDigits(e.target.value)
+    setValueSaleProduct(updateTextDigited)
+  }
 
   return (
 
@@ -79,6 +97,8 @@ const Products = () => {
               <input type="text" style={{marginLeft: "7px", width: "100px"}}
               id="id-sale-product"
               name="n-sale-product"
+              value={valueSaleProduct}
+              onChange={(e) => ChangeMaskValueSale(e)}
               required
               />
               <span className="info-sale-product">* Digite o valor do produto</span>
@@ -86,17 +106,17 @@ const Products = () => {
 
             {/* INÍCIO - FOTO DE PRODUTOS */}
             <div className="group-photo-products">
-              <img src="#" alt="foto do produto" />
-              <button>Procurar</button>
+              <img src={photo_product} alt="foto do produto" />
+              <button><IoSearchCircleSharp className="icon-button-photo"/> Procurar</button>
             </div>
             {/* FIM - FOTO DE PRODUTOS */}
 
             {/* INÍCIO - BARRA DE AÇÕES - PRODUTOS */}
               <div className="group-actions-products">
-                  <button type="button" className="blue-color">Novo</button>
-                  <button type="button" className="green-color">Alterar</button>
-                  <button type="button" className="red-color">Cancelar</button>
-                  <button type="button" className="green-color">Salvar</button>
+                  <button type="button"><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
+                  <button type="button"><GrUpdate className="icon-actions-products"/> Alterar</button>
+                  <button type="button"><TiCancel className="icon-actions-products"/> Cancelar</button>
+                  <button type="button"><BiSolidSave className="icon-actions-products"/> Salvar</button>
               </div>
             {/* FIM - BARRA DE AÇÕES - PRODUTOS */} 
         </form>
@@ -119,6 +139,24 @@ const Products = () => {
                   <td>COCA-COLA</td>
                   <td>BEBIDAS</td>
                   <td>R$ 3.50</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>FANTA UVA</td>
+                  <td>BEBIDAS</td>
+                  <td>R$ 3.50</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>PASTEL DE FRANGO</td>
+                  <td>PASTÉIS</td>
+                  <td>R$ 7.30</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>HOT-DOG ESPECIAL</td>
+                  <td>LANCHES</td>
+                  <td>R$ 12.50</td>
                 </tr>
             </tbody>
             </table>

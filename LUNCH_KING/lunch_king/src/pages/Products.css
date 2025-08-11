@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;
     gap: 7px;
-    
+    position: relative;
 }
 
 .group-id-product {
@@ -73,6 +73,7 @@ h4 {
     gap: 20px;
     background-color: rgb(207, 206, 203);
     border-radius: 10px 10px;
+    
 }
 
 .type-product {
@@ -104,10 +105,117 @@ h4 {
 
 /* FIM - TIPO DE PRODUTOS*/
 
+/* INÍCIO - VALOR DE PRODUTOS*/
 .info-sale-product {
     font-style: italic;
     font-size: .8rem;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
     padding: 10px;
+}
+
+/* INÍCIO - FOTO DE PRODUTOS*/
+.group-photo-products {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    right: -220px;
+    top: 18px;
+}
+.group-photo-products img {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #000;
+    border-radius: 17px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.group-photo-products button {
+    height: 30px;
+    border-radius: 7px;
+    font-size: 1.4rem;
+    border: none;
+    background-image: linear-gradient(to left, #0000ff6c, #0000ffb2);
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    cursor: pointer;
+    text-shadow: .1px .5px 2px #fff;
+}
+
+.group-photo-products button:hover {
+    background-image: linear-gradient(to left, #0000ff52, #0000ff7a);
+}
+
+.icon-button-photo {
+    color: #fff;
+    font-size: 1.5rem;
+}
+/* FIM - FOTO DE PRODUTOS*/
+
+/* INÍCIO - BARRA DE AÇÕES - PRODUTOS*/
+.group-actions-products {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.group-actions-products button {
+    width: 150px;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-style: italic;
+    cursor: pointer;
+    background-color: #0044ffcb;
+    color: #fff;
+    text-shadow: 2px 1.5px 3px #000;
+}
+
+.group-actions-products button:hover {
+    background-color: #0044ff96;
+}
+
+.icon-actions-products {
+    font-size: 1.4rem;
+    color: #000;
+}
+/* FIM - BARRA DE AÇÕES - PRODUTOS*/
+
+/* INÍCIO - LISTA - PRODUTOS*/
+.list-products-container {
+    padding: 10px;
+    margin: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    color: #000;
+    
+}
+
+th, td {
+  border: 1px solid #ddd; /* Adiciona bordas */
+  padding: 8px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #dbdada; /* Define a cor de fundo para linhas pares */
+}
+
+tr:nth-child(odd) {
+  background-color: #ffffffd3; /* Define a cor de fundo para linhas ímpares */
 }
