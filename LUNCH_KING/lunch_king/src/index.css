@@ -16,5 +16,5 @@
 }
 
 body {
-    background-image: linear-gradient(to right, rgba(230, 230, 230, 0.753), rgba(223, 207, 207, 0.76));
+    background-image: linear-gradient(to right, rgba(230, 230, 230, 0.753), hsla(0, 20%, 84%, 0.761));
 }

@@ -4,7 +4,7 @@ import { useSearch } from "../hooks/useSearch.jsx"
 // CSS
 import "./Products.css"
 // ÍCONES
-import { MdLunchDining, MdCreateNewFolder  } from "react-icons/md" 
+import { MdLunchDining, MdCreateNewFolder, MdDelete   } from "react-icons/md" 
 import { GiFrenchFries, GiSlicedBread, GiStairsCake  } from "react-icons/gi"
 import { FaCandyCane } from "react-icons/fa6"
 import { RiDrinks2Fill } from "react-icons/ri"
@@ -23,6 +23,18 @@ const Products = () => {
   const [valueSaleProduct, setValueSaleProduct] = useState("")
   const { data: products } = useSearch(url)
 
+  // INÍCIO - HABILITAR E DESABILITAR BOTOÕES DE NAVEGAÇÃO
+  const [btnNewProduct, setBtnNewProduct] = useState(true)
+  const [btnCancelProduct, setBtnCancelProduct] = useState(false)
+  const [btnSaveProduct, setBtnSaveProduct] = useState(false)
+
+    const handleClickNewProduct = () => {
+      setBtnNewProduct(false)
+      console.log("valor:" + btnNewProduct)
+    }
+
+  // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
+
   // INÍCIO - GESTÃO DE FOTOS DOS PRODUTOS
     const [photoProduct, setPhotoProduct] = useState(null)
     const inputPhotoProduct = useRef(null)
@@ -30,6 +42,7 @@ const Products = () => {
 
     const clickButtonPhoto = () => { 
       inputPhotoProduct.current.click()
+      console.log("valor:" + btnNewProduct)
     }
 
     const handleOpenPhotoProduct = (e) => {
@@ -167,8 +180,7 @@ const Products = () => {
 
             {/* INÍCIO - BARRA DE AÇÕES - PRODUTOS */}
               <div className="group-actions-products">
-                  <button type="button"><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
-                  <button type="button"><GrUpdate className="icon-actions-products"/> Alterar</button>
+                  <button type="button" onClick={handleClickNewProduct} ><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
                   <button type="button"><TiCancel className="icon-actions-products"/> Cancelar</button>
                   <button type="button"><BiSolidSave className="icon-actions-products"/> Salvar</button>
               </div>
@@ -194,6 +206,8 @@ const Products = () => {
                      <td>{items.descriptionProduct}</td> 
                      <td>{items.typeProduct}</td> 
                      <td>R$ {checkValue(items.valueSaleProduct) ? items.valueSaleProduct + "0" : items.valueSaleProduct}</td> 
+                     <td className="line-update-product"><button className="btn-del-update-product"><GrUpdate className="icon-update-product"/></button></td>
+                     <td className="line-del-product"><button className="btn-del-update-product"><MdDelete className="icon-delete-product"/></button></td>
                 </tr>
               ))}
                 

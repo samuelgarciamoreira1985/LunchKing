@@ -188,6 +188,7 @@ h4 {
     font-size: 1.4rem;
     color: #000;
 }
+
 /* FIM - BARRA DE AÇÕES - PRODUTOS*/
 
 /* INÍCIO - LISTA - PRODUTOS*/
@@ -198,7 +199,7 @@ h4 {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border: none;
 }
 
 thead {
@@ -207,7 +208,8 @@ thead {
 }
 
 th {
-    background-color: #cf000048;
+    background-color: #11642344;
+    text-shadow: 1px .5px 2px #fff;
 }
 
 th, td {
@@ -222,4 +224,40 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
   background-color: #ffffffd3; /* Define a cor de fundo para linhas ímpares */
+}
+
+.icon-delete-product {
+    color: #fff;
+    font-size: 1.6rem;
+}
+
+.icon-delete-product:hover {
+    color: #ffffffc4;
+    font-size: 1.4rem;
+}
+
+.icon-update-product {
+    color: #fff;
+    font-size: 1.6rem;
+}
+
+.icon-update-product:hover {
+    color: #ffffffc4;
+    font-size: 1.4rem;
+}
+
+.line-del-product {
+    background-color: rgb(214, 8, 8);
+    border-radius: 7px;
+}
+
+.line-update-product {
+    background-color: #0044ffcb;
+    border-radius: 7px;
+}
+
+.btn-del-update-product {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
