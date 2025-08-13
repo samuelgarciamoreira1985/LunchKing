@@ -123,7 +123,7 @@ h4 {
     right: -220px;
     top: 18px;
 }
-.group-photo-products img {
+.area-photo-product {
     width: 200px;
     height: 200px;
     border: 1px solid #000;
@@ -204,6 +204,10 @@ table {
 thead {
     color: #000;
     
+}
+
+th {
+    background-color: #cf000048;
 }
 
 th, td {

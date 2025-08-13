@@ -1,5 +1,6 @@
 // REACT
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
+import { useSearch } from "../hooks/useSearch.jsx"
 // CSS
 import "./Products.css"
 // ÍCONES
@@ -11,13 +12,56 @@ import { IoSearchCircleSharp } from "react-icons/io5"
 import { GrUpdate } from "react-icons/gr"
 import { TiCancel } from "react-icons/ti"
 import { BiSolidSave } from "react-icons/bi"
+import { AiOutlineClear } from "react-icons/ai"
 // IMAGENS
 import photo_product from "../assets/images/products_photo.png"
+
+const url = "http://localhost:3000/products"
 
 const Products = () => {
 
   const [valueSaleProduct, setValueSaleProduct] = useState("")
+  const { data: products } = useSearch(url)
 
+  // INÍCIO - GESTÃO DE FOTOS DOS PRODUTOS
+    const [photoProduct, setPhotoProduct] = useState(null)
+    const inputPhotoProduct = useRef(null)
+    const [indexPhotoProduct, setIndexPhotoProduct] = useState(false)
+
+    const clickButtonPhoto = () => { 
+      inputPhotoProduct.current.click()
+    }
+
+    const handleOpenPhotoProduct = (e) => {
+      const filePhotoProduct = e.target.files[0]
+      if (filePhotoProduct){
+        const readerPhotoProduct = new FileReader()
+        readerPhotoProduct.onload = (e) => {
+          setPhotoProduct(e.target.result)
+          setIndexPhotoProduct(true)
+        }
+        readerPhotoProduct.readAsDataURL(filePhotoProduct)
+        console.log("foto" + filePhotoProduct)
+      }
+    }
+
+    const clickButtonClearPhoto = (e) => {
+      e.preventDefault()
+      setIndexPhotoProduct(false)
+    }
+
+  // FIM - GESTÃO DE FOTOS DOS PRODUTOS
+
+  // INÍCIO - FUNÇÃO PARA USO DE MÁSCARA DE VALOR DE VENDA
+  const checkValue = (valueSale) => {
+        const decimalPart = valueSale.toString().split(".")[1] || ''
+        const numberDecimal = decimalPart.length
+        if (numberDecimal === 1)
+        return numberDecimal + "0"
+      }
+  // FIM - FUNÇÃO PARA USO DE MÁSCARA DE VALOR DE VENDA
+
+  // INÍCIO - VALIDAÇÃO DE INPUT DE VALOR DE VENDA
   const validDigits = (textDigited) => {
     return textDigited.replace(/[^0-9.]/g, "")
   }
@@ -26,6 +70,7 @@ const Products = () => {
     const updateTextDigited = validDigits(e.target.value)
     setValueSaleProduct(updateTextDigited)
   }
+  // FIM - VALIDAÇÃO DE VALOR DE VENDA
 
   return (
 
@@ -106,8 +151,17 @@ const Products = () => {
 
             {/* INÍCIO - FOTO DE PRODUTOS */}
             <div className="group-photo-products">
-              <img src={photo_product} alt="foto do produto" />
-              <button><IoSearchCircleSharp className="icon-button-photo"/> Procurar</button>
+                <input type="file" className="area-photo-product"
+                id="photo-open-product"
+                accept="image/png, image/jpeg"
+                onChange={handleOpenPhotoProduct}
+                ref={inputPhotoProduct}
+                style={{ display: 'none' }}
+                />
+                {!indexPhotoProduct && <img className="area-photo-product" src={photo_product} alt="foto carregada" />}
+                {indexPhotoProduct && <img className="area-photo-product" src={photoProduct} alt="foto carregada" />}
+              <button onClick={clickButtonPhoto}><IoSearchCircleSharp className="icon-button-photo"/> Procurar</button>
+              <button onClick={clickButtonClearPhoto}><AiOutlineClear className="icon-button-photo"/> Limpar</button>
             </div>
             {/* FIM - FOTO DE PRODUTOS */}
 
@@ -134,30 +188,15 @@ const Products = () => {
               </thead>
             
             <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>COCA-COLA</td>
-                  <td>BEBIDAS</td>
-                  <td>R$ 3.50</td>
+              {products && products.map((items) => (
+                <tr key={items.idProduct}>
+                     <td>{items.idProduct}</td> 
+                     <td>{items.descriptionProduct}</td> 
+                     <td>{items.typeProduct}</td> 
+                     <td>R$ {checkValue(items.valueSaleProduct) ? items.valueSaleProduct + "0" : items.valueSaleProduct}</td> 
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>FANTA UVA</td>
-                  <td>BEBIDAS</td>
-                  <td>R$ 3.50</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>PASTEL DE FRANGO</td>
-                  <td>PASTÉIS</td>
-                  <td>R$ 7.30</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>HOT-DOG ESPECIAL</td>
-                  <td>LANCHES</td>
-                  <td>R$ 12.50</td>
-                </tr>
+              ))}
+                
             </tbody>
             </table>
         </div>
