@@ -5,7 +5,7 @@ import { useSearch } from "../hooks/useSearch.jsx"
 import "./Products.css"
 // ÍCONES
 import { MdLunchDining, MdCreateNewFolder, MdDelete   } from "react-icons/md" 
-import { GiFrenchFries, GiSlicedBread, GiStairsCake  } from "react-icons/gi"
+import { GiConsoleController, GiFrenchFries, GiSlicedBread, GiStairsCake  } from "react-icons/gi"
 import { FaCandyCane } from "react-icons/fa6"
 import { RiDrinks2Fill } from "react-icons/ri"
 import { IoSearchCircleSharp } from "react-icons/io5"
@@ -21,16 +21,36 @@ const url = "http://localhost:3000/products"
 const Products = () => {
 
   const [valueSaleProduct, setValueSaleProduct] = useState("")
+  const [idProduct, setIdProduct] = useState("")
   const { data: products } = useSearch(url)
 
-  // INÍCIO - HABILITAR E DESABILITAR BOTOÕES DE NAVEGAÇÃO
-  const [btnNewProduct, setBtnNewProduct] = useState(true)
-  const [btnCancelProduct, setBtnCancelProduct] = useState(false)
-  const [btnSaveProduct, setBtnSaveProduct] = useState(false)
+  // INÍCIO - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
+  const [btnNewProduct, setBtnNewProduct] = useState(false)
 
-    const handleClickNewProduct = () => {
-      setBtnNewProduct(false)
-      console.log("valor:" + btnNewProduct)
+  const [colorNewProducts, setColorNewProducts] = useState("#0044ffcb")
+  const [colorCancelProducts, setColorCancelProducts] = useState("#0044ff96")
+  const [colorSaveProducts, setColorSaveProducts] = useState("#0044ff96")
+  const [cursorNewProduct, setCursorNewProduct] = useState("pointer")
+  const [cursorCancelProduct, setCursorCancelProduct] = useState("default")
+  const [cursorSaveProduct, setCursorSaveProduct] = useState("default")
+
+  const [btnCancelProduct, setBtnCancelProduct] = useState(true)
+  const [btnSaveProduct, setBtnSaveProduct] = useState(true)
+    // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO
+    const optionsProducts = ["#0044ffcb","#0044ff96","pointer","default"] 
+
+    const handleClickNewProduct = () => { // BOTÃO - NOVO PRODUTO
+     if (btnNewProduct == false){
+        setBtnNewProduct(true)
+        setBtnCancelProduct(false)
+        setBtnSaveProduct(false)
+        setColorNewProducts(optionsProducts[1]) 
+        setColorCancelProducts(optionsProducts[0])
+        setColorSaveProducts(optionsProducts[0])
+        setCursorNewProduct(optionsProducts[3])
+        setCursorCancelProduct(optionsProducts[2])
+        setCursorSaveProduct(optionsProducts[2])
+     }
     }
 
   // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
@@ -85,6 +105,17 @@ const Products = () => {
   }
   // FIM - VALIDAÇÃO DE VALOR DE VENDA
 
+  // INÍCIO - VALIDAÇÃO DE INPUT DE ID
+  const validDigitsId = (textDigitedId) => {
+    return textDigitedId.replace(/[^0-9]/g, "")
+  }
+
+  const ChangeMaskIdProduct = (e) => {
+    const updateTextDigitedId = validDigitsId(e.target.value)
+    setIdProduct(updateTextDigitedId)
+  }
+  // FIM - VALIDAÇÃO DE ID
+
   return (
 
     <div className='container-products'> 
@@ -96,6 +127,8 @@ const Products = () => {
                 <input type="text" style={{marginLeft: "7px", width: "100px"}}
                 id="id-id-product"
                 name="n-id-product"
+                value={idProduct}
+                onChange={(e) => ChangeMaskIdProduct(e)}
                 required
                 />
               </label>
@@ -180,9 +213,9 @@ const Products = () => {
 
             {/* INÍCIO - BARRA DE AÇÕES - PRODUTOS */}
               <div className="group-actions-products">
-                  <button type="button" onClick={handleClickNewProduct} ><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
-                  <button type="button"><TiCancel className="icon-actions-products"/> Cancelar</button>
-                  <button type="button"><BiSolidSave className="icon-actions-products"/> Salvar</button>
+                  <button type="button" style={{backgroundColor: colorNewProducts, cursor: cursorNewProduct}} disabled={btnNewProduct} onClick={handleClickNewProduct} ><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
+                  <button type="button" style={{backgroundColor: colorCancelProducts, cursor: cursorCancelProduct}} disabled={btnCancelProduct}><TiCancel className="icon-actions-products"/> Cancelar</button>
+                  <button type="button" style={{backgroundColor: colorSaveProducts, cursor: cursorSaveProduct}} disabled={btnSaveProduct}><BiSolidSave className="icon-actions-products"/> Salvar</button>
               </div>
             {/* FIM - BARRA DE AÇÕES - PRODUTOS */} 
         </form>
