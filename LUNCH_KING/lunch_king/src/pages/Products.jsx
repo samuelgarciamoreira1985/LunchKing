@@ -25,32 +25,64 @@ const Products = () => {
   const { data: products } = useSearch(url)
 
   // INÍCIO - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
+
+  // 0- SEM OPERAÇÃO 1-NOVO 2-ALTERAR 3-DELETAR 4-CANCELAR 5-SALVAR
+  const [indexOpProducts, setIndexOpProducts] = useState(0) 
+  // **************************************************************
+
   const [btnNewProduct, setBtnNewProduct] = useState(false)
+  const [btnCancelProduct, setBtnCancelProduct] = useState(true)
+  const [btnSaveProduct, setBtnSaveProduct] = useState(true)
+  const [btnSearchPhotoProduct,setBtnSearchPhotoProduct] = useState(true)
+  const [btnClearPhotoProduct,setBtnClearPhotoProduct] = useState(true)
+
+  const [typeProduct,setTypeProduct] = useState("")
+
+  const inputIdProduct = useRef(null)
+  const inputDescriptionProduct = useRef(null)
+  const inputValueSaleProduct = useRef(null)
 
   const [colorNewProducts, setColorNewProducts] = useState("#0044ffcb")
   const [colorCancelProducts, setColorCancelProducts] = useState("#0044ff96")
   const [colorSaveProducts, setColorSaveProducts] = useState("#0044ff96")
+  const [colorSearchPhotoProducts,setColorSearchPhotoProducts] = useState("#0044ff96")
+  const [colorClearPhotoProducts,setColorClearPhotoProducts] = useState("#0044ff96")
+
   const [cursorNewProduct, setCursorNewProduct] = useState("pointer")
   const [cursorCancelProduct, setCursorCancelProduct] = useState("default")
   const [cursorSaveProduct, setCursorSaveProduct] = useState("default")
+  const [cursorSearchPhotoProduct,setCursorSearchPhotoProduct] = useState("default")
+  const [cursorClearPhotoProduct,setCursorClearPhotoProduct] = useState("default")
 
-  const [btnCancelProduct, setBtnCancelProduct] = useState(true)
-  const [btnSaveProduct, setBtnSaveProduct] = useState(true)
+    const changeTypeProduct = (e) => {
+        setTypeProduct(e.target.value)
+        //console.log("valor: " + e.target.value)
+    }
+
     // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO
-    const optionsProducts = ["#0044ffcb","#0044ff96","pointer","default"] 
+    const optionsProducts = ["#0044ffcb","#0044ff96","pointer","default","#cfcecb",""] 
 
     const handleClickNewProduct = () => { // BOTÃO - NOVO PRODUTO
      if (btnNewProduct == false){
+        setIndexOpProducts(1)
         setBtnNewProduct(true)
         setBtnCancelProduct(false)
         setBtnSaveProduct(false)
+        setBtnSearchPhotoProduct(false)
+        setBtnClearPhotoProduct(false)
         setColorNewProducts(optionsProducts[1]) 
         setColorCancelProducts(optionsProducts[0])
         setColorSaveProducts(optionsProducts[0])
+        setColorSearchPhotoProducts(optionsProducts[0])
+        setColorClearPhotoProducts(optionsProducts[0])
         setCursorNewProduct(optionsProducts[3])
         setCursorCancelProduct(optionsProducts[2])
         setCursorSaveProduct(optionsProducts[2])
-     }
+        setCursorSearchPhotoProduct(optionsProducts[2])
+        setCursorClearPhotoProduct(optionsProducts[2])
+
+        inputIdProduct.current.focus()
+      }
     }
 
   // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
@@ -129,6 +161,8 @@ const Products = () => {
                 name="n-id-product"
                 value={idProduct}
                 onChange={(e) => ChangeMaskIdProduct(e)}
+                ref={inputIdProduct}
+                disabled={indexOpProducts == 1 ? false : true}
                 required
                 />
               </label>
@@ -137,6 +171,8 @@ const Products = () => {
                 <input type="text" style={{marginLeft: "8px",width: "400px"}}
                 id="id-description-product"
                 name="n-description-product"
+                ref={inputDescriptionProduct}
+                disabled={indexOpProducts == 1 ? false : true}
                 required
                 />
               </label>
@@ -145,38 +181,62 @@ const Products = () => {
             {/* INÍCIO - TIPOS DE PRODUTOS */}
             <h4>SELECIONE UMA CATEGORIA PARA CADASTRAR O PRODUTO</h4>
             <div className="group-type-products">
-              <label className="type-product">
-                <input type="radio" value="lanches"/>
+              <label className="type-product" style={{backgroundColor: typeProduct === "LANCHES" ? "#b3b3b4ff" : "#cfcecb"}}>
+                <input type="radio" 
+                value="LANCHES"
+                checked={typeProduct === "LANCHES"}
+                onChange={changeTypeProduct}
+                />
                 <MdLunchDining className="icon-type-product" />
                 <span>LANCHES</span>
               </label>
               
-              <label className="type-product">
-                <input type="radio" value="porcoes"/>
+              <label className="type-product" style={{backgroundColor: typeProduct === "PORÇÕES" ? "#b3b3b4ff" : "#cfcecb"}}>
+                <input type="radio" 
+                value="PORÇÕES"
+                checked={typeProduct === "PORÇÕES"}
+                onChange={changeTypeProduct}
+                />
                 <GiFrenchFries className="icon-type-product"/>
                 <span>PORÇÕES</span>
               </label>
 
-              <label className="type-product">
-                <input type="radio" value="pasteis"/>
+              <label className="type-product" style={{backgroundColor: typeProduct === "PASTÉIS" ? "#b3b3b4ff" : "#cfcecb"}}>
+                <input type="radio" 
+                value="PASTÉIS"
+                checked={typeProduct === "PASTÉIS"}
+                onChange={changeTypeProduct}
+                />
                 <GiSlicedBread className="icon-type-product"/>
                 <span>PASTÉIS</span>
               </label>
               
-              <label className="type-product">
-                <input type="radio" value="sobremesas"/>
+              <label className="type-product" style={{backgroundColor: typeProduct === "SOBREMESAS" ? "#b3b3b4ff" : "#cfcecb"}}>
+                <input type="radio" 
+                value="SOBREMESAS"
+                checked={typeProduct === "SOBREMESAS"}
+                onChange={changeTypeProduct}
+                />
                 <GiStairsCake className="icon-type-product"/>
                 <span>SOBREMESAS</span>
               </label>
 
-              <label className="type-product">
-                <input type="radio" value="industriais"/>
+              <label className="type-product" style={{backgroundColor: typeProduct === "INDUSTRIAIS" ? "#b3b3b4ff" : "#cfcecb"}}>
+                <input type="radio" 
+                value="INDUSTRIAIS"
+                checked={typeProduct === "INDUSTRIAIS"}
+                onChange={changeTypeProduct}
+                />
                 <FaCandyCane className="icon-type-product"/>
                 <span>INDUSTRIAIS</span>
               </label>
               
-              <label className="type-product">
-                <input type="radio" value="bebidas"/>
+              <label className="type-product" style={{backgroundColor: typeProduct === "BEBIDAS" ? "#b3b3b4ff" : "#cfcecb"}}>
+                <input type="radio" 
+                value="BEBIDAS"
+                checked={typeProduct === "BEBIDAS"}
+                onChange={changeTypeProduct}
+                />
                 <RiDrinks2Fill className="icon-type-product"/>
                 <span>BEBIDAS</span>
               </label>
@@ -190,6 +250,8 @@ const Products = () => {
               name="n-sale-product"
               value={valueSaleProduct}
               onChange={(e) => ChangeMaskValueSale(e)}
+              ref={inputValueSaleProduct}
+              disabled={indexOpProducts == 1 ? false : true}
               required
               />
               <span className="info-sale-product">* Digite o valor do produto</span>
@@ -206,8 +268,8 @@ const Products = () => {
                 />
                 {!indexPhotoProduct && <img className="area-photo-product" src={photo_product} alt="foto carregada" />}
                 {indexPhotoProduct && <img className="area-photo-product" src={photoProduct} alt="foto carregada" />}
-              <button onClick={clickButtonPhoto}><IoSearchCircleSharp className="icon-button-photo"/> Procurar</button>
-              <button onClick={clickButtonClearPhoto}><AiOutlineClear className="icon-button-photo"/> Limpar</button>
+              <button style={{backgroundColor: colorSearchPhotoProducts, cursor: cursorSearchPhotoProduct}} disabled={btnSearchPhotoProduct} onClick={clickButtonPhoto}><IoSearchCircleSharp className="icon-button-photo"/> Procurar</button>
+              <button style={{backgroundColor: colorClearPhotoProducts, cursor: cursorClearPhotoProduct}} disabled={btnClearPhotoProduct} onClick={clickButtonClearPhoto}><AiOutlineClear className="icon-button-photo"/> Limpar</button>
             </div>
             {/* FIM - FOTO DE PRODUTOS */}
 
