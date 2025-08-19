@@ -35,6 +35,12 @@ const Products = () => {
   const [btnSaveProduct, setBtnSaveProduct] = useState(true)
   const [btnSearchPhotoProduct,setBtnSearchPhotoProduct] = useState(true)
   const [btnClearPhotoProduct,setBtnClearPhotoProduct] = useState(true)
+  const [rbLunchTypeProduct,setRbLunchTypeProduct] = useState(true)
+  const [rbPortionTypeProduct,setRbPortionTypeProduct] = useState(true)
+  const [rbPastryTypeProduct,setRbPastryTypeProduct] = useState(true)
+  const [rbDessertTypeProduct,setRbDessertTypeProduct] = useState(true)
+  const [rbIndustrialTypeProduct,setRbIndustrialTypeProduct] = useState(true)
+  const [rbDrinkTypeProduct,setRbDrinkTypeProduct] = useState(true)
 
   const [typeProduct,setTypeProduct] = useState("")
 
@@ -47,6 +53,7 @@ const Products = () => {
   const [colorSaveProducts, setColorSaveProducts] = useState("#0044ff96")
   const [colorSearchPhotoProducts,setColorSearchPhotoProducts] = useState("#0044ff96")
   const [colorClearPhotoProducts,setColorClearPhotoProducts] = useState("#0044ff96")
+  const [colorRbLunchTypeProduct,setColorRbLunchTypeProduct] = useState("#000")
 
   const [cursorNewProduct, setCursorNewProduct] = useState("pointer")
   const [cursorCancelProduct, setCursorCancelProduct] = useState("default")
@@ -59,8 +66,8 @@ const Products = () => {
         //console.log("valor: " + e.target.value)
     }
 
-    // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO
-    const optionsProducts = ["#0044ffcb","#0044ff96","pointer","default","#cfcecb",""] 
+    // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO, 4 - HOVER ATIVO
+    const optionsProducts = ["#0044ffcb","#0044ff96","pointer","default","#7076f4"] 
 
     const handleClickNewProduct = () => { // BOTÃO - NOVO PRODUTO
      if (btnNewProduct == false){
@@ -80,6 +87,16 @@ const Products = () => {
         setCursorSaveProduct(optionsProducts[2])
         setCursorSearchPhotoProduct(optionsProducts[2])
         setCursorClearPhotoProduct(optionsProducts[2])
+
+        // TIPO DE PRODUTOS
+        setRbLunchTypeProduct(false)
+        setRbPortionTypeProduct(false)
+        setRbPastryTypeProduct(false)
+        setRbDessertTypeProduct(false)
+        setRbIndustrialTypeProduct(false)
+        setRbDrinkTypeProduct(false)
+
+        setColorRbLunchTypeProduct(optionsProducts[4])
 
         inputIdProduct.current.focus()
       }
@@ -186,6 +203,7 @@ const Products = () => {
                 value="LANCHES"
                 checked={typeProduct === "LANCHES"}
                 onChange={changeTypeProduct}
+                disabled={indexOpProducts == 1 ? false : true}
                 />
                 <MdLunchDining className="icon-type-product" />
                 <span>LANCHES</span>
@@ -196,6 +214,7 @@ const Products = () => {
                 value="PORÇÕES"
                 checked={typeProduct === "PORÇÕES"}
                 onChange={changeTypeProduct}
+                disabled={indexOpProducts == 1 ? false : true}
                 />
                 <GiFrenchFries className="icon-type-product"/>
                 <span>PORÇÕES</span>
@@ -206,6 +225,7 @@ const Products = () => {
                 value="PASTÉIS"
                 checked={typeProduct === "PASTÉIS"}
                 onChange={changeTypeProduct}
+                disabled={indexOpProducts == 1 ? false : true}
                 />
                 <GiSlicedBread className="icon-type-product"/>
                 <span>PASTÉIS</span>
@@ -216,6 +236,7 @@ const Products = () => {
                 value="SOBREMESAS"
                 checked={typeProduct === "SOBREMESAS"}
                 onChange={changeTypeProduct}
+                disabled={indexOpProducts == 1 ? false : true}
                 />
                 <GiStairsCake className="icon-type-product"/>
                 <span>SOBREMESAS</span>
@@ -226,6 +247,7 @@ const Products = () => {
                 value="INDUSTRIAIS"
                 checked={typeProduct === "INDUSTRIAIS"}
                 onChange={changeTypeProduct}
+                disabled={indexOpProducts == 1 ? false : true}
                 />
                 <FaCandyCane className="icon-type-product"/>
                 <span>INDUSTRIAIS</span>
@@ -236,6 +258,7 @@ const Products = () => {
                 value="BEBIDAS"
                 checked={typeProduct === "BEBIDAS"}
                 onChange={changeTypeProduct}
+                disabled={indexOpProducts == 1 ? false : true}
                 />
                 <RiDrinks2Fill className="icon-type-product"/>
                 <span>BEBIDAS</span>
