@@ -1,6 +1,7 @@
 // REACT
 import { useState, useRef, useEffect } from "react"
 import { useSearch } from "../hooks/useSearch.jsx"
+import { useSend } from "../hooks/useSend.jsx"
 // CSS
 import "./Products.css"
 // ÍCONES
@@ -23,6 +24,19 @@ const Products = () => {
   const [valueSaleProduct, setValueSaleProduct] = useState("")
   const [idProduct, setIdProduct] = useState("")
   const { data: products } = useSearch(url)
+  const { data, httpConfig, error } = useSend(url)
+
+  // INÍCIO - ENVIO DA REQUISIÇÃO************
+  const [idProd,setIdProd] = useState("")
+  const [descrProd,setDescrProd] = useState("")
+  const [typeProd,setTypeProd] = useState("")
+  const [valSaleProd,setValSaleProd] = useState(0)
+  const [photoProd,setPhotoProd] = useState("")
+
+  const handleClickSaveProduct = async (e) => {
+    
+  }
+  // FIM - ENVIO DA REQUISIÇÃO**************
 
   // INÍCIO - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
 
@@ -382,7 +396,7 @@ const Products = () => {
               <div className="group-actions-products">
                   <button type="button" style={{backgroundColor: colorNewProducts, cursor: cursorNewProduct}} disabled={btnNewProduct} onClick={handleClickNewProduct} ><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
                   <button type="button" style={{backgroundColor: colorCancelProducts, cursor: cursorCancelProduct}} disabled={btnCancelProduct} onClick={handleClickCancelProduct}><TiCancel className="icon-actions-products"/> Cancelar</button>
-                  <button type="button" style={{backgroundColor: colorSaveProducts, cursor: cursorSaveProduct}} disabled={btnSaveProduct}><BiSolidSave className="icon-actions-products"/> Salvar</button>
+                  <button type="button" style={{backgroundColor: colorSaveProducts, cursor: cursorSaveProduct}} disabled={btnSaveProduct} onClick={handleClickSaveProduct}><BiSolidSave className="icon-actions-products"/> Salvar</button>
               </div>
             {/* FIM - BARRA DE AÇÕES - PRODUTOS */} 
         </form>
