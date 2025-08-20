@@ -53,7 +53,6 @@ const Products = () => {
   const [colorSaveProducts, setColorSaveProducts] = useState("#0044ff96")
   const [colorSearchPhotoProducts,setColorSearchPhotoProducts] = useState("#0044ff96")
   const [colorClearPhotoProducts,setColorClearPhotoProducts] = useState("#0044ff96")
-  const [colorRbLunchTypeProduct,setColorRbLunchTypeProduct] = useState("#000")
 
   const [cursorNewProduct, setCursorNewProduct] = useState("pointer")
   const [cursorCancelProduct, setCursorCancelProduct] = useState("default")
@@ -61,13 +60,30 @@ const Products = () => {
   const [cursorSearchPhotoProduct,setCursorSearchPhotoProduct] = useState("default")
   const [cursorClearPhotoProduct,setCursorClearPhotoProduct] = useState("default")
 
+  const [iconLunchTypeProduct,setIconLunchTypeProduct] = useState("none")
+  const [iconPortionTypeProduct,setIconPortionTypeProduct] = useState("none")
+  const [iconPastryTypeProduct,setIconPastryTypeProduct] = useState("none")
+  const [iconDessertTypeProduct,setIconDessertTypeProduct] = useState("none")
+  const [iconIndustrialTypeProduct,setIconIndustrialTypeProduct] = useState("none")
+  const [iconDrinkTypeProduct,setIconDrinkTypeProduct] = useState("none")
+
+  const [spanLunchTypeProduct,setSpanLunchTypeProduct] = useState("none")
+  const [spanPortionTypeProduct,setSpanPortionTypeProduct] = useState("none")
+  const [spanPastryTypeProduct,setSpanPastryTypeProduct] = useState("none")
+  const [spanDessertTypeProduct,setSpanDessertTypeProduct] = useState("none")
+  const [spanIndustrialTypeProduct,setSpanIndustrialTypeProduct] = useState("none")
+  const [spanDrinkTypeProduct,setSpanDrinkTypeProduct] = useState("none")
+
+  const [listTypeProduct,setListTypeProduct] = useState("fill")
+
     const changeTypeProduct = (e) => {
         setTypeProduct(e.target.value)
         //console.log("valor: " + e.target.value)
     }
 
-    // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO, 4 - HOVER ATIVO
-    const optionsProducts = ["#0044ffcb","#0044ff96","pointer","default","#7076f4"] 
+    // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO, 4 - ELEMENTO ATIVADO
+    // 5 - ELEMENTO DESATIVADO
+    const optionsProducts = ["#0044ffcb","#0044ff96","pointer","default","fill","none"] 
 
     const handleClickNewProduct = () => { // BOTÃO - NOVO PRODUTO
      if (btnNewProduct == false){
@@ -96,7 +112,73 @@ const Products = () => {
         setRbIndustrialTypeProduct(false)
         setRbDrinkTypeProduct(false)
 
-        setColorRbLunchTypeProduct(optionsProducts[4])
+        setIconLunchTypeProduct(optionsProducts[4])
+        setIconPortionTypeProduct(optionsProducts[4])
+        setIconPastryTypeProduct(optionsProducts[4])
+        setIconDessertTypeProduct(optionsProducts[4])
+        setIconIndustrialTypeProduct(optionsProducts[4])
+        setIconDrinkTypeProduct(optionsProducts[4])
+
+        setSpanLunchTypeProduct(optionsProducts[4])
+        setSpanPortionTypeProduct(optionsProducts[4])
+        setSpanPastryTypeProduct(optionsProducts[4])
+        setSpanDessertTypeProduct(optionsProducts[4])
+        setSpanIndustrialTypeProduct(optionsProducts[4])
+        setSpanDrinkTypeProduct(optionsProducts[4])
+
+        setListTypeProduct(optionsProducts[5])
+
+        inputIdProduct.current.focus()
+      }
+    }
+
+    const handleClickCancelProduct = () => { // BOTÃO - CANCELAR PRODUTO
+        if (btnCancelProduct == false){
+        setIndexOpProducts(0)
+        setBtnNewProduct(false)
+        setBtnCancelProduct(true)
+        setBtnSaveProduct(true)
+        setBtnSearchPhotoProduct(true)
+        setBtnClearPhotoProduct(true)
+        
+        setIndexPhotoProduct(false)
+
+        setColorNewProducts(optionsProducts[0]) 
+        setColorCancelProducts(optionsProducts[1])
+        setColorSaveProducts(optionsProducts[1])
+        setColorSearchPhotoProducts(optionsProducts[1])
+        setColorClearPhotoProducts(optionsProducts[1])
+        setCursorNewProduct(optionsProducts[2])
+        setCursorCancelProduct(optionsProducts[3])
+        setCursorSaveProduct(optionsProducts[3])
+        setCursorSearchPhotoProduct(optionsProducts[3])
+        setCursorClearPhotoProduct(optionsProducts[3])
+
+        // TIPO DE PRODUTOS
+        setRbLunchTypeProduct(true)
+        setRbPortionTypeProduct(true)
+        setRbPastryTypeProduct(true)
+        setRbDessertTypeProduct(true)
+        setRbIndustrialTypeProduct(true)
+        setRbDrinkTypeProduct(true)
+
+        setIconLunchTypeProduct(optionsProducts[5])
+        setIconPortionTypeProduct(optionsProducts[5])
+        setIconPastryTypeProduct(optionsProducts[5])
+        setIconDessertTypeProduct(optionsProducts[5])
+        setIconIndustrialTypeProduct(optionsProducts[5])
+        setIconDrinkTypeProduct(optionsProducts[5])
+
+        setSpanLunchTypeProduct(optionsProducts[5])
+        setSpanPortionTypeProduct(optionsProducts[5])
+        setSpanPastryTypeProduct(optionsProducts[5])
+        setSpanDessertTypeProduct(optionsProducts[5])
+        setSpanIndustrialTypeProduct(optionsProducts[5])
+        setSpanDrinkTypeProduct(optionsProducts[5])
+
+        setListTypeProduct(optionsProducts[4])
+
+        setTypeProduct("")
 
         inputIdProduct.current.focus()
       }
@@ -205,8 +287,8 @@ const Products = () => {
                 onChange={changeTypeProduct}
                 disabled={indexOpProducts == 1 ? false : true}
                 />
-                <MdLunchDining className="icon-type-product" />
-                <span>LANCHES</span>
+                <MdLunchDining className="icon-type-product" style={{pointerEvents:iconLunchTypeProduct}}/>
+                <span style={{pointerEvents:spanLunchTypeProduct}}>LANCHES</span>
               </label>
               
               <label className="type-product" style={{backgroundColor: typeProduct === "PORÇÕES" ? "#b3b3b4ff" : "#cfcecb"}}>
@@ -216,8 +298,8 @@ const Products = () => {
                 onChange={changeTypeProduct}
                 disabled={indexOpProducts == 1 ? false : true}
                 />
-                <GiFrenchFries className="icon-type-product"/>
-                <span>PORÇÕES</span>
+                <GiFrenchFries className="icon-type-product" style={{pointerEvents:iconPortionTypeProduct}}/>
+                <span style={{pointerEvents:spanPortionTypeProduct}}>PORÇÕES</span>
               </label>
 
               <label className="type-product" style={{backgroundColor: typeProduct === "PASTÉIS" ? "#b3b3b4ff" : "#cfcecb"}}>
@@ -227,8 +309,8 @@ const Products = () => {
                 onChange={changeTypeProduct}
                 disabled={indexOpProducts == 1 ? false : true}
                 />
-                <GiSlicedBread className="icon-type-product"/>
-                <span>PASTÉIS</span>
+                <GiSlicedBread className="icon-type-product" style={{pointerEvents:iconPastryTypeProduct}}/>
+                <span style={{pointerEvents:spanPastryTypeProduct}}>PASTÉIS</span>
               </label>
               
               <label className="type-product" style={{backgroundColor: typeProduct === "SOBREMESAS" ? "#b3b3b4ff" : "#cfcecb"}}>
@@ -238,8 +320,8 @@ const Products = () => {
                 onChange={changeTypeProduct}
                 disabled={indexOpProducts == 1 ? false : true}
                 />
-                <GiStairsCake className="icon-type-product"/>
-                <span>SOBREMESAS</span>
+                <GiStairsCake className="icon-type-product" style={{pointerEvents:iconDessertTypeProduct}}/>
+                <span style={{pointerEvents:spanDessertTypeProduct}}>SOBREMESAS</span>
               </label>
 
               <label className="type-product" style={{backgroundColor: typeProduct === "INDUSTRIAIS" ? "#b3b3b4ff" : "#cfcecb"}}>
@@ -249,8 +331,8 @@ const Products = () => {
                 onChange={changeTypeProduct}
                 disabled={indexOpProducts == 1 ? false : true}
                 />
-                <FaCandyCane className="icon-type-product"/>
-                <span>INDUSTRIAIS</span>
+                <FaCandyCane className="icon-type-product" style={{pointerEvents:iconIndustrialTypeProduct}}/>
+                <span style={{pointerEvents:spanIndustrialTypeProduct}}>INDUSTRIAIS</span>
               </label>
               
               <label className="type-product" style={{backgroundColor: typeProduct === "BEBIDAS" ? "#b3b3b4ff" : "#cfcecb"}}>
@@ -260,8 +342,8 @@ const Products = () => {
                 onChange={changeTypeProduct}
                 disabled={indexOpProducts == 1 ? false : true}
                 />
-                <RiDrinks2Fill className="icon-type-product"/>
-                <span>BEBIDAS</span>
+                <RiDrinks2Fill className="icon-type-product" style={{pointerEvents:iconDrinkTypeProduct}}/>
+                <span style={{pointerEvents:spanDrinkTypeProduct}}>BEBIDAS</span>
               </label>
             </div> 
             {/* FIM - TIPOS DE PRODUTOS */}
@@ -299,7 +381,7 @@ const Products = () => {
             {/* INÍCIO - BARRA DE AÇÕES - PRODUTOS */}
               <div className="group-actions-products">
                   <button type="button" style={{backgroundColor: colorNewProducts, cursor: cursorNewProduct}} disabled={btnNewProduct} onClick={handleClickNewProduct} ><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
-                  <button type="button" style={{backgroundColor: colorCancelProducts, cursor: cursorCancelProduct}} disabled={btnCancelProduct}><TiCancel className="icon-actions-products"/> Cancelar</button>
+                  <button type="button" style={{backgroundColor: colorCancelProducts, cursor: cursorCancelProduct}} disabled={btnCancelProduct} onClick={handleClickCancelProduct}><TiCancel className="icon-actions-products"/> Cancelar</button>
                   <button type="button" style={{backgroundColor: colorSaveProducts, cursor: cursorSaveProduct}} disabled={btnSaveProduct}><BiSolidSave className="icon-actions-products"/> Salvar</button>
               </div>
             {/* FIM - BARRA DE AÇÕES - PRODUTOS */} 
@@ -319,7 +401,7 @@ const Products = () => {
             
             <tbody>
               {products && products.map((items) => (
-                <tr key={items.idProduct}>
+                <tr key={items.idProduct} style={{pointerEvents:listTypeProduct}}>
                      <td>{items.idProduct}</td> 
                      <td>{items.descriptionProduct}</td> 
                      <td>{items.typeProduct}</td> 
