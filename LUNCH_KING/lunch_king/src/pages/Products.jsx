@@ -23,6 +23,7 @@ const Products = () => {
 
   const [valueSaleProduct, setValueSaleProduct] = useState("")
   const [idProduct, setIdProduct] = useState("")
+
   const { data: products } = useSearch(url)
   const { data, httpConfig, error } = useSend(url)
 
@@ -30,11 +31,28 @@ const Products = () => {
   const [idProd,setIdProd] = useState("")
   const [descrProd,setDescrProd] = useState("")
   const [typeProd,setTypeProd] = useState("")
-  const [valSaleProd,setValSaleProd] = useState(0)
+  const [valSaleProd,setValSaleProd] = useState(null)
   const [photoProd,setPhotoProd] = useState("")
+  const [product,setProduct] = useState([])
 
-  const handleClickSaveProduct = async (e) => {
-    
+  const handleClickSaveProduct = async (e) => { // BOTÃO SALVAR
+    e.preventDefault()
+
+    const objProducts = {
+      idProduct, //ok
+      descrProd, // ok
+      typeProduct, // ok
+      valueSaleProduct, //ok
+      inputPhotoProduct
+    }
+
+    console.log("Id: " + objProducts.idProduct + " Descrição: " + objProducts.descrProd + " Tipo: " + objProducts.typeProduct + " Valor: " + objProducts.valueSaleProduct + " Foto: " + objProducts.inputPhotoProduct)
+
+    //httpConfig(objProducts, "POST")
+
+    //const addedProduct = await response.json()
+    //setProduct((prevProduct) => [...prevProduct,addedProduct])
+
   }
   // FIM - ENVIO DA REQUISIÇÃO**************
 
@@ -154,7 +172,7 @@ const Products = () => {
         setBtnSaveProduct(true)
         setBtnSearchPhotoProduct(true)
         setBtnClearPhotoProduct(true)
-        
+
         setIndexPhotoProduct(false)
 
         setColorNewProducts(optionsProducts[0]) 
@@ -192,8 +210,11 @@ const Products = () => {
 
         setListTypeProduct(optionsProducts[4])
 
+        setIdProduct("")
+        setDescrProd("")
         setTypeProduct("")
-
+        setValueSaleProduct("")
+        
         inputIdProduct.current.focus()
       }
     }
@@ -205,7 +226,8 @@ const Products = () => {
     const inputPhotoProduct = useRef(null)
     const [indexPhotoProduct, setIndexPhotoProduct] = useState(false)
 
-    const clickButtonPhoto = () => { 
+    const clickButtonPhoto = (e) => { 
+      e.preventDefault()
       inputPhotoProduct.current.click()
       console.log("valor:" + btnNewProduct)
     }
@@ -284,6 +306,8 @@ const Products = () => {
                 <input type="text" style={{marginLeft: "8px",width: "400px"}}
                 id="id-description-product"
                 name="n-description-product"
+                value={descrProd}
+                onChange={(e) => setDescrProd(e.target.value)}
                 ref={inputDescriptionProduct}
                 disabled={indexOpProducts == 1 ? false : true}
                 required
@@ -381,7 +405,7 @@ const Products = () => {
                 <input type="file" className="area-photo-product"
                 id="photo-open-product"
                 accept="image/png, image/jpeg"
-                onChange={handleOpenPhotoProduct}
+                onChange={(e) => handleOpenPhotoProduct(e)}
                 ref={inputPhotoProduct}
                 style={{ display: 'none' }}
                 />
