@@ -1,5 +1,5 @@
 // REACT
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useLayoutEffect } from "react"
 import { useSearch } from "../hooks/useSearch.jsx"
 import { useSend } from "../hooks/useSend.jsx"
 import { useRequests } from "../hooks/useRequests.jsx"
@@ -35,10 +35,10 @@ const Products = () => {
   const [typeProd,setTypeProd] = useState("")
   const [valSaleProd,setValSaleProd] = useState(null)
   const [photoProd,setPhotoProd] = useState("")
-  const [objProducts,setObjProducts] = useState([])
+  const [Products,setProducts] = useState([])
 
   const handleClickSaveProduct = async (e) => { // BOTÃO SALVAR
-    e.preventDefault()
+    //e.preventDefault()
 
   //setPhotoProd("/img/HotDogEspecial.png")
 
@@ -53,9 +53,11 @@ const Products = () => {
     console.log("Id: " + objProducts.idProduct + " Descrição: " + objProducts.descriptionProduct + " Tipo: " + objProducts.typeProduct + " Valor: " + objProducts.valueSaleProduct + " Foto: " + objProducts.photoProduct)
 
     httpConfig(objProducts, "POST")
+    setIndexOpProducts(0)
+    swal("Produto cadastrado com sucesso!")
 
-    const addedProduct = await res.json()
-    setObjProducts((prevProduct) => [...prevProduct,addedProduct])
+    /*const addedProduct = await res.json()
+    setProducts((prevProduct) => [...prevProduct,addedProduct])*/
 
   }
   // FIM - ENVIO DA REQUISIÇÃO**************
@@ -291,8 +293,8 @@ const Products = () => {
 
     <div className='container-products'> 
         <h2>GESTÃO DE PRODUTOS</h2>
-        <form className="form-register-products" onSubmit={handleClickSaveProduct}>
-           
+        <form className="form-register-products">
+                
               <label> {/* ID DE PRODUTOS */}
                 <span className="span-normal" style={{marginLeft: "-186px"}}>Id:</span>
                 <input type="text" style={{marginLeft: "7px", width: "100px"}}
@@ -425,7 +427,6 @@ const Products = () => {
                   <button type="button" style={{backgroundColor: colorNewProducts, cursor: cursorNewProduct}} disabled={btnNewProduct} onClick={handleClickNewProduct} ><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
                   <button type="button" style={{backgroundColor: colorCancelProducts, cursor: cursorCancelProduct}} disabled={btnCancelProduct} onClick={handleClickCancelProduct}><TiCancel className="icon-actions-products"/> Cancelar</button>
                   <button type="button" style={{backgroundColor: colorSaveProducts, cursor: cursorSaveProduct}} disabled={btnSaveProduct} onClick={handleClickSaveProduct}><BiSolidSave className="icon-actions-products"/> Salvar</button>
-                  <input type="submit" value="Enviar"/>
               </div>
             {/* FIM - BARRA DE AÇÕES - PRODUTOS */} 
         </form>
