@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react"
 import { useSearch } from "../hooks/useSearch.jsx"
 import { useSend } from "../hooks/useSend.jsx"
+import { useRequests } from "../hooks/useRequests.jsx"
 // CSS
 import "./Products.css"
 // ÍCONES
@@ -24,34 +25,37 @@ const Products = () => {
   const [valueSaleProduct, setValueSaleProduct] = useState("")
   const [idProduct, setIdProduct] = useState("")
 
-  const { data: products } = useSearch(url)
-  const { data, httpConfig, error } = useSend(url)
+  //const { data: products } = useSearch(url)
+  //const { data, httpConfig, error } = useSend(url)
+  const { data: products, httpConfig } = useRequests(url)
 
   // INÍCIO - ENVIO DA REQUISIÇÃO************
   const [idProd,setIdProd] = useState("")
-  const [descrProd,setDescrProd] = useState("")
+  const [descriptionProduct,setDescriptionProduct] = useState("")
   const [typeProd,setTypeProd] = useState("")
   const [valSaleProd,setValSaleProd] = useState(null)
   const [photoProd,setPhotoProd] = useState("")
-  const [product,setProduct] = useState([])
+  const [objProducts,setObjProducts] = useState([])
 
   const handleClickSaveProduct = async (e) => { // BOTÃO SALVAR
     e.preventDefault()
 
+  //setPhotoProd("/img/HotDogEspecial.png")
+
     const objProducts = {
       idProduct, //ok
-      descrProd, // ok
+      descriptionProduct, // ok
       typeProduct, // ok
       valueSaleProduct, //ok
-      inputPhotoProduct
+      photoProduct
     }
 
-    console.log("Id: " + objProducts.idProduct + " Descrição: " + objProducts.descrProd + " Tipo: " + objProducts.typeProduct + " Valor: " + objProducts.valueSaleProduct + " Foto: " + objProducts.inputPhotoProduct)
+    console.log("Id: " + objProducts.idProduct + " Descrição: " + objProducts.descriptionProduct + " Tipo: " + objProducts.typeProduct + " Valor: " + objProducts.valueSaleProduct + " Foto: " + objProducts.photoProduct)
 
-    //httpConfig(objProducts, "POST")
+    httpConfig(objProducts, "POST")
 
-    //const addedProduct = await response.json()
-    //setProduct((prevProduct) => [...prevProduct,addedProduct])
+    const addedProduct = await res.json()
+    setObjProducts((prevProduct) => [...prevProduct,addedProduct])
 
   }
   // FIM - ENVIO DA REQUISIÇÃO**************
@@ -287,7 +291,7 @@ const Products = () => {
 
     <div className='container-products'> 
         <h2>GESTÃO DE PRODUTOS</h2>
-        <form className="form-register-products">
+        <form className="form-register-products" onSubmit={handleClickSaveProduct}>
            
               <label> {/* ID DE PRODUTOS */}
                 <span className="span-normal" style={{marginLeft: "-186px"}}>Id:</span>
@@ -306,9 +310,9 @@ const Products = () => {
                 <input type="text" style={{marginLeft: "8px",width: "400px"}}
                 id="id-description-product"
                 name="n-description-product"
-                value={descrProd}
-                onChange={(e) => setDescrProd(e.target.value)}
+                onChange={(e) => setDescriptionProduct(e.target.value.toUpperCase())}
                 ref={inputDescriptionProduct}
+                value={descriptionProduct}
                 disabled={indexOpProducts == 1 ? false : true}
                 required
                 />
@@ -421,6 +425,7 @@ const Products = () => {
                   <button type="button" style={{backgroundColor: colorNewProducts, cursor: cursorNewProduct}} disabled={btnNewProduct} onClick={handleClickNewProduct} ><MdCreateNewFolder className="icon-actions-products"/> Novo</button>
                   <button type="button" style={{backgroundColor: colorCancelProducts, cursor: cursorCancelProduct}} disabled={btnCancelProduct} onClick={handleClickCancelProduct}><TiCancel className="icon-actions-products"/> Cancelar</button>
                   <button type="button" style={{backgroundColor: colorSaveProducts, cursor: cursorSaveProduct}} disabled={btnSaveProduct} onClick={handleClickSaveProduct}><BiSolidSave className="icon-actions-products"/> Salvar</button>
+                  <input type="submit" value="Enviar"/>
               </div>
             {/* FIM - BARRA DE AÇÕES - PRODUTOS */} 
         </form>

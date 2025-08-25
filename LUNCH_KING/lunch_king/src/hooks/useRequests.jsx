@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 
-export const useSend = (url) => {
+export const useRequests = (url) => {
 
-    const [data,setData] = useState(null) // DADOS
-    const [error,setError] = useState(null) // ERROS
+    const [data, setData] = useState(null) 
 
     const [config,setConfig] = useState(null) // CONFIGURAÇÃO DE ENVIO
     const [method,setMethod] = useState(null) // MÉTODO DE ENVIO
+    const [callFetch, setCallFetch] = useState(null) // CALL
 
     const httpConfig = (data, method) => {
         if (method === "POST") {
             setConfig({
-                method,
+                method: "POST",
                 Headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(data)
             })
@@ -19,6 +19,21 @@ export const useSend = (url) => {
         }
     }
 
+    // GET
+     useEffect(() => {
+        const getData = async () => {
+            try {
+                const requestData = await fetch(url)
+                const responseData = await requestData.json()
+                setData(responseData)
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+        getData()
+    },[url, callFetch])
+
+    // POST
     useEffect(() => {
 
         const httpRequest = async () => {
@@ -29,6 +44,7 @@ export const useSend = (url) => {
                 const res = await fetch(...sendOptions)
                 json = await res.json()
             }
+            setCallFetch(json)
         }
         catch (error) {
             console.log(error.message)
@@ -39,5 +55,6 @@ export const useSend = (url) => {
 
     },[config, method, url])
 
-    return { data, httpConfig, error }
+    return { data, httpConfig }
+
 }
