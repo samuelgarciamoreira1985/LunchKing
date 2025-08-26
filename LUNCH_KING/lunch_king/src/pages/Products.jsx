@@ -40,8 +40,6 @@ const Products = () => {
   const handleClickSaveProduct = async (e) => { // BOTÃO SALVAR
     //e.preventDefault()
 
-  //setPhotoProd("/img/HotDogEspecial.png")
-
     const objProducts = {
       idProduct, //ok
       descriptionProduct, // ok
@@ -54,10 +52,11 @@ const Products = () => {
 
     httpConfig(objProducts, "POST")
     setIndexOpProducts(0)
-    swal("Produto cadastrado com sucesso!")
-
-    /*const addedProduct = await res.json()
-    setProducts((prevProduct) => [...prevProduct,addedProduct])*/
+    swal({
+      icon: "success",
+      title: "REI DOS LANCHES",
+      text: "Produto cadastrado com sucesso!"
+    })
 
   }
   // FIM - ENVIO DA REQUISIÇÃO**************
@@ -171,7 +170,29 @@ const Products = () => {
     }
 
     const handleClickCancelProduct = () => { // BOTÃO - CANCELAR PRODUTO
-        if (btnCancelProduct == false){
+      swal("Deseja realmente cancelar o cadastro do produto?", {
+        closeOnClickOutside: false,
+        dangerMode: true,
+        closeOnEsc: false,
+        icon: "warning",
+        title: "REI DOS LANCHES",
+        buttons: {
+          confirmar: {
+            text: "Sim",
+            value: "sim",
+            className: "swal-cancelar-sim",
+          },
+          cancelar: {
+            text: "Não",
+            value: "nao",
+            className: "swal-cancelar-nao"
+          },
+          
+          },
+      })
+      .then((value => {
+        if (value === "sim") {
+          if (btnCancelProduct == false){
         setIndexOpProducts(0)
         setBtnNewProduct(false)
         setBtnCancelProduct(true)
@@ -217,18 +238,22 @@ const Products = () => {
         setListTypeProduct(optionsProducts[4])
 
         setIdProduct("")
-        setDescrProd("")
+        setDescriptionProduct("")
         setTypeProduct("")
         setValueSaleProduct("")
+        setPhotoProduct(photo_product)
         
         inputIdProduct.current.focus()
       }
+        }
+      }))
+        
     }
 
   // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
 
   // INÍCIO - GESTÃO DE FOTOS DOS PRODUTOS
-    const [photoProduct, setPhotoProduct] = useState(null)
+    const [photoProduct, setPhotoProduct] = useState(photo_product)
     const inputPhotoProduct = useRef(null)
     const [indexPhotoProduct, setIndexPhotoProduct] = useState(false)
 
@@ -254,6 +279,7 @@ const Products = () => {
     const clickButtonClearPhoto = (e) => {
       e.preventDefault()
       setIndexPhotoProduct(false)
+      setPhotoProduct(photo_product)
     }
 
   // FIM - GESTÃO DE FOTOS DOS PRODUTOS
@@ -294,7 +320,7 @@ const Products = () => {
     <div className='container-products'> 
         <h2>GESTÃO DE PRODUTOS</h2>
         <form className="form-register-products">
-                
+
               <label> {/* ID DE PRODUTOS */}
                 <span className="span-normal" style={{marginLeft: "-186px"}}>Id:</span>
                 <input type="text" style={{marginLeft: "7px", width: "100px"}}
@@ -414,9 +440,10 @@ const Products = () => {
                 onChange={(e) => handleOpenPhotoProduct(e)}
                 ref={inputPhotoProduct}
                 style={{ display: 'none' }}
+                required
                 />
-                {!indexPhotoProduct && <img className="area-photo-product" src={photo_product} alt="foto carregada" />}
-                {indexPhotoProduct && <img className="area-photo-product" src={photoProduct} alt="foto carregada" />}
+                {indexPhotoProduct === false && <img className="area-photo-product" src={photo_product} alt="foto carregada" />}
+                {indexPhotoProduct === true && <img className="area-photo-product" src={photoProduct} alt="foto carregada" />}
               <button style={{backgroundColor: colorSearchPhotoProducts, cursor: cursorSearchPhotoProduct}} disabled={btnSearchPhotoProduct} onClick={clickButtonPhoto}><IoSearchCircleSharp className="icon-button-photo"/> Procurar</button>
               <button style={{backgroundColor: colorClearPhotoProducts, cursor: cursorClearPhotoProduct}} disabled={btnClearPhotoProduct} onClick={clickButtonClearPhoto}><AiOutlineClear className="icon-button-photo"/> Limpar</button>
             </div>
