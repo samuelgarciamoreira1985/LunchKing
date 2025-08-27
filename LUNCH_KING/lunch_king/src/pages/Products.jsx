@@ -24,40 +24,129 @@ const Products = () => {
 
   const [valueSaleProduct, setValueSaleProduct] = useState("")
   const [idProduct, setIdProduct] = useState("")
+  const [descriptionProduct,setDescriptionProduct] = useState("")
 
   //const { data: products } = useSearch(url)
   //const { data, httpConfig, error } = useSend(url)
   const { data: products, httpConfig } = useRequests(url)
 
   // INÍCIO - ENVIO DA REQUISIÇÃO************
-  const [idProd,setIdProd] = useState("")
-  const [descriptionProduct,setDescriptionProduct] = useState("")
-  const [typeProd,setTypeProd] = useState("")
-  const [valSaleProd,setValSaleProd] = useState(null)
-  const [photoProd,setPhotoProd] = useState("")
-  const [Products,setProducts] = useState([])
 
   const handleClickSaveProduct = async (e) => { // BOTÃO SALVAR
-    //e.preventDefault()
 
-    const objProducts = {
-      idProduct, //ok
-      descriptionProduct, // ok
-      typeProduct, // ok
-      valueSaleProduct, //ok
-      photoProduct
+    if (idProduct === "" || descriptionProduct === "" || typeProduct === "" || valueSaleProduct === "") {
+      swal({
+        icon: "warning",
+        title: "REI DOS LANCHES",
+        text: "Existe(m) campo(s) a ser(em) preenchido(s)!"
+      })
     }
+    else if (idProduct !== "" && descriptionProduct !== "" && typeProduct !== "" && valueSaleProduct !== "") {
 
-    console.log("Id: " + objProducts.idProduct + " Descrição: " + objProducts.descriptionProduct + " Tipo: " + objProducts.typeProduct + " Valor: " + objProducts.valueSaleProduct + " Foto: " + objProducts.photoProduct)
+      const response = await fetch(`http://localhost:3000/products?idProduct=${idProduct}`)
+      const dataResponse = await response.json()
+      if (dataResponse.length !== 0){
+        swal({
+          icon: "error",
+          title: "REI DOS LANCHES",
+          text: "O Id já existe no sistema!"
+        })
+        inputIdProduct.current.focus()
+      }
+      if (dataResponse.length === 0){
+        swal("Confirma o cadastro do produto?", {
+        closeOnClickOutside: false,
+        dangerMode: true,
+        closeOnEsc: false,
+        icon: "warning",
+        title: "REI DOS LANCHES",
+        buttons: {
+          confirmar: {
+            text: "Sim",
+            value: "sim",
+            className: "swal-cancelar-sim",
+          },
+          cancelar: {
+            text: "Não",
+            value: "nao",
+            className: "swal-cancelar-nao"
+          },
+          
+          },
+      })
+      .then((value => {
+        if (value === "sim") {
+          // ***LÓGICA PARA CONFIRMAÇÃO DO CADASTRO DO PRODUTO***
+          const objProducts = {
+            idProduct, //ok
+            descriptionProduct, // ok
+            typeProduct, // ok
+            valueSaleProduct, //ok
+            photoProduct //ok
+          }
+      
+          httpConfig(objProducts, "POST")
+          setIndexOpProducts(0)
+          swal({
+            icon: "success",
+            title: "REI DOS LANCHES",
+            text: "Produto cadastrado com sucesso!"
+          })
 
-    httpConfig(objProducts, "POST")
-    setIndexOpProducts(0)
-    swal({
-      icon: "success",
-      title: "REI DOS LANCHES",
-      text: "Produto cadastrado com sucesso!"
-    })
+        if (btnSaveProduct == false){
+          setIndexOpProducts(0)
+          setBtnNewProduct(false)
+          setBtnCancelProduct(true)
+          setBtnSaveProduct(true)
+          setBtnSearchPhotoProduct(true)
+          setBtnClearPhotoProduct(true)
 
+          setIndexPhotoProduct(false)
+
+          setColorNewProducts(optionsProducts[0]) 
+          setColorCancelProducts(optionsProducts[1])
+          setColorSaveProducts(optionsProducts[1])
+          setColorSearchPhotoProducts(optionsProducts[1])
+          setColorClearPhotoProducts(optionsProducts[1])
+          setCursorNewProduct(optionsProducts[2])
+          setCursorCancelProduct(optionsProducts[3])
+          setCursorSaveProduct(optionsProducts[3])
+          setCursorSearchPhotoProduct(optionsProducts[3])
+          setCursorClearPhotoProduct(optionsProducts[3])
+
+          // TIPO DE PRODUTOS
+          setRbLunchTypeProduct(true)
+          setRbPortionTypeProduct(true)
+          setRbPastryTypeProduct(true)
+          setRbDessertTypeProduct(true)
+          setRbIndustrialTypeProduct(true)
+          setRbDrinkTypeProduct(true)
+
+          setIconLunchTypeProduct(optionsProducts[5])
+          setIconPortionTypeProduct(optionsProducts[5])
+          setIconPastryTypeProduct(optionsProducts[5])
+          setIconDessertTypeProduct(optionsProducts[5])
+          setIconIndustrialTypeProduct(optionsProducts[5])
+          setIconDrinkTypeProduct(optionsProducts[5])
+
+          setSpanLunchTypeProduct(optionsProducts[5])
+          setSpanPortionTypeProduct(optionsProducts[5])
+          setSpanPastryTypeProduct(optionsProducts[5])
+          setSpanDessertTypeProduct(optionsProducts[5])
+          setSpanIndustrialTypeProduct(optionsProducts[5])
+          setSpanDrinkTypeProduct(optionsProducts[5])
+
+          setListTypeProduct(optionsProducts[4])
+
+          setIdProduct("")
+          setDescriptionProduct("")
+          setTypeProduct("")
+          setValueSaleProduct("")
+          setPhotoProduct(photo_product)
+      }
+        }})) 
+          }  
+      }
   }
   // FIM - ENVIO DA REQUISIÇÃO**************
 
@@ -242,8 +331,6 @@ const Products = () => {
         setTypeProduct("")
         setValueSaleProduct("")
         setPhotoProduct(photo_product)
-        
-        inputIdProduct.current.focus()
       }
         }
       }))
