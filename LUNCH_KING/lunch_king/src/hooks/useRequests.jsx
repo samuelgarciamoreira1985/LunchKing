@@ -55,6 +55,15 @@ export const useRequests = (url) => {
 
     },[config, method, url])
 
-    return { data, httpConfig }
+    // DELETE
+    const delRegister = async (url) => {
+        const responseDelete = await fetch(url, { method: "DELETE" })
+       
+       if (responseDelete.ok) {
+        console.log("sucesso!")
+    }
+}
+
+    return { data, httpConfig, delRegister }
 
 }
