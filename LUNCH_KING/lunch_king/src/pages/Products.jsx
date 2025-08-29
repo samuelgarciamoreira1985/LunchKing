@@ -28,7 +28,7 @@ const Products = () => {
 
   //const { data: products } = useSearch(url)
   //const { data, httpConfig, error } = useSend(url)
-  const { data: products, httpConfig, delRegister } = useRequests(url)
+  const { data: products, httpConfig, delRegister, getProductsUpdate } = useRequests(url)
 
   // INÍCIO - ENVIO DA REQUISIÇÃO************
 
@@ -370,6 +370,13 @@ const Products = () => {
       }))   
       }
 
+    const handleClickUpdateProduct = async (idUpdateProd) => { // BOTÃO ATUALIZAR PRODUTO
+      handleClickNewProduct()
+      getProductsUpdate(url+"?idProduct="+idUpdateProd)
+      console.log("id: " + products)
+      //setDescriptionProduct("sadasdasdsa")
+    }
+
   // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
 
   // INÍCIO - GESTÃO DE FOTOS DOS PRODUTOS
@@ -597,7 +604,7 @@ const Products = () => {
                      <td>{items.descriptionProduct}</td> 
                      <td>{items.typeProduct}</td> 
                      <td>R$ {checkValue(items.valueSaleProduct) ? items.valueSaleProduct + "0" : items.valueSaleProduct}</td> 
-                     <td className="line-update-product"><button className="btn-del-update-product" type="button"><GrUpdate className="icon-update-product"/></button></td>
+                     <td className="line-update-product"><button className="btn-del-update-product" type="button" onClick={() => handleClickUpdateProduct(items.id)}><GrUpdate className="icon-update-product"/></button></td>
                      <td className="line-del-product"><button className="btn-del-update-product" type="button" onClick={() => handleClickDeleteProduct(items.id)}><MdDelete className="icon-delete-product"/></button></td>
                 </tr>
               ))}

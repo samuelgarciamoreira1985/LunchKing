@@ -63,6 +63,13 @@ export const useRequests = (url) => {
     }
 }
 
-    return { data, httpConfig, delRegister }
+    // GET - TO UPDATE
+    const getProductsUpdate = async (id) => {
+        const requestUpdate = await fetch(url)
+        const responseUpdate = await requestUpdate.json()
+        setData(responseUpdate => responseUpdate.filter(item => item.id === id))
+    }
+
+    return { data, httpConfig, delRegister, getProductsUpdate }
 
 }
