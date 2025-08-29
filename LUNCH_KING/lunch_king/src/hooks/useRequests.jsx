@@ -56,11 +56,10 @@ export const useRequests = (url) => {
     },[config, method, url])
 
     // DELETE
-    const delRegister = async (url) => {
-        const responseDelete = await fetch(url, { method: "DELETE" })
-       
+    const delRegister = async (url,id) => {
+        const responseDelete = await fetch(url, { method: "DELETE" })   
        if (responseDelete.ok) {
-        console.log("sucesso!")
+        setData(data => data.filter(item => item.id !== id))
     }
 }
 

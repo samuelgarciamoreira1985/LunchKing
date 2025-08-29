@@ -338,7 +338,36 @@ const Products = () => {
     }
 
     const handleClickDeleteProduct = async (idDelProd) => { // BOTÃO - DELETAR PRODUTO
-       delRegister(url+"/"+idDelProd)
+      swal("Deseja realmente deletar o produto?", {
+        closeOnClickOutside: false,
+        dangerMode: true,
+        closeOnEsc: false,
+        icon: "warning",
+        title: "REI DOS LANCHES",
+        buttons: {
+          confirmar: {
+            text: "Sim",
+            value: "sim",
+            className: "swal-cancelar-sim",
+          },
+          cancelar: {
+            text: "Não",
+            value: "nao",
+            className: "swal-cancelar-nao"
+          },
+          
+          },
+      })
+      .then((value => {
+        if (value === "sim") {
+          delRegister(url+"/"+idDelProd,idDelProd)
+          swal({
+           icon: "success",
+           title: "REI DOS LANCHES",
+           text: "Produto deletado com sucesso!"
+            })  
+          }
+      }))   
       }
 
   // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
