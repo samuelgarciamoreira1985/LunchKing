@@ -8,8 +8,6 @@ export const useRequests = (url) => {
     const [method,setMethod] = useState(null) // MÉTODO DE ENVIO
     const [callFetch, setCallFetch] = useState(null) // CALL
 
-    const [tempUpdate,setTempUpdate] = useState(null)
-
     const httpConfig = (data, method) => {
         if (method === "POST") {
             setConfig({
@@ -73,6 +71,6 @@ export const useRequests = (url) => {
         setData(responseUpdate)
     }
 
-    return { data, httpConfig, delRegister, getProductsUpdate, tempUpdate }
+    return { data, httpConfig, delRegister, getProductsUpdate }
 
 }

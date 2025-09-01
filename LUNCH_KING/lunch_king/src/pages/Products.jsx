@@ -26,9 +26,11 @@ const Products = () => {
   const [idProduct, setIdProduct] = useState("")
   const [descriptionProduct,setDescriptionProduct] = useState("")
 
+  const [indexControlProducts,setIndexControlProducts] = useState(null) // CONTROLE DE AÇÃO***
+
   //const { data: products } = useSearch(url)
   //const { data, httpConfig, error } = useSend(url)
-  const { data: products, httpConfig, delRegister, getProductsUpdate, tempUpdate } = useRequests(url)
+  const { data: products, httpConfig, delRegister, getProductsUpdate } = useRequests(url)
 
   // INÍCIO - ENVIO DA REQUISIÇÃO************
 
@@ -52,8 +54,12 @@ const Products = () => {
           text: "O Id já existe no sistema!"
         })
         inputIdProduct.current.focus()
-      }
+      } // VERIFICAÇÃO DE INDÍCE DE OPERAÇÃO***
       if (dataResponse.length === 0){
+        if(indexControlProducts === 2){ // ALTERAÇÃO
+          alert("Alteração de dados")
+        } 
+        if (indexControlProducts === 1){ // INCLUSÃO
         swal("Confirma o cadastro do produto?", {
         closeOnClickOutside: false,
         dangerMode: true,
@@ -146,6 +152,7 @@ const Products = () => {
       }
         }})) 
           }  
+        }
       }
   }
   // FIM - ENVIO DA REQUISIÇÃO**************
@@ -213,6 +220,7 @@ const Products = () => {
 
     const handleClickNewProduct = () => { // BOTÃO - NOVO PRODUTO
      if (btnNewProduct == false){
+        setIndexControlProducts(1)
         setIndexOpProducts(1)
         setBtnNewProduct(true)
         setBtnCancelProduct(false)
@@ -282,6 +290,7 @@ const Products = () => {
       .then((value => {
         if (value === "sim") {
           if (btnCancelProduct == false){
+        setIndexControlProducts(1)
         setIndexOpProducts(0)
         setBtnNewProduct(false)
         setBtnCancelProduct(true)
@@ -381,7 +390,9 @@ const Products = () => {
       setDescriptionProduct(descProd)
       setTypeProduct(typeProd)
       setValueSaleProduct(valueSaleProd)
+      setIndexPhotoProduct(true)
       setPhotoProduct(photoProd)
+      setIndexControlProducts(2)
     }
 
   // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
