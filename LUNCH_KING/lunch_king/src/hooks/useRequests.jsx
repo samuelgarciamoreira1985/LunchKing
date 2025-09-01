@@ -8,6 +8,8 @@ export const useRequests = (url) => {
     const [method,setMethod] = useState(null) // MÉTODO DE ENVIO
     const [callFetch, setCallFetch] = useState(null) // CALL
 
+    const [tempUpdate,setTempUpdate] = useState(null)
+
     const httpConfig = (data, method) => {
         if (method === "POST") {
             setConfig({
@@ -64,12 +66,13 @@ export const useRequests = (url) => {
 }
 
     // GET - TO UPDATE
-    const getProductsUpdate = async (id) => {
-        const requestUpdate = await fetch(url)
+    const getProductsUpdate = async (url,id) => {
+        const requestUpdate = await fetch(url+"?id="+id)
         const responseUpdate = await requestUpdate.json()
-        setData(responseUpdate => responseUpdate.filter(item => item.id === id))
+        console.log(responseUpdate)
+        setData(responseUpdate)
     }
 
-    return { data, httpConfig, delRegister, getProductsUpdate }
+    return { data, httpConfig, delRegister, getProductsUpdate, tempUpdate }
 
 }

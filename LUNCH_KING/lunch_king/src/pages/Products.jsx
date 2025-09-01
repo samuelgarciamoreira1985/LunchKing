@@ -28,7 +28,7 @@ const Products = () => {
 
   //const { data: products } = useSearch(url)
   //const { data, httpConfig, error } = useSend(url)
-  const { data: products, httpConfig, delRegister, getProductsUpdate } = useRequests(url)
+  const { data: products, httpConfig, delRegister, getProductsUpdate, tempUpdate } = useRequests(url)
 
   // INÍCIO - ENVIO DA REQUISIÇÃO************
 
@@ -370,11 +370,18 @@ const Products = () => {
       }))   
       }
 
-    const handleClickUpdateProduct = async (idUpdateProd) => { // BOTÃO ATUALIZAR PRODUTO
+    // BOTÃO ATUALIZAR PRODUTO
+    const handleClickUpdateProduct = async (idUpdateProd,idProd,descProd,typeProd,valueSaleProd,photoProd) => { 
       handleClickNewProduct()
-      getProductsUpdate(url+"?idProduct="+idUpdateProd)
-      console.log("id: " + products)
-      //setDescriptionProduct("sadasdasdsa")
+      getProductsUpdate(url,idUpdateProd)
+
+      console.log("id: " + idUpdateProd)
+
+      setIdProduct(idProd)
+      setDescriptionProduct(descProd)
+      setTypeProduct(typeProd)
+      setValueSaleProduct(valueSaleProd)
+      setPhotoProduct(photoProd)
     }
 
   // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
@@ -604,7 +611,7 @@ const Products = () => {
                      <td>{items.descriptionProduct}</td> 
                      <td>{items.typeProduct}</td> 
                      <td>R$ {checkValue(items.valueSaleProduct) ? items.valueSaleProduct + "0" : items.valueSaleProduct}</td> 
-                     <td className="line-update-product"><button className="btn-del-update-product" type="button" onClick={() => handleClickUpdateProduct(items.id)}><GrUpdate className="icon-update-product"/></button></td>
+                     <td className="line-update-product"><button className="btn-del-update-product" type="button" onClick={() => handleClickUpdateProduct(items.id,items.idProduct,items.descriptionProduct,items.typeProduct,items.valueSaleProduct,items.photoProduct)}><GrUpdate className="icon-update-product"/></button></td>
                      <td className="line-del-product"><button className="btn-del-update-product" type="button" onClick={() => handleClickDeleteProduct(items.id)}><MdDelete className="icon-delete-product"/></button></td>
                 </tr>
               ))}
