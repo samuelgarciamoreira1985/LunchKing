@@ -71,6 +71,24 @@ export const useRequests = (url) => {
         setData(responseUpdate)
     }
 
-    return { data, httpConfig, delRegister, getProductsUpdate }
+    // UPDATE
+    const updateRegister = async (url,data,id) => {
+        const requestUpdateReg = await fetch(url+"/"+id, {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        })
+        const responseUpdateReg = await requestUpdateReg.json()
+        setCallFetch(responseUpdateReg)
+    }
+
+    // GET - TO UPDATE - BUTTON SAVE **** traz a lista atualizada
+    const getRefreshRegister = async (url) => {
+        const requestRefresh = await fetch(url)
+        const responseRefresh = await requestRefresh.json()
+        setData(responseRefresh)
+    }
+
+    return { data, httpConfig, delRegister, getProductsUpdate, updateRegister, getRefreshRegister }
 
 }

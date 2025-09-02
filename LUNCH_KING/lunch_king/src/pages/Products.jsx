@@ -30,7 +30,9 @@ const Products = () => {
 
   //const { data: products } = useSearch(url)
   //const { data, httpConfig, error } = useSend(url)
-  const { data: products, httpConfig, delRegister, getProductsUpdate } = useRequests(url)
+  const { data: products, httpConfig, delRegister, getProductsUpdate, updateRegister, getRefreshRegister } = useRequests(url)
+
+  const [tempId,setTempId] = useState("") // ID TEMPORÁRIO PARA ATUALIZAÇÃO
 
   // INÍCIO - ENVIO DA REQUISIÇÃO************
 
@@ -44,7 +46,98 @@ const Products = () => {
       })
     }
     else if (idProduct !== "" && descriptionProduct !== "" && typeProduct !== "" && valueSaleProduct !== "") {
+      // VERIFICAÇÃO DE INDÍCE DE OPERAÇÃO***
+      if(indexControlProducts === 2){ // ALTERAÇÃO
+        swal("Confirma a alteração do produto?", {
+        closeOnClickOutside: false,
+        dangerMode: true,
+        closeOnEsc: false,
+        icon: "warning",
+        title: "REI DOS LANCHES",
+        buttons: {
+          confirmar: {
+            text: "Sim",
+            value: "sim",
+            className: "swal-cancelar-sim",
+          },
+          cancelar: {
+            text: "Não",
+            value: "nao",
+            className: "swal-cancelar-nao"
+          },
+          
+          },
+      })
+      .then((value => {
+        if (value === "sim") {
+        const objProducts = {
+          idProduct, //ok
+          descriptionProduct, // ok
+          typeProduct, // ok
+          valueSaleProduct, //ok
+          photoProduct //ok
+        }
+       updateRegister(url,objProducts,tempId)
+       swal({
+            icon: "success",
+            title: "REI DOS LANCHES",
+            text: "Produto alterado com sucesso!"
+          })
+          setIndexOpProducts(0)
+          setIndexOpProductsId(0)
+          setBtnNewProduct(false)
+          setBtnCancelProduct(true)
+          setBtnSaveProduct(true)
+          setBtnSearchPhotoProduct(true)
+          setBtnClearPhotoProduct(true)
 
+          setIndexPhotoProduct(false)
+
+          setColorNewProducts(optionsProducts[0]) 
+          setColorCancelProducts(optionsProducts[1])
+          setColorSaveProducts(optionsProducts[1])
+          setColorSearchPhotoProducts(optionsProducts[1])
+          setColorClearPhotoProducts(optionsProducts[1])
+          setCursorNewProduct(optionsProducts[2])
+          setCursorCancelProduct(optionsProducts[3])
+          setCursorSaveProduct(optionsProducts[3])
+          setCursorSearchPhotoProduct(optionsProducts[3])
+          setCursorClearPhotoProduct(optionsProducts[3])
+
+          // TIPO DE PRODUTOS
+          setRbLunchTypeProduct(true)
+          setRbPortionTypeProduct(true)
+          setRbPastryTypeProduct(true)
+          setRbDessertTypeProduct(true)
+          setRbIndustrialTypeProduct(true)
+          setRbDrinkTypeProduct(true)
+
+          setIconLunchTypeProduct(optionsProducts[5])
+          setIconPortionTypeProduct(optionsProducts[5])
+          setIconPastryTypeProduct(optionsProducts[5])
+          setIconDessertTypeProduct(optionsProducts[5])
+          setIconIndustrialTypeProduct(optionsProducts[5])
+          setIconDrinkTypeProduct(optionsProducts[5])
+
+          setSpanLunchTypeProduct(optionsProducts[5])
+          setSpanPortionTypeProduct(optionsProducts[5])
+          setSpanPastryTypeProduct(optionsProducts[5])
+          setSpanDessertTypeProduct(optionsProducts[5])
+          setSpanIndustrialTypeProduct(optionsProducts[5])
+          setSpanDrinkTypeProduct(optionsProducts[5])
+
+          setListTypeProduct(optionsProducts[4])
+
+          setIdProduct("")
+          setDescriptionProduct("")
+          setTypeProduct("")
+          setValueSaleProduct("")
+          setPhotoProduct(photo_product)
+       console.log("id certo: " + tempId)
+      }}))
+      } //**ALTERAÇÃO*/
+      
+      if (indexControlProducts === 1){ // INCLUSÃO
       const response = await fetch(`http://localhost:3000/products?idProduct=${idProduct}`)
       const dataResponse = await response.json()
       if (dataResponse.length !== 0){
@@ -54,12 +147,8 @@ const Products = () => {
           text: "O Id já existe no sistema!"
         })
         inputIdProduct.current.focus()
-      } // VERIFICAÇÃO DE INDÍCE DE OPERAÇÃO***
+      } 
       if (dataResponse.length === 0){
-        if(indexControlProducts === 2){ // ALTERAÇÃO
-          alert("Alteração de dados")
-        } 
-        if (indexControlProducts === 1){ // INCLUSÃO
         swal("Confirma o cadastro do produto?", {
         closeOnClickOutside: false,
         dangerMode: true,
@@ -101,6 +190,7 @@ const Products = () => {
 
         if (btnSaveProduct == false){
           setIndexOpProducts(0)
+          setIndexOpProductsId(0)
           setBtnNewProduct(false)
           setBtnCancelProduct(true)
           setBtnSaveProduct(true)
@@ -161,6 +251,7 @@ const Products = () => {
 
   // 0- SEM OPERAÇÃO 1-NOVO 2-ALTERAR 3-DELETAR 4-CANCELAR 5-SALVAR
   const [indexOpProducts, setIndexOpProducts] = useState(0) 
+  const [indexOpProductsId,setIndexOpProductsId] = useState(0)
   // **************************************************************
 
   const [btnNewProduct, setBtnNewProduct] = useState(false)
@@ -221,6 +312,7 @@ const Products = () => {
     const handleClickNewProduct = () => { // BOTÃO - NOVO PRODUTO
      if (btnNewProduct == false){
         setIndexControlProducts(1)
+        setIndexOpProductsId(1)
         setIndexOpProducts(1)
         setBtnNewProduct(true)
         setBtnCancelProduct(false)
@@ -267,7 +359,7 @@ const Products = () => {
     }
 
     const handleClickCancelProduct = () => { // BOTÃO - CANCELAR PRODUTO
-      swal("Deseja realmente cancelar o cadastro do produto?", {
+      swal("Deseja realmente cancelar o cadastro ou alteração do produto?", {
         closeOnClickOutside: false,
         dangerMode: true,
         closeOnEsc: false,
@@ -292,6 +384,7 @@ const Products = () => {
           if (btnCancelProduct == false){
         setIndexControlProducts(1)
         setIndexOpProducts(0)
+        setIndexOpProductsId(0)
         setBtnNewProduct(false)
         setBtnCancelProduct(true)
         setBtnSaveProduct(true)
@@ -340,6 +433,8 @@ const Products = () => {
         setTypeProduct("")
         setValueSaleProduct("")
         setPhotoProduct(photo_product)
+
+        getRefreshRegister(url)
       }
         }
       }))
@@ -380,11 +475,9 @@ const Products = () => {
       }
 
     // BOTÃO ATUALIZAR PRODUTO
-    const handleClickUpdateProduct = async (idUpdateProd,idProd,descProd,typeProd,valueSaleProd,photoProd) => { 
+    const handleClickUpdateProduct = async (idUpdateProd,idProd,descProd,typeProd,valueSaleProd,photoProd,tUp) => { 
       handleClickNewProduct()
       getProductsUpdate(url,idUpdateProd)
-
-      console.log("id: " + idUpdateProd)
 
       setIdProduct(idProd)
       setDescriptionProduct(descProd)
@@ -393,6 +486,11 @@ const Products = () => {
       setIndexPhotoProduct(true)
       setPhotoProduct(photoProd)
       setIndexControlProducts(2)
+      setIndexOpProductsId(0)
+      
+      setTempId(tUp)
+      //console.log("id: " + idUpdateProd)
+      //console.log("id temp: " + tUp)
     }
 
   // FIM - HABILITAR E DESABILITAR BOTÕES DE NAVEGAÇÃO
@@ -474,7 +572,7 @@ const Products = () => {
                 value={idProduct}
                 onChange={(e) => ChangeMaskIdProduct(e)}
                 ref={inputIdProduct}
-                disabled={indexOpProducts == 1 ? false : true}
+                disabled={indexOpProductsId == 1 ? false : true}
                 required
                 />
               </label>
@@ -622,7 +720,7 @@ const Products = () => {
                      <td>{items.descriptionProduct}</td> 
                      <td>{items.typeProduct}</td> 
                      <td>R$ {checkValue(items.valueSaleProduct) ? items.valueSaleProduct + "0" : items.valueSaleProduct}</td> 
-                     <td className="line-update-product"><button className="btn-del-update-product" type="button" onClick={() => handleClickUpdateProduct(items.id,items.idProduct,items.descriptionProduct,items.typeProduct,items.valueSaleProduct,items.photoProduct)}><GrUpdate className="icon-update-product"/></button></td>
+                     <td className="line-update-product"><button className="btn-del-update-product" type="button" onClick={() => handleClickUpdateProduct(items.id,items.idProduct,items.descriptionProduct,items.typeProduct,items.valueSaleProduct,items.photoProduct,items.id)}><GrUpdate className="icon-update-product"/></button></td>
                      <td className="line-del-product"><button className="btn-del-update-product" type="button" onClick={() => handleClickDeleteProduct(items.id)}><MdDelete className="icon-delete-product"/></button></td>
                 </tr>
               ))}
