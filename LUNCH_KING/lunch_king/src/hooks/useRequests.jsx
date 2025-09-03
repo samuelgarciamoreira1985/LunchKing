@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export const useRequests = (url) => {
 
-    const [data, setData] = useState(null) 
+    const [data, setData] = useState([]) 
 
     const [config,setConfig] = useState(null) // CONFIGURAÇÃO DE ENVIO
     const [method,setMethod] = useState(null) // MÉTODO DE ENVIO
@@ -89,6 +89,13 @@ export const useRequests = (url) => {
         setData(responseRefresh)
     }
 
-    return { data, httpConfig, delRegister, getProductsUpdate, updateRegister, getRefreshRegister }
+    // ORDER REGISTERS - TABELAS
+    const orderRegisters = (fieldOrder,fieldColumn) => {
+        data.sort((a,b) => {
+            return a[fieldColumn] < b[fieldColumn] ? -fieldOrder : fieldOrder 
+        })
+    }
+
+    return { data, httpConfig, delRegister, getProductsUpdate, updateRegister, getRefreshRegister, orderRegisters }
 
 }

@@ -28,11 +28,20 @@ const Products = () => {
 
   const [indexControlProducts,setIndexControlProducts] = useState(null) // CONTROLE DE AÇÃO***
 
-  //const { data: products } = useSearch(url)
-  //const { data, httpConfig, error } = useSend(url)
-  const { data: products, httpConfig, delRegister, getProductsUpdate, updateRegister, getRefreshRegister } = useRequests(url)
+  const { data: products, httpConfig, delRegister, getProductsUpdate, updateRegister, getRefreshRegister, orderRegisters } = useRequests(url)
 
   const [tempId,setTempId] = useState("") // ID TEMPORÁRIO PARA ATUALIZAÇÃO
+
+  // ******ORDENAÇÃO DE REGISTROS************
+  const [orderProducts,setOrderProducts] = useState(1) 
+  const [columnProducts,setColumnProducts] = useState("idProduct")
+
+  const handleOrderProducts = (fieldName) => {
+    setOrderProducts(-orderProducts)
+    setColumnProducts(fieldName)
+    orderRegisters(orderProducts,columnProducts)
+  }
+  //*******FIM - ORDENAÇÃO DE REGISTROS**** */
 
   // INÍCIO - ENVIO DA REQUISIÇÃO************
 
@@ -706,10 +715,10 @@ const Products = () => {
             <table>
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>DESCRIÇÃO</th>
-                  <th>TIPO DE PRODUTO</th>
-                  <th>VALOR</th>
+                  <th onClick={(e) => handleOrderProducts("idProduct")}>ID</th>
+                  <th onClick={(e) => handleOrderProducts("descriptionProduct")}>DESCRIÇÃO</th>
+                  <th onClick={(e) => handleOrderProducts("typeProduct")}>TIPO DE PRODUTO</th>
+                  <th onClick={(e) => handleOrderProducts("valueSaleProduct")}>VALOR</th>
                 </tr>
               </thead>
             

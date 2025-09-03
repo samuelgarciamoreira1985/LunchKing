@@ -215,6 +215,7 @@ thead {
 th {
     background-color: #11642344;
     text-shadow: 1px .5px 2px #fff;
+    cursor: pointer;
 }
 
 th, td {
