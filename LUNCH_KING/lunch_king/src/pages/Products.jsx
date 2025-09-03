@@ -1,8 +1,7 @@
 // REACT
 import { useState, useRef, useEffect, useLayoutEffect } from "react"
-import { useSearch } from "../hooks/useSearch.jsx"
-import { useSend } from "../hooks/useSend.jsx"
 import { useRequests } from "../hooks/useRequests.jsx"
+import { Tooltip } from "@mui/material"
 // CSS
 import "./Products.css"
 // ÍCONES
@@ -714,11 +713,19 @@ const Products = () => {
         <div className="list-products-container"> 
             <table>
               <thead>
-                <tr>
-                  <th onClick={(e) => handleOrderProducts("idProduct")}>ID</th>
-                  <th onClick={(e) => handleOrderProducts("descriptionProduct")}>DESCRIÇÃO</th>
-                  <th onClick={(e) => handleOrderProducts("typeProduct")}>TIPO DE PRODUTO</th>
-                  <th onClick={(e) => handleOrderProducts("valueSaleProduct")}>VALOR</th>
+                <tr>                 
+                  <Tooltip title="Ordenação de produtos por Id em ordem crescente ou decrescente!">
+                    <th onClick={(e) => handleOrderProducts("idProduct")}>ID</th>
+                  </Tooltip>
+                  <Tooltip title="Ordenação de produtos por descrição em ordem crescente ou decrescente!">
+                    <th onClick={(e) => handleOrderProducts("descriptionProduct")}>DESCRIÇÃO</th>
+                  </Tooltip>
+                  <Tooltip title="Ordenação de produtos por tipo em ordem crescente ou decrescente!">
+                    <th onClick={(e) => handleOrderProducts("typeProduct")}>TIPO DE PRODUTO</th>
+                  </Tooltip>
+                  <Tooltip title="Ordenação de produtos por valor de venda em ordem crescente ou decrescente!">
+                    <th onClick={(e) => handleOrderProducts("valueSaleProduct")}>VALOR</th>
+                  </Tooltip>
                 </tr>
               </thead>
             
