@@ -17,7 +17,13 @@ export const useSearch = (url) => {
         getData()
     },[url])
 
-    return { data }
+    const getProductsType = async (url,valueTypeProduct) => {
+        const requestGetProdType = await fetch(url+"?typeProduct="+valueTypeProduct)
+        const responseGetProdType = await requestGetProdType.json()
+        setData(responseGetProdType)
+    }
+
+    return { data, getProductsType }
 
 
 

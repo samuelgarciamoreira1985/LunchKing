@@ -32,27 +32,27 @@ const FastMenu = () => {
 
         <div className="items-fast-menu">
             <div className="details-items-fast-menu">
-                <Link to="/productsfilter"><img src={lunchFastMenu} alt="imagem_lanche" onClick={() => valueFilterProducts(1)}/></Link>
+                <Link to="/productsfilter"><img src={lunchFastMenu} alt="imagem_lanche" onClick={() => valueFilterProducts("LANCHES")}/></Link>
                 <p>Lanches</p>
             </div>
             <div className="details-items-fast-menu">
-                <Link to="/productsfilter"><img src={portionFastMenu} alt="imagem_porções" onClick={() => valueFilterProducts(2)}/></Link>
+                <Link to="/productsfilter"><img src={portionFastMenu} alt="imagem_porções" onClick={() => valueFilterProducts("PORÇÕES")}/></Link>
                 <p>Porções</p>
             </div>
             <div className="details-items-fast-menu">
-                <Link to="/productsfilter"><img src={pastriesFastMenu} alt="imagem_pastéis" onClick={() => valueFilterProducts(3)}/></Link>
+                <Link to="/productsfilter"><img src={pastriesFastMenu} alt="imagem_pastéis" onClick={() => valueFilterProducts("PASTÉIS")}/></Link>
                 <p>Pastéis</p>
             </div>
             <div className="details-items-fast-menu">
-                <Link to="/productsfilter"><img src={dessertsFastMenu} alt="imagem_sobremesas" onClick={() => valueFilterProducts(4)}/></Link>
+                <Link to="/productsfilter"><img src={dessertsFastMenu} alt="imagem_sobremesas" onClick={() => valueFilterProducts("SOBREMESAS")}/></Link>
                 <p>Sobremesas</p>
             </div>
             <div className="details-items-fast-menu">
-                <Link to="/productsfilter"><img src={industrialFastMenu} alt="imagem_indistrializados" onClick={() => valueFilterProducts(5)}/></Link>
+                <Link to="/productsfilter"><img src={industrialFastMenu} alt="imagem_indistrializados" onClick={() => valueFilterProducts("INDUSTRIAIS")}/></Link>
                 <p>Industriais</p>
             </div>
             <div className="details-items-fast-menu">
-                <Link to="/productsfilter"><img src={drinksFastMenu} alt="imagem_bebidas" onClick={() => valueFilterProducts(6)}/></Link>
+                <Link to="/productsfilter"><img src={drinksFastMenu} alt="imagem_bebidas" onClick={() => valueFilterProducts("BEBIDAS")}/></Link>
                 <p>Bebidas</p>
             </div>
         </div>

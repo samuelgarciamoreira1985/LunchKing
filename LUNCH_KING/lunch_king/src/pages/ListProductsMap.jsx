@@ -1,5 +1,3 @@
-// HOOKS
-import { useState } from "react"
 // CUSTOM HOOKS
 import { useSearch } from "../hooks/useSearch"
 // CSS
