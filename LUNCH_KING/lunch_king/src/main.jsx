@@ -4,10 +4,13 @@ import './index.css'
 import App from './App.jsx'
 
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
+// PAGES
 import ListProductsMap from './pages/ListProductsMap.jsx'
+import { ListCommandsMap } from './pages/ListCommandsMap.jsx'
 import Products from './pages/Products.jsx'
 import Home from './pages/Home.jsx'
 import ProductsFilter from './pages/ProductsFilter.jsx'
+// CONTEXT - PROVIDER
 import { FilterProdProvider } from './Context/FilterProductsContext.jsx'
 
 const routes = createBrowserRouter([ // Mapeamento de rotas***
@@ -28,8 +31,12 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
         element: <Products/>
       },
       {
-        path: "/productsfilter", // tela de Produtos no cardápio rápido-- nav
+        path: "/productsfilter", // tela de Produtos no cardápio rápido
         element: <ProductsFilter/>
+      },
+      {
+        path: "/listcommands", // Lista de comandas -- footer
+        element: <ListCommandsMap/>
       }
     ]
   }

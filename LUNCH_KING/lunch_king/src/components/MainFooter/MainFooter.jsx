@@ -38,7 +38,7 @@ const MainFooter = () => {
             <h3>Mapa do sistema</h3>
             <a href="#">Usuários</a>
             <Link to="/listproducts">Produtos</Link>
-            <a href="#">Comandas</a>
+            <Link to="/listcommands">Comandas</Link>
             <a href="#">Vendas</a>
         </div>
 

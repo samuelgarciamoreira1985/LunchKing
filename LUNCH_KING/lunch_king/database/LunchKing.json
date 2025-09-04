@@ -189,13 +189,75 @@
   ],
   "commands": [
     {
-      "idCommand": 0,
-      "tableCommand": "",
-      "deliveryAddress": "",
-      "orderCommand": [],
-      "valueCommand": 0,
-      "dateCommand": "",
-      "hourCommand": "",
+      "idCommand": 1,
+      "tableCommand": "MESA 02",
+      "typeConsumption": "CONSUMO NO LOCAL",
+      "itensCommand": [
+        {
+        "descriptionItem": "X-SALADA",
+        "photoItem": "/img/X-Salada.png", 
+        "amountItem": 1,
+        "valueSaleItem": 15.20 
+        },
+        {
+        "descriptionItem": "FANTA 350 ML",
+        "photoItem": "/img/Fanta Laranja 350 ML.png",
+        "amountItem": 1,
+        "valueSaleItem": 3.50 
+        },
+        {
+        "descriptionItem": "BOLO DE MORANGO",
+        "photoItem": "/img/Strawberry cake.png",
+        "amountItem": 1,
+        "valueSaleItem": 7.45 
+        },
+        {
+        "descriptionItem": "HALLS MENTA",
+        "photoItem": "/img/Halls Mint.png",
+        "amountItem": 1,
+        "valueSaleItem": 3.49 
+        }
+    ],
+      "valueCommand": 29.64,
+      "dateCommand": "04/09/2025",
+      "hourCommand": "16:18",
+      "statusCommand": "PENDENTE",
+      "id": "c3f2"
+    },
+    {
+      "idCommand": 2,
+      "tableCommand": "MESA 00",
+      "typeConsumption": "DELIVERY",
+      "itensCommand": [
+        {
+        "descriptionItem": "X-BURGUER FRANGO",
+        "photoItem": "/img/X Burguer Frango.png",
+        "amountItem": 1,
+        "valueSaleItem": 16.50
+        },
+        {
+        "descriptionItem": "FANTA 350 ML",
+        "photoItem": "/img/Fanta Laranja 350 ML.png",
+        "amountItem": 1,
+        "valueSaleItem": 3.50 
+        },
+        {
+        "descriptionItem": "PASTEL DE CARNE",
+        "photoItem": "/img/MeatPastry.png",
+        "amountItem": 1,
+        "valueSaleItem": 23.76
+        },
+        {
+        "descriptionItem": "COCA-COLA 350 ML",
+        "photoItem": "/img/Coca-Cola350ML.png",
+        "amountItem": 1,
+        "valueSaleItem": 3.50 
+        }
+    ],
+      "valueCommand": 47.26,
+      "dateCommand": "04/09/2025",
+      "hourCommand": "16:18",
+      "statusCommand": "PENDENTE",
       "id": "c3f2"
     }
   ],

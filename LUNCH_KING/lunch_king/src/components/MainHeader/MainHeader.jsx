@@ -20,10 +20,10 @@ const MainHeader = () => {
                 <fieldset>
                     <legend>Selecione um padrão de busca</legend>
                     <select name="n-search-options" id="id-search-options">
-                        <option value="userHeaderMain">USUÁRIOS</option>
-                        <option value="productHeaderMain">PRODUTOS</option>
-                        <option value="commandHeaderMain">COMANDAS</option>
-                        <option value="saleHeaderMain">VENDAS</option>
+                        <option value="userHeaderMain">USUÁRIOS - NOME</option>
+                        <option value="productHeaderMain">PRODUTOS - DESCRIÇÃO</option>
+                        <option value="commandHeaderMain">COMANDAS - DATA</option>
+                        <option value="saleHeaderMain">VENDAS - DATA</option>
                     </select>
                     <input type="text"
                     id="id-search-fast"
