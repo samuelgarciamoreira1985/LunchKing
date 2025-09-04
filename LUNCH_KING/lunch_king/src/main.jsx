@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import ListProductsMap from './pages/ListProductsMap.jsx'
 import Products from './pages/Products.jsx'
 import Home from './pages/Home.jsx'
+import ProductsFilter from './pages/ProductsFilter.jsx'
+import { FilterProdProvider } from './Context/FilterProductsContext.jsx'
 
 const routes = createBrowserRouter([ // Mapeamento de rotas***
   {
@@ -24,6 +26,10 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
       {
         path: "/products", // tela de Produtos -- nav
         element: <Products/>
+      },
+      {
+        path: "/productsfilter", // tela de Produtos no cardápio rápido-- nav
+        element: <ProductsFilter/>
       }
     ]
   }
@@ -31,6 +37,8 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <FilterProdProvider>
     <RouterProvider router={routes}/>
+    </FilterProdProvider>
   </StrictMode>,
 )
