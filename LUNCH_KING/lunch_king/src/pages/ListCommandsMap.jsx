@@ -1,4 +1,5 @@
 // CUSTOM HOOKS
+import { useState } from "react"
 import { useSearch } from "../hooks/useSearch"
 // CSS
 import "./ListCommandsMap.css"
@@ -8,6 +9,8 @@ const url = "http://localhost:3000/commands"
 export const ListCommandsMap = () => {
 
     const { data: itemCommand } = useSearch(url)
+
+    const [colorValue,setColorValue] = useState("#ff0000")
 
     const checkValue = (valueSale) => {
         const decimalPart = valueSale.toString().split(".")[1] || ''
@@ -35,7 +38,7 @@ export const ListCommandsMap = () => {
                       <div className="subgroup-item-values">
                         <p>{item.descriptionItem}</p>
                         <p>{item.amountItem} un</p>
-                        <p>R$ {item.valueSaleItem}</p>
+                        <p style={{color: "red",fontWeight: "bolder"}}>R$ {checkValue(item.valueSaleItem) ? item.valueSaleItem + "0" : item.valueSaleItem}</p>
                       </div>
                     
                   </div>
@@ -44,10 +47,22 @@ export const ListCommandsMap = () => {
                 </div>
 
                 <div className="subgroup-item-finally">
-                  <p>Valor Total: R$ {command.valueCommand}</p>
-                  <p>Data: {command.dateCommand}</p>
-                  <p>Hora: {command.hourCommand}</p>
-                  <p>Situação: {command.statusCommand}</p>
+                  <div className="finally-itens">
+                    <p>Valor Total</p>
+                    <p>R$ {checkValue(command.valueCommand) ? command.valueCommand + "0" : command.valueCommand}</p>
+                  </div>
+                  <div className="finally-itens">
+                    <p>Data</p>
+                    <p>{command.dateCommand}</p>
+                  </div>
+                  <div className="finally-itens">
+                    <p>Hora</p>
+                    <p>{command.hourCommand}</p>
+                  </div>
+                  <div className="finally-itens">
+                    <p>Situação</p>
+                    <p style={{color: command.statusCommand === "PENDENTE" ? "#ff0000" : "#018a01" }}>{command.statusCommand}</p>
+                  </div>
                 </div>
 
             </li>
