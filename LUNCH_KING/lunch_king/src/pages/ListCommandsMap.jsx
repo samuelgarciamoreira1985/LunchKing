@@ -22,16 +22,34 @@ export const ListCommandsMap = () => {
         <h2>COMANDAS</h2>
         <ul id="general-list-commands">
           {itemCommand && itemCommand.map((command) => (
-            <li className="item-list-command" key={command.idCommand}>
-                <p>{command.tableCommand}</p>
-                <p>{command.typeConsumption}</p>
-                <div className="group-item-command">
-                
+            <li className="item-list-commands" key={command.idCommand}>
+                <div className="subgroup-item-initial">
+                  <p style={{textDecoration: "underline"}}>{command.tableCommand}</p>
+                  <p>{command.typeConsumption}</p>
                 </div>
-                <p>{command.valueCommand}</p>
-                <p>{command.dateCommand}</p>
-                <p>{command.hourCommand}</p>
-                <p>{command.statusCommand}</p>
+
+                <div className="group-item-commands">
+                {command.itensCommand.map((item) => (
+                  <div className="subgroup-item-commands" key={item.idItem}>
+                    <img src={item.photoItem} alt="foto do produto" />
+                      <div className="subgroup-item-values">
+                        <p>{item.descriptionItem}</p>
+                        <p>{item.amountItem} un</p>
+                        <p>R$ {item.valueSaleItem}</p>
+                      </div>
+                    
+                  </div>
+                )
+                )}
+                </div>
+
+                <div className="subgroup-item-finally">
+                  <p>Valor Total: R$ {command.valueCommand}</p>
+                  <p>Data: {command.dateCommand}</p>
+                  <p>Hora: {command.hourCommand}</p>
+                  <p>Situação: {command.statusCommand}</p>
+                </div>
+
             </li>
           ))}
         </ul>

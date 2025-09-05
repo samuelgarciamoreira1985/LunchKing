@@ -19,8 +19,6 @@
 #general-list-products { /* UL - grupo de lista */
     display: flex;  
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
     margin-left: 76px;
     gap: 20px;
     list-style-type: none;
