@@ -99,3 +99,129 @@
     fill: #7076f4;
 }
 /*-----------------------------------------------------------------------------*/
+/* INÍCIO - ITENS DA COMANDA */
+.general-group-itens-command {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}
+
+.group-itens-command-selection {
+    border: 1px solid black;
+    width: 31.7vw;
+    height: 38vh;
+    border-radius: 10px;
+}
+
+.group-itens-command-cart {
+    border: 1px solid black;
+    width: 31.7vw;
+    height: 20vh;
+    border-radius: 10px;
+}
+
+.area-icon-selection {
+    background-color: #000;
+    width: 31.7vw;
+    height: 3vh;
+    border-radius: 10px 10px 0px 0px;
+    position: relative;
+}
+
+.icon-selection-lunch {
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 200px;
+    cursor: pointer;
+}
+
+.icon-selection-portion {
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.icon-selection-pastry {
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.icon-selection-dessert {
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.icon-selection-industrial {
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.icon-selection-drink {
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.icon-selection-lunch:hover {
+    fill: #7076f4;
+}
+
+.icon-selection-portion:hover {
+    fill: #7076f4;
+}
+
+.icon-selection-pastry:hover {
+    fill: #7076f4;
+}
+
+.icon-selection-dessert:hover {
+    fill: #7076f4;
+}
+
+.icon-selection-industrial:hover {
+    fill: #7076f4;
+}
+
+.icon-selection-drink:hover {
+    fill: #7076f4;
+}
+
+.area-icon-selection span {
+    position: absolute;
+    top: 2px;
+    color: #fff;
+    margin-left: 10px;
+    padding-left: 10px;
+    font-size: 1rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-items: center;
+}
+
+.icon-selection {
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+/* FIM - ITENS DA COMANDA */
+/*--------------------------------------------------------------------------------*/
