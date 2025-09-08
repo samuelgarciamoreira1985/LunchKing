@@ -16,7 +16,7 @@ export const ListCommandsMap = () => {
         const decimalPart = valueSale.toString().split(".")[1] || ''
         const numberDecimal = decimalPart.length
         if (numberDecimal === 1)
-        return numberDecimal + "0"
+        return numberDecimal + "0"    
       }
 
   return (

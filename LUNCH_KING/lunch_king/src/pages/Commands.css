@@ -1,0 +1,101 @@
+.container-commands {
+    height: 57vh;
+    width: 80vw;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.container-commands h2{
+    padding: 10px;
+    color: #000;
+    font-size: 1.5rem;
+    font-family: "Caprasimo", serif;
+    font-weight: bold;
+    text-shadow: 1.5px 1.4px 5px #fff;
+    margin-bottom: 15px;
+}
+/*-------------------------------------------------------------------------*/
+.form-register-commands {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    position: relative;
+}
+
+.form-register-commands input {
+    padding: 2px;
+    color: #000;
+    text-shadow: .9px .8px 5px #ffffff9c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    border-radius: 6px;
+    border: none;    
+    text-transform: uppercase;
+}
+
+.span-normal {
+    color: #000;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 8px #fff;
+}
+/*--------------------------------------------------------------------------*/
+.group-initial-command { /* GRUPO GERAL */
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    gap: 50px;
+    justify-content: space-around;
+    margin-top: -5px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    width: 70vw;
+}
+
+.span-pers { /* SPAN - RADIO BUTTON */
+    color: #000;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 2px #fff;
+    font-style: italic;
+}
+
+.initial-field { /* ID - MESA */
+    display: flex;
+    flex-direction: column;
+}
+
+.group-type-consumption-command { /* TIPOS DE CONSUMO GERAL */
+    display: flex;
+    flex-direction: column;
+}
+
+.subgroup-type-consumption-command { /* SUB-GRUPO DOS TIPOS DE CONSUMO */
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.type-consumption input { /* LABELS - TIPO DE CONSUMO */
+    opacity: 0;
+}
+
+.icon-type-consumption {
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.icon-type-consumption:hover {
+    fill: #7076f4;
+}
+/*-----------------------------------------------------------------------------*/

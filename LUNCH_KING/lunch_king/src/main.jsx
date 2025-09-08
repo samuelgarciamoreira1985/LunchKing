@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import ListProductsMap from './pages/ListProductsMap.jsx'
 import { ListCommandsMap } from './pages/ListCommandsMap.jsx'
 import Products from './pages/Products.jsx'
+import Commands from './pages/Commands.jsx'
 import Home from './pages/Home.jsx'
 import ProductsFilter from './pages/ProductsFilter.jsx'
 // CONTEXT - PROVIDER
@@ -37,6 +38,10 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
       {
         path: "/listcommands", // Lista de comandas -- footer
         element: <ListCommandsMap/>
+      },
+      {
+        path: "/commands", // tela de Comandas -- nav
+        element: <Commands/>
       }
     ]
   }

@@ -17,7 +17,7 @@ const NavMainHeader = () => {
     <div className="nav-main-container">
         <div className="nav-details">
           <Link to="/products" id="first-nav"><FaShoppingCart /> Produtos</Link>
-          <a href="#"><IoClipboardSharp /> Comandas</a>
+          <Link to="/commands"><IoClipboardSharp /> Comandas</Link>
           <a href="#"><RiMoneyDollarCircleFill /> Vendas</a>
           <a href="#"><MdOutlineHelp /> Ajuda</a>
           <a href="#" id="last-nav"><IoIosPeople /> Quem somos</a>
