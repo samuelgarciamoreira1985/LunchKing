@@ -29,7 +29,7 @@ const ItensCommand = () => {
                         <div className="item-list-command-secound">
                             <p>{itemProdComm.descriptionProduct}</p>
                             <p style={{color:"red"}}>R$ {itemProdComm.valueSaleProduct}</p>
-                            <button>ADICIONAR</button>
+                            <button type="button">ADICIONAR</button>
                         </div>
                     </li>
                   
