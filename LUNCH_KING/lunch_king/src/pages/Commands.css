@@ -103,13 +103,12 @@
 .general-group-itens-command {
     display: flex;
     flex-direction: row;
-    gap: 100px;
+    gap: 2px;
 }
 
 .group-itens-command-selection {
-    border: 1px solid black;
+    
     width: 31.7vw;
-    height: 38vh;
     border-radius: 10px;
 }
 
@@ -224,4 +223,22 @@
     transition: 0.3s;
 }
 /* FIM - ITENS DA COMANDA */
+/*--------------------------------------------------------------------------------*/
+.transition-itens-command {
+    width: 100px;
+}
+
+.iconArrow-left {
+    color: rgb(1, 114, 167);
+    font-size: 4rem;
+    transition: 0.3s;
+    margin-left: 15px;
+}
+
+.iconArrow-rigth {
+    color: rgb(172, 3, 3);
+    font-size: 4rem;
+    transition: 0.3s;
+    margin-left: 15px;
+}
 /*--------------------------------------------------------------------------------*/

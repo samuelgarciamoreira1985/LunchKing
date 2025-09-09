@@ -1,5 +1,9 @@
 //REACT
 import { Tooltip } from "@mui/material"
+import { Outlet } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useContext } from "react"
+import {ItensCommandContext} from "../context/FilterItensCommand"
 //CSS
 import "./Commands.css"
 //ÍCONES
@@ -9,8 +13,16 @@ import { FaNotesMedical,FaCandyCane } from "react-icons/fa6"
 import { MdLunchDining } from "react-icons/md" 
 import { GiFrenchFries,GiSlicedBread,GiStairsCake } from "react-icons/gi"
 import { RiDrinks2Fill } from "react-icons/ri"
+import { ImArrowRight,ImArrowLeft  } from "react-icons/im"
 
 const Commands = () => {
+
+    const { indexItemCommand,setIndexItemCommand } = useContext(ItensCommandContext)
+
+    const changeIndexCommand = (fieldItem) => {
+        setIndexItemCommand(fieldItem)
+        console.log("valor: " + fieldItem)
+    }
 
   return (
 
@@ -62,31 +74,39 @@ const Commands = () => {
 
                           {/* INÍCIO - ITENS DA COMANDA*/}
                     <div className="general-group-itens-command">
+                       
                         <div className="group-itens-command-selection"> {/* PRODUTOS PARA SELECIONAR */}
+                             
                             <div className="area-icon-selection">
+                                
                                 <FaNotesMedical className="icon-selection"/>
                                 <span>ESTOQUE</span>
                                 
                                     <Tooltip title="Clique aqui para exibir o estoque de LANCHES!">
-                                    <MdLunchDining className="icon-selection-lunch"/>
+                                    <Link to="/commands/itenscommandhome"><MdLunchDining className="icon-selection-lunch" onClick={() => changeIndexCommand("LANCHES")}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de PORÇÕES!">
-                                    <GiFrenchFries className="icon-selection-portion"/>
+                                    <Link to="/commands/itenscommandhome"><GiFrenchFries className="icon-selection-portion" onClick={() => changeIndexCommand("PORÇÕES")}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de PASTÉIS!">
-                                    <GiSlicedBread className="icon-selection-pastry"/>
+                                     <Link to="/commands/itenscommandhome"><GiSlicedBread className="icon-selection-pastry" onClick={() => changeIndexCommand("PASTÉIS")}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de SOBREMESAS!">
-                                    <GiStairsCake className="icon-selection-dessert"/>
+                                     <Link to="/commands/itenscommandhome"><GiStairsCake className="icon-selection-dessert" onClick={() => changeIndexCommand("SOBREMESAS")}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de INDUSTRIAIS!">
-                                    <FaCandyCane className="icon-selection-industrial"/>
+                                    <Link to="/commands/itenscommandhome"><FaCandyCane className="icon-selection-industrial" onClick={() => changeIndexCommand("INDUSTRIAIS")}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de BEBIDAS!">
-                                    <RiDrinks2Fill className="icon-selection-drink"/>
-                                    </Tooltip>
-                                
+                                    <Link to="/commands/itenscommandhome"><RiDrinks2Fill className="icon-selection-drink" onClick={() => changeIndexCommand("BEBIDAS")}/></Link>
+                                    </Tooltip> 
                             </div>
+                              <Outlet/>
+                        </div>
+
+                        <div className="transition-itens-command">
+                            <ImArrowRight className="iconArrow-left"/>
+                            <ImArrowLeft className="iconArrow-rigth"/>
                         </div>
 
                         <div className="group-itens-command-cart"> {/* PRODUTOS SELECIONADOS */}
@@ -95,6 +115,7 @@ const Commands = () => {
                                 <span>CARRINHO</span>
                             </div>
                         </div>
+                        
                     </div>
                           {/* FIM - ITENS DA COMANDA*/}
 

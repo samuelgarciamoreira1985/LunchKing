@@ -11,8 +11,10 @@ import Products from './pages/Products.jsx'
 import Commands from './pages/Commands.jsx'
 import Home from './pages/Home.jsx'
 import ProductsFilter from './pages/ProductsFilter.jsx'
+import ItensCommand from './pages/ItensCommand.jsx'
 // CONTEXT - PROVIDER
 import { FilterProdProvider } from './Context/FilterProductsContext.jsx'
+import { ItensCommandProvider } from './context/FilterItensCommand.jsx'
 
 const routes = createBrowserRouter([ // Mapeamento de rotas***
   {
@@ -41,7 +43,13 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
       },
       {
         path: "/commands", // tela de Comandas -- nav
-        element: <Commands/>
+        element: <Commands/>,
+        children: [
+          {
+            path: "/commands/itenscommandhome", // tela de Comandas -- nav
+            element: <ItensCommand/>
+          }
+        ]
       }
     ]
   }
@@ -50,7 +58,9 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <FilterProdProvider>
+     <ItensCommandProvider> 
     <RouterProvider router={routes}/>
+    </ItensCommandProvider>
     </FilterProdProvider>
   </StrictMode>,
 )
