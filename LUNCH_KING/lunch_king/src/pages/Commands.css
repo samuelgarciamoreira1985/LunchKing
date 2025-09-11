@@ -315,3 +315,242 @@
     border: none;    
     text-transform: uppercase;
 }
+/*----------------------------------------------------------------------------------*/
+/* BOTÕES DE NAVEGAÇÃO PARA GESTÃO DE COMANDAS */
+.buttons-navigation-command {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.buttons-navigation-command button {
+    width: 150px;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-style: italic;
+    cursor: pointer;
+    background-color: #0044ffcb;
+    color: #fff;
+    text-shadow: 2px 1.5px 3px #000;
+}
+
+.buttons-navigation-command button:hover {
+    background-color: #0044ff96;
+}
+
+.icon-buttons-navigation {
+    font-size: 1.4rem;
+    color: #000;
+}
+/*----------------------------------------------------------------------------------*/
+/*LISTA DE COMANDAS */
+.list-commands-container {
+    padding: 10px;
+    margin-left: -90px;
+}
+
+.list-registers-commands { /*LISTA - ul*/
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    gap: 20px;
+    background-color: #ebecad00;
+}
+
+.list-initial-registers {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    padding-top: 5px;
+    align-self: center;
+}
+
+.initial-command-register {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    align-items: center;
+}
+
+.title-initial {
+    color: #fff;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.2rem;
+    text-shadow: .5px .5px 5px black;
+}
+
+.desc-initial {
+    color: #fff;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.2rem;
+    text-shadow: .5px .5px 5px black;
+    font-style: italic;
+}
+
+.item-listRegister-command{ /*ITEM DA LISTA - li*/
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    background-color: #66383852;
+    border-radius: 10px;
+}
+
+.list-initial-registers { /*DADOS INICIAIS DA LISTA - [ID-CONSUMO-MESA]*/
+    display: flex;
+    flex-direction: row;
+}
+
+.group-itens-list-register { /* ENGLOBA A FOTO E OS DADOS DA COMANDA */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 36.3vw;
+    gap: 20px;
+    
+    background-color: #00000018;
+}
+
+.subgroup-itemComm-values {
+    display: flex;
+    flex-direction: column;
+}
+
+.subgroup-itemComm-values {
+    color: #000;
+    font-weight: 600;
+    font-size: .9rem;
+    font-style: italic;
+    text-shadow: .2px .4px 2px white;
+}
+
+.subgroup-itemComm-commands {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.subgroup-itemComm-commands img {
+    height: 40px;
+    width: 60px;
+    align-self: center;
+    margin-left: 10px;
+}
+
+/*------------finally-------------------------------------*/
+.list-finally-registers {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-self: center;
+}
+
+.finally-list-registers-commands {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons-del-update-groupCommands {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.btn-update-command { /* BOTÕES - ALTERAR */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 7.5px;
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    background-color: #0044ffcb;
+}
+
+.btn-del-command { /* BOTÕES - ALTERAR */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 7.5px;
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    background-color: #d60808;
+}
+
+.icon-updateButton-command {
+    color: #fff;
+    font-size: 1.8rem;
+    border-radius: 5px;
+    padding: 1px;
+}
+
+.icon-updateButton-command:hover {
+    color: #ffffffc4;
+    font-size: 1.4rem;
+}
+
+.icon-deleteButton-command {
+    color: #fff;
+    font-size: 1.8rem;
+    border-radius: 5px;
+}
+
+.icon-deleteButton-command:hover {
+    color: #ffffffc4;
+    font-size: 1.4rem;
+}
+
+.status-style-command {
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: 600;
+    text-shadow: .2px .3px 1px black;
+}
+
+.title-finally-item-command {
+    color: #000;
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: italic;
+    text-shadow: 1px 1px 2px #ddd;
+}
+
+.desc-finally-item-command {
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-style: italic;
+    text-shadow: 1.5px 1px 2px #ddd;
+}
+/* -------CART - ITENS - COMMAND*/
+.cart-itens-command {
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    align-self: center;
+    margin-bottom: -15px;
+}
+
+.desc-cart-itens-command {
+    color: #fff;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    text-shadow: .5px .5px 1px black;
+}
+
+.icon-cart-itens-command {
+    color: #fc0202;
+    font-size: 1.3rem;
+    box-shadow: .1px .1px 3px rgba(255, 255, 255, 0.308);
+}

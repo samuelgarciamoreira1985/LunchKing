@@ -2,25 +2,67 @@
 import { Tooltip } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import { Link } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useContext, useState, useRef } from "react"
 import {ItensCommandContext} from "../context/FilterItensCommand"
+import { useRequests } from "../hooks/useRequests"
 //CSS
 import "./Commands.css"
 //ÍCONES
 import { PiMotorcycleFill } from "react-icons/pi"
 import { FaCartArrowDown,FaShoppingCart } from "react-icons/fa"
 import { FaNotesMedical,FaCandyCane } from "react-icons/fa6"
-import { MdLunchDining } from "react-icons/md" 
+import { MdLunchDining, MdCreateNewFolder, MdDelete } from "react-icons/md" 
 import { GiFrenchFries,GiSlicedBread,GiStairsCake } from "react-icons/gi"
 import { RiDrinks2Fill } from "react-icons/ri"
 import { ImArrowRight,ImArrowLeft  } from "react-icons/im"
+import { TiCancel } from "react-icons/ti"
+import { BiSolidSave } from "react-icons/bi"
+import { GrUpdate } from "react-icons/gr"
+
+const url = "http://localhost:3000/commands"
 
 const Commands = () => {
+
+    const { data: commands } = useRequests(url)
 
     const { indexItemCommand,setIndexItemCommand } = useContext(ItensCommandContext)
 
     const [colorStatusCommand,setColorStatusCommand] = useState(1) // COR DO STATUS DA COMANDA
     const [hourCommand,setHourCommand] = useState("")
+
+    const [valueColorConsumption,setValueColorConsumption] = useState("") // VALOR DO CONSUMO
+
+    const tableCommandRef = useRef(null) // REF DA MESA DA COMANDA...
+
+    const [typeConumptionCommand,setTypeConsumptionCommand] = useState("") // TIPO DE CONSUMO - [REQUEST]
+    const [tableCommand,setTableCommand] = useState("") // MESA - [REQUEST]
+
+    const [disableTableCommand,setDisableTableCommand] = useState(true) // ESTADO - ATIVA E DESATIVA MESA 
+
+    const checkValue = (valueSaleComm) => {
+        const decimalPart = valueSaleComm.toString().split(".")[1] || ''
+        const numberDecimal = decimalPart.length
+        if (numberDecimal === 1)
+        return numberDecimal + "0"    
+      }
+
+    //TIPO DE CONSUMO
+    const changeTableCommand = (e) => {
+        setTypeConsumptionCommand(e.target.value)
+        console.log("Consumo: " + e.target.value)
+        if (e.target.value === "LOCAL"){
+            setDisableTableCommand(false)
+            setValueColorConsumption("LOCAL_COLOR")
+            setTableCommand("")
+            tableCommandRef.current.focus()
+        }
+        else if (e.target.value === "DELIVERY"){
+            setDisableTableCommand(true)
+            setValueColorConsumption("DELIVERY_COLOR")
+            setTableCommand("00")
+        }
+    }
+    //---------------------
 
     // TROCA DE STATUS DA COMANDA
     const changeColorStatusCommand = () => {
@@ -69,16 +111,22 @@ const Commands = () => {
                         <div className="subgroup-type-consumption-command">
                             <label className="type-consumption">{/* CONSUMO NO LOCAL */}
                                 <input type="radio"
+                                value="LOCAL"
+                                checked={typeConumptionCommand === "LOCAL"}
+                                onChange={changeTableCommand}
                                 />
                                 <FaCartArrowDown className="icon-type-consumption"/>
-                                <span className="span-pers">CONSUMO NO LOCAL</span>
+                                <span className="span-pers" style={{color:valueColorConsumption === "LOCAL_COLOR" ? "#7076f4" : "black",textShadow:valueColorConsumption === "LOCAL_COLOR" ? ".5px .5px 1px black" : ""}}>CONSUMO NO LOCAL</span>
                             </label>
 
                             <label className="type-consumption">{/* DELIVERY */}
                                 <input type="radio"
+                                value="DELIVERY"
+                                checked={typeConumptionCommand === "DELIVERY"}
+                                onChange={changeTableCommand}
                                 />
                                 <PiMotorcycleFill className="icon-type-consumption"/>
-                                <span className="span-pers">DELIVERY</span>
+                                <span className="span-pers" style={{color:valueColorConsumption === "DELIVERY_COLOR" ? "#7076f4" : "black",textShadow:valueColorConsumption === "DELIVERY_COLOR" ? ".5px .5px 1px black" : ""}}>DELIVERY</span>
                             </label>
                         </div>
                     </div>
@@ -86,9 +134,12 @@ const Commands = () => {
                         <span className="span-normal">MESA</span>
                         <input type="text"
                         className="form-command-input-text"
-                        style={{width:"85px"}}
+                        style={{width:"85px",textAlign:"center"}}
                         id="id-table-command"
                         name="n-table-command"
+                        value={tableCommand}
+                        ref={tableCommandRef}
+                        disabled={disableTableCommand}
                         required
                         />
                     </label>
@@ -190,6 +241,91 @@ const Commands = () => {
                                         </label>
                               </div>
                               {/* FIM - VALORES FINAIS DA COMANDA*/}
+
+                                {/* BOTÕES DE NAVEGAÇÃO - GESTÃO DE COMANDAS */} 
+                                <div className="buttons-navigation-command">
+                                    <button type="button"><MdCreateNewFolder className="icon-buttons-navigation"/>Novo</button>
+                                    <button type="button"><TiCancel className="icon-buttons-navigation"/>Cancelar</button>
+                                    <button type="button"><BiSolidSave className="icon-buttons-navigation"/>Salvar</button>
+                                </div>
+                                {/* -------------------------------------------------- */} 
+
+                                {/* INÍCIO - LISTA DE COMANDAS CADASTRADAS */} 
+
+                                <div className="list-commands-container">
+                                    
+                                    <ul className="list-registers-commands">
+                                        {commands && commands.map((itemCommand) => (
+                                            <li className="item-listRegister-command" key={itemCommand.idCommand}>
+                                              
+                                                <div className="list-initial-registers">
+                                                    <div className="initial-command-register">
+                                                        <p className="title-initial">Registro</p>
+                                                        <p className="desc-initial">{itemCommand.idCommand}</p>
+                                                    </div>
+                                                    <div className="initial-command-register">
+                                                        <p className="title-initial">Tipo de Consumo</p>
+                                                        <p className="desc-initial">{itemCommand.typeConsumption}</p>
+                                                    </div>
+                                                    <div className="initial-command-register">
+                                                        <p className="title-initial">Número da Mesa</p>
+                                                        <p className="desc-initial">{itemCommand.tableCommand}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="cart-itens-command">
+                                                    <FaShoppingCart className="icon-cart-itens-command"/>
+                                                    <p className="desc-cart-itens-command">CARRINHO</p>
+                                                </div>
+
+                                                <div className="group-itens-list-register">
+                                                    {itemCommand.itensCommand.map((itemComm) => (
+                                                    <div className="subgroup-itemComm-commands" key={itemComm.idItem}>
+                                                        <img src={itemComm.photoItem} alt="foto do produto" />
+                                                    <div className="subgroup-itemComm-values">
+                                                    <p>{itemComm.descriptionItem}</p>
+                                                    <p>{itemComm.amountItem} un</p>
+                                                    <p style={{color: "red",fontWeight: "bolder"}}>R$ {checkValue(itemComm.valueSaleItem) ? itemComm.valueSaleItem + "0" : itemComm.valueSaleItem}</p>
+                                                </div>
+                                             </div>
+                                            ))}
+                                                </div>
+
+                                                <div className="list-finally-registers">
+
+                                                    <div className="finally-list-registers-commands">
+                                                        <p className="title-finally-item-command">Valor Total</p>
+                                                        <p className="desc-finally-item-command">R$ {checkValue(itemCommand.valueCommand) ? itemCommand.valueCommand + "0" : itemCommand.valueCommand}</p>
+                                                    </div>
+
+                                                    <div className="finally-list-registers-commands">
+                                                        <p className="title-finally-item-command">Data</p>
+                                                        <p className="desc-finally-item-command">{itemCommand.dateCommand}</p>
+                                                    </div>
+
+                                                    <div className="finally-list-registers-commands">
+                                                        <p className="title-finally-item-command">Hora</p>
+                                                        <p className="desc-finally-item-command">{itemCommand.hourCommand}</p>
+                                                    </div>
+
+                                                    <div className="finally-list-registers-commands">
+                                                        <p className="title-finally-item-command">Situação</p>
+                                                        <p className="status-style-command" style={{backgroundColor: itemCommand.statusCommand === "PENDENTE" ? "#ff0000" : "#018a01",color:"#ddd" }}>{itemCommand.statusCommand}</p>
+                                                    </div>
+
+                                                    <div className="buttons-del-update-groupCommands">
+                                                        <button className="btn-update-command" type="button"><GrUpdate className="icon-updateButton-command"/></button>
+                                                        <button className="btn-del-command" type="button"><MdDelete className="icon-deleteButton-command"/></button>
+                                                    </div>
+
+                                                </div>
+
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                </div>
+                                {/* FIM - LISTA DE COMANDAS CADASTRADAS */} 
                         </div>
                         
                     </div>
