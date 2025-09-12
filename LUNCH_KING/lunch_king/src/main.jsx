@@ -15,6 +15,7 @@ import ItensCommand from './pages/ItensCommand.jsx'
 // CONTEXT - PROVIDER
 import { FilterProdProvider } from './Context/FilterProductsContext.jsx'
 import { ItensCommandProvider } from './context/FilterItensCommand.jsx'
+import { CartProvider } from './context/ItensCartContext.jsx'
 
 const routes = createBrowserRouter([ // Mapeamento de rotas***
   {
@@ -58,9 +59,11 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <FilterProdProvider>
+    <CartProvider>
      <ItensCommandProvider> 
     <RouterProvider router={routes}/>
     </ItensCommandProvider>
+    </CartProvider>
     </FilterProdProvider>
   </StrictMode>,
 )

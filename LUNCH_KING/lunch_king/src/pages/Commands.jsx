@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 import { useContext, useState, useRef } from "react"
 import {ItensCommandContext} from "../context/FilterItensCommand"
 import { useRequests } from "../hooks/useRequests"
+// CONTEXT
+import { CartContext } from "../context/ItensCartContext"
 //CSS
 import "./Commands.css"
 //ÍCONES
@@ -24,6 +26,8 @@ const url = "http://localhost:3000/commands"
 const Commands = () => {
 
     const { data: commands } = useRequests(url)
+
+    const { item,setItem } = useContext(CartContext)
 
     const { indexItemCommand,setIndexItemCommand } = useContext(ItensCommandContext)
 
@@ -188,8 +192,10 @@ const Commands = () => {
                                 <div className="area-icon-selection">
                                     <FaShoppingCart className="icon-selection"/>
                                     <span>CARRINHO</span>
+                                    <p>{item != 0 ? item : ""}</p>
                                 </div>
                             </div>
+
                              {/* ÍNICIO - VALORES FINAIS DA COMANDA*/}
                               <div className="group-finally-command">
                                         <label className="finally-command-single">
