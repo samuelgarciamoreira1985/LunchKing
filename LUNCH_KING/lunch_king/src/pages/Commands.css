@@ -113,14 +113,15 @@
 }
 
 .group-itens-command-cart {
-    border: 1px solid black;
+    background-color: #ffb0063a;
+    border: none;
     width: 31.7vw;
-    height: 20vh;
+    height: 83vh;
     border-radius: 10px;
 }
 
 .area-icon-selection {
-    background-color: #000;
+    background-color: #a33114;
     width: 31.7vw;
     height: 3vh;
     border-radius: 10px 10px 0px 0px;
@@ -219,8 +220,19 @@
 .icon-selection {
     color: #fff;
     font-size: 1.3rem;
-    cursor: pointer;
     transition: 0.3s;
+}
+
+.icon-selection-clear-cart {
+    color: #fff;
+    font-size: 1.3rem;
+    transition: 0.3s;
+    margin-left: 430px;
+    cursor: pointer;
+}
+
+.icon-selection-clear-cart:hover {
+     fill: #7076f4;
 }
 /* FIM - ITENS DA COMANDA */
 /*--------------------------------------------------------------------------------*/
@@ -553,4 +565,56 @@
     color: #fc0202;
     font-size: 1.3rem;
     box-shadow: .1px .1px 3px rgba(255, 255, 255, 0.308);
+}
+/* -------------list-cart----------------*/
+.list-cart {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 5px;
+    gap: 20px;
+}
+
+.list-cart li {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.list-cart li img {
+    width: 55px;
+    height: 79px;
+    margin-left: 10px;
+}
+
+.list-cart-itens {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-cart-itens p {
+    color: #000;
+    font-weight: 600;
+    font-size: .9rem;
+    font-style: italic;
+}
+
+.list-cart-itens button {
+    width: 100px;
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+    color: #ddd;
+    background-color: #ff0000;
+    font-weight: 600;
+    font-size: .9rem;
+    padding: 4.5px;
+    text-shadow: .5px .3px 1px #000;
+    cursor: pointer;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.list-cart-itens button:hover {
+    color: #ddddddf1;
 }

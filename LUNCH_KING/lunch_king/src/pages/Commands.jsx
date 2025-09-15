@@ -2,7 +2,7 @@
 import { Tooltip } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import { Link } from "react-router-dom"
-import { useContext, useState, useRef } from "react"
+import { useContext, useState, useRef, useEffect } from "react"
 import {ItensCommandContext} from "../context/FilterItensCommand"
 import { useRequests } from "../hooks/useRequests"
 // CONTEXT
@@ -20,6 +20,7 @@ import { ImArrowRight,ImArrowLeft  } from "react-icons/im"
 import { TiCancel } from "react-icons/ti"
 import { BiSolidSave } from "react-icons/bi"
 import { GrUpdate } from "react-icons/gr"
+import { BsFillCartDashFill } from "react-icons/bs"
 
 const url = "http://localhost:3000/commands"
 
@@ -42,6 +43,54 @@ const Commands = () => {
     const [tableCommand,setTableCommand] = useState("") // MESA - [REQUEST]
 
     const [disableTableCommand,setDisableTableCommand] = useState(true) // ESTADO - ATIVA E DESATIVA MESA 
+
+    useEffect(() => {
+        setItem([])
+    },[])
+
+    const handleClearCart = () => { // LIMPAR CARRINHO DE COMPRAS
+
+        if (item.length === 0 ){
+            swal({
+           icon: "error",
+           title: "REI DOS LANCHES",
+           text: "O carrinho de compras já está vazio!"
+            })  
+        }
+        else {
+            swal("Deseja realmente limpar o carrinho de compras?", {
+            closeOnClickOutside: false,
+            dangerMode: true,
+            closeOnEsc: false,
+            icon: "warning",
+            title: "REI DOS LANCHES",
+            buttons: {
+              confirmar: {
+                text: "Sim",
+                value: "sim",
+                className: "swal-cancelar-sim",
+              },
+              cancelar: {
+                text: "Não",
+                value: "nao",
+                className: "swal-cancelar-nao"
+              },
+              
+              },
+          })
+          .then((value => {
+            if (value === "sim") {
+              setItem([])
+              swal({
+               icon: "success",
+               title: "REI DOS LANCHES",
+               text: "Carrinho de compras limpardo com sucesso!"
+                })  
+              }
+          }))   
+        }
+       
+    }
 
     const checkValue = (valueSaleComm) => {
         const decimalPart = valueSaleComm.toString().split(".")[1] || ''
@@ -192,7 +241,21 @@ const Commands = () => {
                                 <div className="area-icon-selection">
                                     <FaShoppingCart className="icon-selection"/>
                                     <span>CARRINHO</span>
-                                    <p>{item != 0 ? item : ""}</p>
+                                    <Tooltip title="Clique aqui para deletar todos os ítens do carrinho!">
+                                    <BsFillCartDashFill className="icon-selection-clear-cart" onClick={handleClearCart}/></Tooltip> 
+                                    <ul className="list-cart">
+                                        {item.map((itemC) => (
+                                            <li key={itemC.idItemCart}>
+                                                <img src={itemC.photoItemCart} alt="" />
+                                                <div className="list-cart-itens">
+                                                    <p>{itemC.descItemCart}</p>
+                                                    <p>{itemC.amountItemCart}</p>
+                                                    <p style={{color: "red",fontWeight: "bolder"}}>R$ {checkValue(itemC.valueSaleItemCart) ? itemC.valueSaleItemCart + "0" : itemC.valueSaleItemCart}</p>
+                                                    <button type="button">REMOVER</button>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                             </div>
 

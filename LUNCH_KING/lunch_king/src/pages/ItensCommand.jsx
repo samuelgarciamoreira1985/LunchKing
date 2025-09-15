@@ -18,17 +18,64 @@ const ItensCommand = () => {
     const { item,setItem } = useContext(CartContext)
 
     const [countAmount,setCountAmount] = useState(0)
+    const [idCountAmount,setIdCountAmount] = useState(0)
 
     const incrementAmount = (idItem) => {
-        if (idItem === 1)
-        setCountAmount(countAmount+1)
+        setIdCountAmount(idItem)
+        console.log("id pego: " + idItem)
+        if (idItem === idCountAmount){
+            setCountAmount(countAmount+1)
+            console.log("Qtdade: " + countAmount)
+        }
+        else
+            setCountAmount(0)
     }
 
-    const addItem = (photoItem,descriptionItem,valueSaleItem,amountItem) => {
-        const listCar = [photoItem,descriptionItem,valueSaleItem,amountItem] 
-        setItem(...item,listCar)
-        console.log("foto:" + photoItem,"descrição:" + descriptionItem, "valor: " + valueSaleItem, "qtdade: " + amountItem)
-        console.log(item)
+    const decrementAmount = (idItemD) => {
+        setIdCountAmount(idItemD)
+        console.log("id pego: " + idItemD)
+        if (idItemD === idCountAmount){
+            if (countAmount === 0){
+                setCountAmount(0)
+            } else {
+                setCountAmount(countAmount-1)
+                console.log("Qtdade: " + countAmount)
+            }
+        } else 
+            setCountAmount(0)
+    }
+
+    const addItem = (idItem,descItem,photoItem,amountItem,valueSaleItem) => {
+           const newItemCart = {
+            "idItemCart": idItem,
+            "descItemCart": descItem,
+            "photoItemCart": photoItem,
+            "amountItemCart": "x " + amountItem,
+            "valueSaleItemCart": "R$ " + valueSaleItem
+            }
+
+            if (countAmount === 0) {
+                swal({
+                     icon: "warning",
+                     title: "REI DOS LANCHES",
+                     text: "Informe a quantidade desejada para adicionar o item no carrinho!"
+                 }) 
+            } 
+            else {
+                const existsItem = item.some(item => item.idItemCart === newItemCart.idItemCart)
+            if (existsItem) {
+               swal({
+                     icon: "error",
+                     title: "REI DOS LANCHES",
+                     text: "Esse produto ja consta no carrinho!"
+                 })
+            } else {
+                setItem(prevItens => [...prevItens,newItemCart])
+                setCountAmount(0)
+            }     
+            }
+
+            
     }
 
     useEffect(() => {
@@ -48,11 +95,11 @@ const ItensCommand = () => {
                             <p style={{color:"red"}}>R$ {itemProdComm.valueSaleProduct}</p>
 
                             <div className="buttons-counter">
-                                <button type="button" onClick={() => addItem(itemProdComm.photoProduct,itemProdComm.descriptionProduct,itemProdComm.valueSaleProduct,countAmount)}>ADICIONAR</button>
+                                <button type="button" onClick={() => addItem(itemProdComm.id,itemProdComm.descriptionProduct,itemProdComm.photoProduct,countAmount,itemProdComm.valueSaleProduct)}>ADICIONAR</button>
                                 <div className="btn-counter">
                                     <button className="btn-counter-itens" type="button" onClick={() => incrementAmount(itemProdComm.idProduct)}>+</button>
-                                    <span>{itemProdComm.idProduct === 1? countAmount : "0"}</span>
-                                    <button className="btn-counter-itens" type="button">-</button>
+                                    <span>{itemProdComm.idProduct === idCountAmount ? countAmount : 0}</span>
+                                    <button className="btn-counter-itens" type="button" onClick={() => decrementAmount(itemProdComm.idProduct)}>-</button>
                                 </div>
                             </div>
                         </div>
