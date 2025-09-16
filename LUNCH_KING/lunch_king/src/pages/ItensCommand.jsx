@@ -15,9 +15,8 @@ const ItensCommand = () => {
     const { data: itemProducts, getProductsType } = useSearch(url)
 
     const { indexItemCommand,setIndexItemCommand } = useContext(ItensCommandContext)
-    const { item,setItem } = useContext(CartContext)
+    const { item,setItem,countAmount,setCountAmount,totalAmount,setTotalAmount } = useContext(CartContext)
 
-    const [countAmount,setCountAmount] = useState(0)
     const [idCountAmount,setIdCountAmount] = useState(0)
 
     const incrementAmount = (idItem) => {
@@ -45,17 +44,18 @@ const ItensCommand = () => {
             setCountAmount(0)
     }
 
-    const addItem = (idItem,descItem,photoItem,amountItem,valueSaleItem) => {
+    const addItem = (idItem,descItem,photoItem,amountItem,valueSaleItem) => { // BOTÃO ADICIONAR ITEM INDIVIDUAL
            const newItemCart = {
             "idItemCart": idItem,
             "descItemCart": descItem,
             "photoItemCart": photoItem,
-            "amountItemCart": "x " + amountItem,
-            "valueSaleItemCart": "R$ " + valueSaleItem
+            "amountItemCart": amountItem,
+            "valueSaleItemCart": valueSaleItem
             }
 
             if (countAmount === 0) {
                 swal({
+                     closeOnClickOutside: false,
                      icon: "warning",
                      title: "REI DOS LANCHES",
                      text: "Informe a quantidade desejada para adicionar o item no carrinho!"
@@ -65,17 +65,28 @@ const ItensCommand = () => {
                 const existsItem = item.some(item => item.idItemCart === newItemCart.idItemCart)
             if (existsItem) {
                swal({
+                     closeOnClickOutside: false,
                      icon: "error",
                      title: "REI DOS LANCHES",
                      text: "Esse produto ja consta no carrinho!"
                  })
             } else {
                 setItem(prevItens => [...prevItens,newItemCart])
+                // Calcula o valor do total da comanda***
+                const calcTotalAmount = valueSaleItem * amountItem
+                const generalTotalAmount = totalAmount + calcTotalAmount
+                const AmountTotal = roundNumber(generalTotalAmount, 2)
+                setTotalAmount(AmountTotal)
+                console.log("total: " + totalAmount)
+
                 setCountAmount(0)
             }     
-            }
+            }            
+    }
 
-            
+    const roundNumber = (numberTotal, roundParam) => {
+        let numTotal = Math.pow(10, roundParam)
+        return Math.trunc(numberTotal * numTotal) / numTotal
     }
 
     useEffect(() => {

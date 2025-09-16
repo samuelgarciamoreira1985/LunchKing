@@ -28,24 +28,53 @@ const Commands = () => {
 
     const { data: commands } = useRequests(url)
 
-    const { item,setItem } = useContext(CartContext)
+    const { item,setItem,countAmount,setCountAmount,totalAmount,setTotalAmount } = useContext(CartContext)
 
     const { indexItemCommand,setIndexItemCommand } = useContext(ItensCommandContext)
 
-    const [colorStatusCommand,setColorStatusCommand] = useState(1) // COR DO STATUS DA COMANDA
+    const [colorStatusCommand,setColorStatusCommand] = useState("PENDENTE") // COR DO STATUS DA COMANDA
     const [hourCommand,setHourCommand] = useState("")
 
     const [valueColorConsumption,setValueColorConsumption] = useState("") // VALOR DO CONSUMO
 
     const tableCommandRef = useRef(null) // REF DA MESA DA COMANDA...
 
-    const [typeConumptionCommand,setTypeConsumptionCommand] = useState("") // TIPO DE CONSUMO - [REQUEST]
+    // REQUESTS 
+    const [idCommand,setIdCommand] = useState("") // ID - [REQUEST]
+    const [typeConsumptionCommand,setTypeConsumptionCommand] = useState("") // TIPO DE CONSUMO - [REQUEST]
     const [tableCommand,setTableCommand] = useState("") // MESA - [REQUEST]
+    // FIM - REQUESTS
 
     const [disableTableCommand,setDisableTableCommand] = useState(true) // ESTADO - ATIVA E DESATIVA MESA 
 
+    const roundNumber = (numberTotal, roundParam) => {
+        let numTotal = Math.pow(10, roundParam)
+        return Math.trunc(numberTotal * numTotal) / numTotal
+    }
+
+    const removeRoundItem = (idItemRemoveRound) => {
+        const itemValueTotalremove = item.find(itemR => itemR.idItemCart === idItemRemoveRound)
+        if (itemValueTotalremove){
+            const totalRemove = itemValueTotalremove.valueSaleItemCart * itemValueTotalremove.amountItemCart
+            const calcRemoveTotal = totalAmount - totalRemove
+            const AmountTotal = roundNumber(calcRemoveTotal, 2)
+            if (AmountTotal <=0)
+                setTotalAmount(0)
+                else
+                setTotalAmount(AmountTotal)
+        }
+    }
+
+    const removeItem = (idItemRemove) => { // BOTÃO REMOVER ITEM INDIVIDUAL
+            removeRoundItem(idItemRemove)
+
+            const newItemCommand = item.filter(itemComm => itemComm.idItemCart !== idItemRemove)
+            setItem(newItemCommand)
+        }
+
     useEffect(() => {
         setItem([])
+        setTotalAmount(0)
     },[])
 
     const handleClearCart = () => { // LIMPAR CARRINHO DE COMPRAS
@@ -81,7 +110,9 @@ const Commands = () => {
           .then((value => {
             if (value === "sim") {
               setItem([])
+              setTotalAmount(0)
               swal({
+               closeOnClickOutside: false,
                icon: "success",
                title: "REI DOS LANCHES",
                text: "Carrinho de compras limpardo com sucesso!"
@@ -102,7 +133,6 @@ const Commands = () => {
     //TIPO DE CONSUMO
     const changeTableCommand = (e) => {
         setTypeConsumptionCommand(e.target.value)
-        console.log("Consumo: " + e.target.value)
         if (e.target.value === "LOCAL"){
             setDisableTableCommand(false)
             setValueColorConsumption("LOCAL_COLOR")
@@ -119,10 +149,10 @@ const Commands = () => {
 
     // TROCA DE STATUS DA COMANDA
     const changeColorStatusCommand = () => {
-        if (colorStatusCommand === 1)
-            setColorStatusCommand(2)
-        else if (colorStatusCommand === 2)
-            setColorStatusCommand(1)
+        if (colorStatusCommand === "PENDENTE")
+            setColorStatusCommand("FINALIZADO")
+        else if (colorStatusCommand === "FINALIZADO")
+            setColorStatusCommand("PENDENTE")
     } // ************************************
 
     // TROCA DE ÍNDICE DA COMANDA
@@ -138,7 +168,36 @@ const Commands = () => {
         setHourCommand(hourSystemCommand)
     }
 
+    // INÍCIO - VALIDAÇÃO DE INPUT DE ID
+    const validDigitsId = (textDigitedId) => {
+        return textDigitedId.replace(/[^0-9]/g, "")
+    }
+
+    const ChangeMaskIdCommand = (e) => {
+    const updateTextDigitedId = validDigitsId(e.target.value)
+    setIdCommand(updateTextDigitedId)
+    }
+  // FIM - VALIDAÇÃO DE ID
+
+    const ChangeMaskTableCommand = (e) => {
+        const updateTextDigitedTable = validDigitsId(e.target.value)
+        setTableCommand(updateTextDigitedTable)
+    }
+
     // **************************************
+    // BOTÕES DE NAVEGAÇÃO - NOVO,CANCELAR,SALVAR
+    const handleClickNewCommand = () => {
+        //COLETA DE VALORES
+        console.log("id: " + idCommand)
+        console.log("consumo: " + typeConsumptionCommand)
+        console.log("mesa: " + tableCommand)
+        console.log("valor total: " + totalAmount)
+        console.log("data: " + dateSystemCommand)
+        console.log("hora: " + hourCommand)
+        console.log("situação: " + colorStatusCommand)
+    }
+
+    //*********FIM - BOTÕES DE NAVEGAÇÃO****** */
 
   return (
 
@@ -152,9 +211,11 @@ const Commands = () => {
                         <span className="span-normal">REGISTRO</span>
                         <input type="text" 
                         className="form-command-input-text"
-                        style={{width:"85px"}}
+                        style={{width:"85px",textAlign:"center"}}
                         id="id-id-command"
                         name="n-id-command"
+                        onChange={(e) => ChangeMaskIdCommand(e)}
+                        value={idCommand}
                         required
                         />
                     </label>
@@ -165,7 +226,7 @@ const Commands = () => {
                             <label className="type-consumption">{/* CONSUMO NO LOCAL */}
                                 <input type="radio"
                                 value="LOCAL"
-                                checked={typeConumptionCommand === "LOCAL"}
+                                checked={typeConsumptionCommand === "LOCAL"}
                                 onChange={changeTableCommand}
                                 />
                                 <FaCartArrowDown className="icon-type-consumption"/>
@@ -175,7 +236,7 @@ const Commands = () => {
                             <label className="type-consumption">{/* DELIVERY */}
                                 <input type="radio"
                                 value="DELIVERY"
-                                checked={typeConumptionCommand === "DELIVERY"}
+                                checked={typeConsumptionCommand === "DELIVERY"}
                                 onChange={changeTableCommand}
                                 />
                                 <PiMotorcycleFill className="icon-type-consumption"/>
@@ -190,6 +251,7 @@ const Commands = () => {
                         style={{width:"85px",textAlign:"center"}}
                         id="id-table-command"
                         name="n-table-command"
+                        onChange={(e) => ChangeMaskTableCommand(e)}
                         value={tableCommand}
                         ref={tableCommandRef}
                         disabled={disableTableCommand}
@@ -249,9 +311,9 @@ const Commands = () => {
                                                 <img src={itemC.photoItemCart} alt="" />
                                                 <div className="list-cart-itens">
                                                     <p>{itemC.descItemCart}</p>
-                                                    <p>{itemC.amountItemCart}</p>
+                                                    <p>x {itemC.amountItemCart}</p>
                                                     <p style={{color: "red",fontWeight: "bolder"}}>R$ {checkValue(itemC.valueSaleItemCart) ? itemC.valueSaleItemCart + "0" : itemC.valueSaleItemCart}</p>
-                                                    <button type="button">REMOVER</button>
+                                                    <button type="button" onClick={() => removeItem(itemC.idItemCart)}>REMOVER</button>
                                                 </div>
                                             </li>
                                         ))}
@@ -265,10 +327,11 @@ const Commands = () => {
                                             <span>VALOR TOTAL</span>
                                             <input type="text"
                                             className="form-command-input-text"
-                                            style={{width:"108px",backgroundColor:"#0055c4b2",color:"#fffbfbff",fontWeight:"400",textAlign:"center"}}
+                                            style={{width:"108px",backgroundColor:"#c40000ff",color:"#fffbfbff",fontWeight:"400",textAlign:"center"}}
                                             id="id-amount-command"
                                             name="n-amount-command"
                                             disabled={true}
+                                            value={checkValue(totalAmount) ? "R$ " + totalAmount + "0" : "R$ " + totalAmount}
                                             required
                                             />
                                         </label>
@@ -300,8 +363,8 @@ const Commands = () => {
                                             <button type="button" className="button-status-command" onClick={changeColorStatusCommand}>SITUAÇÃO</button>
                                             <input type="text"
                                             className="form-command-input-text"
-                                            style={{width:"153px", backgroundColor:colorStatusCommand === 1 ? "#ff0000" : "#018a01", color:"#ddd", textAlign:"center",fontWeight:"500"}}
-                                            value={colorStatusCommand === 1 ? "PENDENTE" : "FINALIZADO"}
+                                            style={{width:"153px", backgroundColor:colorStatusCommand === "PENDENTE" ? "#ff0000" : "#018a01", color:"#ddd", textAlign:"center",fontWeight:"500"}}
+                                            value={colorStatusCommand === "PENDENTE" ? "PENDENTE" : "FINALIZADO"}
                                             id="id-status-command"
                                             name="n-status-command"
                                             disabled={true}
@@ -313,7 +376,7 @@ const Commands = () => {
 
                                 {/* BOTÕES DE NAVEGAÇÃO - GESTÃO DE COMANDAS */} 
                                 <div className="buttons-navigation-command">
-                                    <button type="button"><MdCreateNewFolder className="icon-buttons-navigation"/>Novo</button>
+                                    <button type="button" onClick={handleClickNewCommand}><MdCreateNewFolder className="icon-buttons-navigation"/>Novo</button>
                                     <button type="button"><TiCancel className="icon-buttons-navigation"/>Cancelar</button>
                                     <button type="button"><BiSolidSave className="icon-buttons-navigation"/>Salvar</button>
                                 </div>
