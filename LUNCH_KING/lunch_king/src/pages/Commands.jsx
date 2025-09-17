@@ -34,9 +34,7 @@ const Commands = () => {
 
     const [colorStatusCommand,setColorStatusCommand] = useState("PENDENTE") // COR DO STATUS DA COMANDA
     const [hourCommand,setHourCommand] = useState("")
-
     const [valueColorConsumption,setValueColorConsumption] = useState("") // VALOR DO CONSUMO
-
     const tableCommandRef = useRef(null) // REF DA MESA DA COMANDA...
 
     // REQUESTS 
@@ -45,7 +43,12 @@ const Commands = () => {
     const [tableCommand,setTableCommand] = useState("") // MESA - [REQUEST]
     // FIM - REQUESTS
 
-    const [disableTableCommand,setDisableTableCommand] = useState(true) // ESTADO - ATIVA E DESATIVA MESA 
+    // ESTADOS - ATIVA E DESATIVA  
+    const [disableTableCommand,setDisableTableCommand] = useState(true)
+    const [disableIdCommand,setDisableIdCommand] = useState(true)
+    const [btnNewCommand,setBtnNewCommand] = useState(false)
+    const [btnCancelCommand,setBtnCancelCommand] = useState(true)
+    const [btnSaveCommand,setBtnSaveCommand] = useState(true)
 
     const roundNumber = (numberTotal, roundParam) => {
         let numTotal = Math.pow(10, roundParam)
@@ -186,15 +189,15 @@ const Commands = () => {
 
     // **************************************
     // BOTÕES DE NAVEGAÇÃO - NOVO,CANCELAR,SALVAR
-    const handleClickNewCommand = () => {
-        //COLETA DE VALORES
-        console.log("id: " + idCommand)
-        console.log("consumo: " + typeConsumptionCommand)
-        console.log("mesa: " + tableCommand)
-        console.log("valor total: " + totalAmount)
-        console.log("data: " + dateSystemCommand)
-        console.log("hora: " + hourCommand)
-        console.log("situação: " + colorStatusCommand)
+
+    // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO, 4 - ELEMENTO ATIVADO
+    // 5 - ELEMENTO DESATIVADO
+    const optionsCommands = ["#0044ffcb","#0044ff96","pointer","default","fill","none"]
+
+    const handleClickNewCommand = () => { // BOTÃO - NOVO COMANDA**
+         if (btnNewCommand == false) {
+            
+        }   
     }
 
     //*********FIM - BOTÕES DE NAVEGAÇÃO****** */
@@ -216,6 +219,7 @@ const Commands = () => {
                         name="n-id-command"
                         onChange={(e) => ChangeMaskIdCommand(e)}
                         value={idCommand}
+                        disabled={disableIdCommand}
                         required
                         />
                     </label>
@@ -376,9 +380,9 @@ const Commands = () => {
 
                                 {/* BOTÕES DE NAVEGAÇÃO - GESTÃO DE COMANDAS */} 
                                 <div className="buttons-navigation-command">
-                                    <button type="button" onClick={handleClickNewCommand}><MdCreateNewFolder className="icon-buttons-navigation"/>Novo</button>
-                                    <button type="button"><TiCancel className="icon-buttons-navigation"/>Cancelar</button>
-                                    <button type="button"><BiSolidSave className="icon-buttons-navigation"/>Salvar</button>
+                                    <button type="button" disabled={btnNewCommand} onClick={handleClickNewCommand} ><MdCreateNewFolder className="icon-buttons-navigation"/>Novo</button>
+                                    <button type="button" disabled={btnCancelCommand}><TiCancel className="icon-buttons-navigation"/>Cancelar</button>
+                                    <button type="button"  disabled={btnSaveCommand}><BiSolidSave className="icon-buttons-navigation"/>Salvar</button>
                                 </div>
                                 {/* -------------------------------------------------- */} 
 

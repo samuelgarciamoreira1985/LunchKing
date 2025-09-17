@@ -24,7 +24,6 @@ const ItensCommand = () => {
         console.log("id pego: " + idItem)
         if (idItem === idCountAmount){
             setCountAmount(countAmount+1)
-            console.log("Qtdade: " + countAmount)
         }
         else
             setCountAmount(0)
@@ -38,7 +37,6 @@ const ItensCommand = () => {
                 setCountAmount(0)
             } else {
                 setCountAmount(countAmount-1)
-                console.log("Qtdade: " + countAmount)
             }
         } else 
             setCountAmount(0)
@@ -77,8 +75,6 @@ const ItensCommand = () => {
                 const generalTotalAmount = totalAmount + calcTotalAmount
                 const AmountTotal = roundNumber(generalTotalAmount, 2)
                 setTotalAmount(AmountTotal)
-                console.log("total: " + totalAmount)
-
                 setCountAmount(0)
             }     
             }            
