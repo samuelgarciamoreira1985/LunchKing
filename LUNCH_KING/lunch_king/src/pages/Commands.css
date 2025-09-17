@@ -329,7 +329,7 @@
 }
 /*----------------------------------------------------------------------------------*/
 /* BOTÕES DE NAVEGAÇÃO PARA GESTÃO DE COMANDAS */
-.buttons-navigation-command {
+.buttons-nav-command {
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -337,7 +337,7 @@
     margin-top: 10px;
 }
 
-.buttons-navigation-command button {
+.buttons-nav-command button {
     width: 150px;
     height: 35px;
     border-radius: 8px;
@@ -352,7 +352,7 @@
     text-shadow: 2px 1.5px 3px #000;
 }
 
-.buttons-navigation-command button:hover {
+.buttons-nav-command button:hover {
     background-color: #0044ff96;
 }
 

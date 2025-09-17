@@ -15,7 +15,7 @@ const ItensCommand = () => {
     const { data: itemProducts, getProductsType } = useSearch(url)
 
     const { indexItemCommand,setIndexItemCommand } = useContext(ItensCommandContext)
-    const { item,setItem,countAmount,setCountAmount,totalAmount,setTotalAmount } = useContext(CartContext)
+    const { item,setItem,countAmount,setCountAmount,totalAmount,setTotalAmount,isItem,setIsItem } = useContext(CartContext)
 
     const [idCountAmount,setIdCountAmount] = useState(0)
 
@@ -93,7 +93,7 @@ const ItensCommand = () => {
 
     <div className="itens-command-container">
         <ul className="general-list-itens-command">
-            {itemProducts && itemProducts.map((itemProdComm) => (
+            {isItem !== false ? itemProducts.map((itemProdComm) => (
                 
                     <li className="item-list-command" key={itemProdComm.idProduct}>
                         <div className="photo-product-item-command"><img src={itemProdComm.photoProduct} alt="foto do produto" /></div>
@@ -112,8 +112,9 @@ const ItensCommand = () => {
                         </div>
                     </li>
                   
-            ))}
+            )) : ""}
         </ul>
+      
     </div>
 
   )

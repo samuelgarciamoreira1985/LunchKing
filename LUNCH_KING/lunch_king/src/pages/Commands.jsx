@@ -28,7 +28,7 @@ const Commands = () => {
 
     const { data: commands } = useRequests(url)
 
-    const { item,setItem,countAmount,setCountAmount,totalAmount,setTotalAmount } = useContext(CartContext)
+    const { item,setItem,countAmount,setCountAmount,totalAmount,setTotalAmount,isItem,setIsItem } = useContext(CartContext)
 
     const { indexItemCommand,setIndexItemCommand } = useContext(ItensCommandContext)
 
@@ -44,11 +44,34 @@ const Commands = () => {
     // FIM - REQUESTS
 
     // ESTADOS - ATIVA E DESATIVA  
-    const [disableTableCommand,setDisableTableCommand] = useState(true)
     const [disableIdCommand,setDisableIdCommand] = useState(true)
+    const [indexConsumption,setIndexConsumption] = useState(0)
+    const [disableTableCommand,setDisableTableCommand] = useState(true)
     const [btnNewCommand,setBtnNewCommand] = useState(false)
     const [btnCancelCommand,setBtnCancelCommand] = useState(true)
     const [btnSaveCommand,setBtnSaveCommand] = useState(true)
+    const [btnHourCommand,setBtnHourCommand] = useState("DESATIVADO")
+    const [btnStatusCommand,setBtnStatusCommand] = useState("DESATIVADO")
+
+    // ESTADOS - CORES
+    const [colorNewCommands, setColorNewCommands] = useState("#0044ffcb")
+    const [colorCancelCommands, setColorCancelCommands] = useState("#0044ff96")
+    const [colorSaveCommands, setColorSaveCommands] = useState("#0044ff96")
+
+    // ESTADOS - CURSOR
+    const [cursorNewCommand, setCursorNewCommand] = useState("pointer")
+    const [cursorCancelCommand, setCursorCancelCommand] = useState("default")
+    const [cursorSaveCommand, setCursorSaveCommand] = useState("default")
+    const [iconConLocal,setIconConLocal] = useState("none")
+    const [iconConDelivery,setIconConDelivery] = useState("none")
+    const [iconSelectCart,setIconSelectCart] = useState("none")
+    const [eventCursorHour,setEventCursorHour] = useState("none")
+    const [eventCursorStatus,setEventCursorStatus] = useState("none")
+
+    // BUTTONS - ALTERAR E DELETAR DA LISTA DE COMANDAS
+    const [isDisableUpdDelCommand,setIsDisableUpDelCommand] = useState(false) // INICIA ATIVADO
+    const [isCursorUpDelCommand,setIsCursorUpDelCommand] = useState("pointer") // INICIA PONTEIRO
+    const [eventIconUpDelCommand,setEventIconUpDelCommand] = useState("fill")
 
     const roundNumber = (numberTotal, roundParam) => {
         let numTotal = Math.pow(10, roundParam)
@@ -78,6 +101,7 @@ const Commands = () => {
     useEffect(() => {
         setItem([])
         setTotalAmount(0)
+        setIsItem(false)
     },[])
 
     const handleClearCart = () => { // LIMPAR CARRINHO DE COMPRAS
@@ -192,12 +216,115 @@ const Commands = () => {
 
     // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO, 4 - ELEMENTO ATIVADO
     // 5 - ELEMENTO DESATIVADO
+    // 0- SEM OPERAÇÃO 1-NOVO 2-ALTERAR 3-DELETAR 4-CANCELAR 5-SALVAR
+    const [indexOpCommands, setIndexOpCommands] = useState(0) 
     const optionsCommands = ["#0044ffcb","#0044ff96","pointer","default","fill","none"]
 
-    const handleClickNewCommand = () => { // BOTÃO - NOVO COMANDA**
+    const handleClickNewCommand = (e) => { // BOTÃO - NOVO COMANDA**
          if (btnNewCommand == false) {
-            
+            setIndexOpCommands(1) // Operação - Novo produto...
+            setBtnNewCommand(true)
+            setBtnCancelCommand(false)
+            setBtnSaveCommand(false)
+
+            setColorNewCommands(optionsCommands[1]) 
+            setColorCancelCommands(optionsCommands[0])
+            setColorSaveCommands(optionsCommands[0])
+
+            setCursorNewCommand(optionsCommands[3])
+            setCursorCancelCommand(optionsCommands[2])
+            setCursorSaveCommand(optionsCommands[2])
+
+            setDisableIdCommand(false)
+
+            setIndexConsumption(1)
+            setIconConLocal(optionsCommands[4])
+            setIconSelectCart(optionsCommands[4])
+            e.preventDefault()
+            setIsItem(true)
+            setIconConDelivery(optionsCommands[4])
+
+            setDisableTableCommand(true)
+
+            setBtnHourCommand("ATIVADO")
+            setEventCursorHour(optionsCommands[4])
+            setBtnStatusCommand("ATIVADO")
+            setEventCursorStatus(optionsCommands[4])
+
+            setIsDisableUpDelCommand(true)
+            setIsCursorUpDelCommand(optionsCommands[3])
+            setEventIconUpDelCommand(optionsCommands[5])
         }   
+    }
+
+    const handleClickCancelCommand = (e) => { // BOTÃO - CANCELAR COMANDA**
+        swal("Deseja realmente cancelar o cadastro ou alteração da comanda?", {
+        closeOnClickOutside: false,
+        dangerMode: true,
+        closeOnEsc: false,
+        icon: "warning",
+        title: "REI DOS LANCHES",
+        buttons: {
+          confirmar: {
+            text: "Sim",
+            value: "sim",
+            className: "swal-cancelar-sim",
+          },
+          cancelar: {
+            text: "Não",
+            value: "nao",
+            className: "swal-cancelar-nao"
+          },
+          
+          },
+      })
+      .then((value => {
+        if (value === "sim") { 
+        if (btnCancelCommand == false) {
+            setIndexOpCommands(0) // Cancelando operação...
+            setBtnNewCommand(false)
+            setBtnCancelCommand(true)
+            setBtnSaveCommand(true)
+
+            setColorNewCommands(optionsCommands[0]) 
+            setColorCancelCommands(optionsCommands[1])
+            setColorSaveCommands(optionsCommands[1])
+
+            setCursorNewCommand(optionsCommands[2])
+            setCursorCancelCommand(optionsCommands[3])
+            setCursorSaveCommand(optionsCommands[3])
+
+            setIdCommand("")
+            setDisableIdCommand(true)
+
+            setIndexConsumption(0)
+            setValueColorConsumption("")
+            setIconConLocal(optionsCommands[5])
+            setIconSelectCart(optionsCommands[5])
+            e.preventDefault()
+            setIsItem(false)
+            setIconConDelivery(optionsCommands[5])
+            setItem([])
+            setTotalAmount(0)
+
+            setTableCommand("")
+            setDisableTableCommand(true)
+
+            setBtnHourCommand("DESATIVADO")
+            setEventCursorHour(optionsCommands[5])
+            setHourCommand("") // zera a hora
+            setBtnStatusCommand("DESATIVADO")
+            setEventCursorStatus(optionsCommands[5])
+
+            setIsDisableUpDelCommand(false)
+            setIsCursorUpDelCommand(optionsCommands[2])
+            setEventIconUpDelCommand(optionsCommands[4])
+        }
+        }}))
+    }
+
+    const handleClickSaveCommand = async (e) => { // BOTÃO - SALVAR COMANDA
+        alert("salvar comanda!")
     }
 
     //*********FIM - BOTÕES DE NAVEGAÇÃO****** */
@@ -232,8 +359,9 @@ const Commands = () => {
                                 value="LOCAL"
                                 checked={typeConsumptionCommand === "LOCAL"}
                                 onChange={changeTableCommand}
+                                disabled={indexConsumption == 1 ? false : true}
                                 />
-                                <FaCartArrowDown className="icon-type-consumption"/>
+                                <FaCartArrowDown className="icon-type-consumption" style={{pointerEvents:iconConLocal}}/>
                                 <span className="span-pers" style={{color:valueColorConsumption === "LOCAL_COLOR" ? "#7076f4" : "black",textShadow:valueColorConsumption === "LOCAL_COLOR" ? ".5px .5px 1px black" : ""}}>CONSUMO NO LOCAL</span>
                             </label>
 
@@ -242,10 +370,12 @@ const Commands = () => {
                                 value="DELIVERY"
                                 checked={typeConsumptionCommand === "DELIVERY"}
                                 onChange={changeTableCommand}
+                                disabled={indexConsumption == 1 ? false : true}
                                 />
-                                <PiMotorcycleFill className="icon-type-consumption"/>
+                                <PiMotorcycleFill className="icon-type-consumption" style={{pointerEvents:iconConDelivery}}/>
                                 <span className="span-pers" style={{color:valueColorConsumption === "DELIVERY_COLOR" ? "#7076f4" : "black",textShadow:valueColorConsumption === "DELIVERY_COLOR" ? ".5px .5px 1px black" : ""}}>DELIVERY</span>
                             </label>
+                            
                         </div>
                     </div>
                     <label className="initial-field"> {/* ID DE COMANDA */}
@@ -276,22 +406,22 @@ const Commands = () => {
                                 <span>ESTOQUE</span>
                                 
                                     <Tooltip title="Clique aqui para exibir o estoque de LANCHES!">
-                                    <Link to="/commands/itenscommandhome"><MdLunchDining className="icon-selection-lunch" onClick={() => changeIndexCommand("LANCHES")}/></Link>
+                                    <Link to="/commands/itenscommandhome"><MdLunchDining className="icon-selection-lunch" onClick={() => changeIndexCommand("LANCHES")} style={{pointerEvents:iconSelectCart}}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de PORÇÕES!">
-                                    <Link to="/commands/itenscommandhome"><GiFrenchFries className="icon-selection-portion" onClick={() => changeIndexCommand("PORÇÕES")}/></Link>
+                                    <Link to="/commands/itenscommandhome"><GiFrenchFries className="icon-selection-portion" onClick={() => changeIndexCommand("PORÇÕES")} style={{pointerEvents:iconSelectCart}}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de PASTÉIS!">
-                                     <Link to="/commands/itenscommandhome"><GiSlicedBread className="icon-selection-pastry" onClick={() => changeIndexCommand("PASTÉIS")}/></Link>
+                                     <Link to="/commands/itenscommandhome"><GiSlicedBread className="icon-selection-pastry" onClick={() => changeIndexCommand("PASTÉIS")} style={{pointerEvents:iconSelectCart}}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de SOBREMESAS!">
-                                     <Link to="/commands/itenscommandhome"><GiStairsCake className="icon-selection-dessert" onClick={() => changeIndexCommand("SOBREMESAS")}/></Link>
+                                     <Link to="/commands/itenscommandhome"><GiStairsCake className="icon-selection-dessert" onClick={() => changeIndexCommand("SOBREMESAS")} style={{pointerEvents:iconSelectCart}}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de INDUSTRIAIS!">
-                                    <Link to="/commands/itenscommandhome"><FaCandyCane className="icon-selection-industrial" onClick={() => changeIndexCommand("INDUSTRIAIS")}/></Link>
+                                    <Link to="/commands/itenscommandhome"><FaCandyCane className="icon-selection-industrial" onClick={() => changeIndexCommand("INDUSTRIAIS")} style={{pointerEvents:iconSelectCart}}/></Link>
                                     </Tooltip>
                                     <Tooltip title="Clique aqui para exibir o estoque de BEBIDAS!">
-                                    <Link to="/commands/itenscommandhome"><RiDrinks2Fill className="icon-selection-drink" onClick={() => changeIndexCommand("BEBIDAS")}/></Link>
+                                    <Link to="/commands/itenscommandhome"><RiDrinks2Fill className="icon-selection-drink" onClick={() => changeIndexCommand("BEBIDAS")} style={{pointerEvents:iconSelectCart}}/></Link>
                                     </Tooltip> 
                             </div>
                               <Outlet/>
@@ -352,7 +482,7 @@ const Commands = () => {
                                             />
                                         </label>
                                         <label className="finally-command-single">
-                                            <button type="button" className="button-hour-command" onClick={handleHourSystemCommand}>HORA</button>
+                                            <button type="button" className="button-hour-command" onClick={handleHourSystemCommand}  disabled={btnHourCommand === "DESATIVADO" ? true : false} style={{pointerEvents:eventCursorHour}}>HORA</button>
                                             <input type="text"
                                             className="form-command-input-text"
                                             style={{width:"100px",textAlign:"center",backgroundColor:"#0055c4b2",color:"#fffbfbff",fontWeight:"400"}}
@@ -364,7 +494,7 @@ const Commands = () => {
                                             />
                                         </label>
                                         <label className="finally-command-single">
-                                            <button type="button" className="button-status-command" onClick={changeColorStatusCommand}>SITUAÇÃO</button>
+                                            <button type="button" className="button-status-command" onClick={changeColorStatusCommand} disabled={btnStatusCommand === "DESATIVADO" ? true : false} style={{pointerEvents:eventCursorStatus}}>SITUAÇÃO</button>
                                             <input type="text"
                                             className="form-command-input-text"
                                             style={{width:"153px", backgroundColor:colorStatusCommand === "PENDENTE" ? "#ff0000" : "#018a01", color:"#ddd", textAlign:"center",fontWeight:"500"}}
@@ -375,14 +505,17 @@ const Commands = () => {
                                             required
                                             />
                                         </label>
+                                        
                               </div>
                               {/* FIM - VALORES FINAIS DA COMANDA*/}
 
                                 {/* BOTÕES DE NAVEGAÇÃO - GESTÃO DE COMANDAS */} 
-                                <div className="buttons-navigation-command">
-                                    <button type="button" disabled={btnNewCommand} onClick={handleClickNewCommand} ><MdCreateNewFolder className="icon-buttons-navigation"/>Novo</button>
-                                    <button type="button" disabled={btnCancelCommand}><TiCancel className="icon-buttons-navigation"/>Cancelar</button>
-                                    <button type="button"  disabled={btnSaveCommand}><BiSolidSave className="icon-buttons-navigation"/>Salvar</button>
+                                <div className="buttons-nav-command">  
+                                        <button type="button" disabled={btnNewCommand} onClick={(e) => handleClickNewCommand(e)} style={{backgroundColor: colorNewCommands, cursor: cursorNewCommand}}><MdCreateNewFolder className="icon-buttons-navigation"/>Novo</button>
+
+                                        <button type="button" disabled={btnCancelCommand} onClick={(e) => handleClickCancelCommand(e)} style={{backgroundColor: colorCancelCommands, cursor: cursorCancelCommand}}><TiCancel className="icon-buttons-navigation"/>Cancelar</button>
+
+                                        <button type="button" disabled={btnSaveCommand} onClick={(e) => handleClickSaveCommand(e)} style={{backgroundColor: colorSaveCommands, cursor: cursorSaveCommand}}><BiSolidSave className="icon-buttons-navigation"/>Salvar</button> 
                                 </div>
                                 {/* -------------------------------------------------- */} 
 
@@ -450,8 +583,9 @@ const Commands = () => {
                                                     </div>
 
                                                     <div className="buttons-del-update-groupCommands">
-                                                        <button className="btn-update-command" type="button"><GrUpdate className="icon-updateButton-command"/></button>
-                                                        <button className="btn-del-command" type="button"><MdDelete className="icon-deleteButton-command"/></button>
+                                                        <button className="btn-update-command" type="button" style={{cursor:isCursorUpDelCommand}} disabled={isDisableUpdDelCommand}><GrUpdate className="icon-updateButton-command" style={{pointerEvents:eventIconUpDelCommand}}/></button>
+
+                                                        <button className="btn-del-command" type="button" style={{cursor:isCursorUpDelCommand}} disabled={isDisableUpdDelCommand}><MdDelete className="icon-deleteButton-command" style={{pointerEvents:eventIconUpDelCommand}}/></button>
                                                     </div>
 
                                                 </div>
