@@ -222,170 +222,404 @@
   "commands": [
     {
       "idCommand": 1,
-      "tableCommand": "MESA 02",
+      "tableCommand": "02",
       "typeConsumption": "CONSUMO NO LOCAL",
-      "itensCommand": [
+      "item": [
         {
-          "idItem": 1,
-          "descriptionItem": "X-SALADA",
-          "photoItem": "/img/X-Salada.png",
-          "amountItem": 1,
-          "valueSaleItem": 15.2
+          "idItemCart": 1,
+          "descItemCart": "X-SALADA",
+          "photoItemCart": "/img/X-Salada.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 15.2
         },
         {
-          "idItem": 2,
-          "descriptionItem": "FANTA 350 ML",
-          "photoItem": "/img/Fanta Laranja 350 ML.png",
-          "amountItem": 1,
-          "valueSaleItem": 3.5
+          "idItemCart": 2,
+          "descItemCart": "FANTA 350 ML",
+          "photoItemCart": "/img/Fanta Laranja 350 ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 3.5
         },
         {
-          "idItem": 3,
-          "descriptionItem": "BOLO DE MORANGO",
-          "photoItem": "/img/Strawberry cake.png",
-          "amountItem": 1,
-          "valueSaleItem": 7.45
+          "idItemCart": 3,
+          "descItemCart": "BOLO DE MORANGO",
+          "photoItemCart": "/img/Strawberry cake.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 7.45
         },
         {
-          "idItem": 4,
-          "descriptionItem": "HALLS MENTA",
-          "photoItem": "/img/Halls Mint.png",
-          "amountItem": 1,
-          "valueSaleItem": 3.49
+          "idItemCart": 4,
+          "descItemCart": "HALLS MENTA",
+          "photoItemCart": "/img/Halls Mint.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 3.49
         },
         {
-          "idItem": 5,
-          "descriptionItem": "FANTA UVA 350 ML",
-          "photoItem": "/img/Fanta Uva 350 ML.png",
-          "amountItem": 2,
-          "valueSaleItem": 3.5
+          "idItemCart": 5,
+          "descItemCart": "FANTA UVA 350 ML",
+          "photoItemCart": "/img/Fanta Uva 350 ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 3.5
         },
         {
-          "idItem": 6,
-          "descriptionItem": "SPRITE 350 ML",
-          "photoItem": "/img/Sprite 350ML.png",
-          "amountItem": 3,
-          "valueSaleItem": 3.5
+          "idItemCart": 6,
+          "descItemCart": "SPRITE 350 ML",
+          "photoItemCart": "/img/Sprite 350ML.png",
+          "amountItemCart": 3,
+          "valueSaleItemCart": 3.5
         }
       ],
-      "valueCommand": 29.64,
-      "dateCommand": "04/09/2025",
+      "totalAmount": 29.64,
+      "dateSystemCommand": "04/09/2025",
       "hourCommand": "16:18",
       "statusCommand": "PENDENTE",
       "id": "c3f2"
     },
     {
       "idCommand": 2,
-      "tableCommand": "MESA 00",
+      "tableCommand": "00",
       "typeConsumption": "DELIVERY",
-      "itensCommand": [
+      "item": [
         {
-          "idItem": 7,
-          "descriptionItem": "X-BURGUER FRANGO",
-          "photoItem": "/img/X Burguer Frango.png",
-          "amountItem": 1,
-          "valueSaleItem": 16.5
+          "idItemCart": 7,
+          "descItemCart": "X-BURGUER FRANGO",
+          "photoItemCart": "/img/X Burguer Frango.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 16.5
         },
         {
-          "idItem": 8,
-          "descriptionItem": "FANTA 350 ML",
-          "photoItem": "/img/Fanta Laranja 350 ML.png",
-          "amountItem": 1,
-          "valueSaleItem": 3.5
+          "idItemCart": 8,
+          "descItemCart": "FANTA 350 ML",
+          "photoItemCart": "/img/Fanta Laranja 350 ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 3.5
         },
         {
-          "idItem": 9,
-          "descriptionItem": "PASTEL DE CARNE",
-          "photoItem": "/img/MeatPastry.png",
-          "amountItem": 1,
-          "valueSaleItem": 23.76
+          "idItemCart": 9,
+          "descItemCart": "PASTEL DE CARNE",
+          "photoItemCart": "/img/MeatPastry.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 23.76
         },
         {
-          "idItem": 10,
-          "descriptionItem": "COCA-COLA 350 ML",
-          "photoItem": "/img/Coca-Cola350ML.png",
-          "amountItem": 1,
-          "valueSaleItem": 3.5
+          "idItemCart": 10,
+          "descItemCart": "COCA-COLA 350 ML",
+          "photoItemCart": "/img/Coca-Cola350ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 3.5
         }
       ],
-      "valueCommand": 47.26,
-      "dateCommand": "04/09/2025",
+      "totalAmount": 47.26,
+      "dateSystemCommand": "04/09/2025",
       "hourCommand": "16:18",
       "statusCommand": "FINALIZADO",
       "id": "c3f3"
     },
     {
       "idCommand": 3,
-      "tableCommand": "MESA 00",
+      "tableCommand": "00",
       "typeConsumption": "DELIVERY",
-      "itensCommand": [
+      "item": [
         {
-          "idItem": 11,
-          "descriptionItem": "HOT-DOG ESPECIAL",
-          "photoItem": "/img/HotDogEspecial.png",
-          "amountItem": 2,
-          "valueSaleItem": 12.5
+          "idItemCart": 11,
+          "descItemCart": "HOT-DOG ESPECIAL",
+          "photoItemCart": "/img/HotDogEspecial.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 12.5
         },
         {
-          "idItem": 12,
-          "descriptionItem": "FANTA 350 ML",
-          "photoItem": "/img/Fanta Laranja 350 ML.png",
-          "amountItem": 2,
-          "valueSaleItem": 3.5
+          "idItemCart": 12,
+          "descItemCart": "FANTA 350 ML",
+          "photoItemCart": "/img/Fanta Laranja 350 ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 3.5
         }
       ],
-      "valueCommand": 32.96,
-      "dateCommand": "05/09/2025",
+      "totalAmount": 32.96,
+      "dateSystemCommand": "05/09/2025",
       "hourCommand": "16:09",
       "statusCommand": "PENDENTE",
       "id": "c3f4"
     },
     {
       "idCommand": 4,
-      "tableCommand": "MESA 05",
+      "tableCommand": "05",
       "typeConsumption": "CONSUMO NO LOCAL",
-      "itensCommand": [
+      "item": [
         {
-          "idItem": 13,
-          "descriptionItem": "TILÁPIAS",
-          "photoItem": "/img/Portion Of Tilapia.png",
-          "amountItem": 1,
-          "valueSaleItem": 48.99
+          "idItemCart": 13,
+          "descItemCart": "TILÁPIAS",
+          "photoItemCart": "/img/Portion Of Tilapia.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 48.99
         },
         {
-          "idItem": 14,
-          "descriptionItem": "BATATAS FRITAS",
-          "photoItem": "/img/Portion Fries.png",
-          "amountItem": 1,
-          "valueSaleItem": 33.49
+          "idItemCart": 14,
+          "descItemCart": "BATATAS FRITAS",
+          "photoItemCart": "/img/Portion Fries.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 33.49
         },
         {
-          "idItem": 15,
-          "descriptionItem": "SCHWEPPES 350 ML",
-          "photoItem": "/img/Schweppes Citrus 350 ML.png",
-          "amountItem": 2,
-          "valueSaleItem": 5.45
+          "idItemCart": 15,
+          "descItemCart": "SCHWEPPES 350 ML",
+          "photoItemCart": "/img/Schweppes Citrus 350 ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 5.45
         },
         {
-          "idItem": 16,
-          "descriptionItem": "COCA-COLA 350 ML",
-          "photoItem": "/img/Coca-Cola350ML.png",
-          "amountItem": 2,
-          "valueSaleItem": 3.5
+          "idItemCart": 16,
+          "descItemCart": "COCA-COLA 350 ML",
+          "photoItemCart": "/img/Coca-Cola350ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 3.5
         },
         {
-          "idItem": 17,
-          "descriptionItem": "BOLO DE CHOCOLATE",
-          "photoItem": "/img/Chocolate Cake.png",
-          "amountItem": 2,
-          "valueSaleItem": 6.29
+          "idItemCart": 17,
+          "descItemCart": "BOLO DE CHOCOLATE",
+          "photoItemCart": "/img/Chocolate Cake.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 6.29
         }
       ],
-      "valueCommand": 112.96,
-      "dateCommand": "05/09/2025",
+      "totalAmount": 112.96,
+      "dateSystemCommand": "05/09/2025",
       "hourCommand": "16:39",
       "statusCommand": "FINALIZADO",
       "id": "c3f5"
+    },
+    {
+      "idCommand": 5,
+      "tableCommand": "00",
+      "typeConsumption": "DELIVERY",
+      "item": [
+        {
+          "idItemCart": 11,
+          "descItemCart": "HOT-DOG ESPECIAL",
+          "photoItemCart": "/img/HotDogEspecial.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 12.5
+        },
+        {
+          "idItemCart": 12,
+          "descItemCart": "FANTA 350 ML",
+          "photoItemCart": "/img/Fanta Laranja 350 ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 3.5
+        }
+      ],
+      "totalAmount": 32.96,
+      "dateSystemCommand": "05/09/2025",
+      "hourCommand": "16:09",
+      "statusCommand": "PENDENTE",
+      "id": "c3f6"
+    },
+    {
+      "id": "22d7",
+      "idCommand": "6",
+      "tableCommand": "00",
+      "typeConsumption": "DELIVERY",
+      "item": [
+        {
+          "idItemCart": "ecf3",
+          "descItemCart": "HOT-DOG ESPECIAL",
+          "photoItemCart": "/img/HotDogEspecial.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "12.99"
+        }
+      ],
+      "totalAmount": 12.99,
+      "dateSystemCommand": "18/09/2025",
+      "hourCommand": "12:06:28",
+      "statusCommand": "FINALIZADO"
+    },
+    {
+      "id": "b16f",
+      "idCommand": "7",
+      "tableCommand": "04",
+      "typeConsumption": "LOCAL",
+      "item": [
+        {
+          "idItemCart": "9dd0",
+          "descItemCart": "COCA-COLA 350 ML",
+          "photoItemCart": "/img/Coca-Cola350ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "3.49"
+        }
+      ],
+      "totalAmount": 3.49,
+      "dateSystemCommand": "18/09/2025",
+      "hourCommand": "12:16:00",
+      "statusCommand": "PENDENTE"
+    },
+    {
+      "id": "efce",
+      "idCommand": "8",
+      "tableCommand": "6",
+      "typeConsumption": "LOCAL",
+      "item": [
+        {
+          "idItemCart": "d96f",
+          "descItemCart": "SPRITE 350 ML",
+          "photoItemCart": "/img/Sprite 350ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": "3.49"
+        },
+        {
+          "idItemCart": "f6c2",
+          "descItemCart": "BOLO DE CHOCOLATE",
+          "photoItemCart": "/img/Chocolate Cake.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 6.29
+        },
+        {
+          "idItemCart": "a635",
+          "descItemCart": "BOLO DE MORANGO",
+          "photoItemCart": "/img/Strawberry cake.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 7.45
+        },
+        {
+          "idItemCart": "489e",
+          "descItemCart": "FANTA 350 ML",
+          "photoItemCart": "/img/Fanta Laranja 350 ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": "3.49"
+        }
+      ],
+      "totalAmount": 27.7,
+      "dateSystemCommand": "18/09/2025",
+      "hourCommand": "12:59:26",
+      "statusCommand": "PENDENTE"
+    },
+    {
+      "id": "ef44",
+      "idCommand": "9",
+      "tableCommand": "00",
+      "typeConsumption": "DELIVERY",
+      "item": [
+        {
+          "idItemCart": "8ffd",
+          "descItemCart": "X-BURGER FRANGO",
+          "photoItemCart": "/img/X Burguer Frango.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": "16.99"
+        },
+        {
+          "idItemCart": "b183",
+          "descItemCart": "SCHWEPPES 350 ML",
+          "photoItemCart": "/img/Schweppes Citrus 350 ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 5.45
+        }
+      ],
+      "totalAmount": 44.87,
+      "dateSystemCommand": "18/09/2025",
+      "hourCommand": "14:53:36",
+      "statusCommand": "PENDENTE"
+    },
+    {
+      "id": "3605",
+      "idCommand": "10",
+      "tableCommand": "00",
+      "typeConsumption": "DELIVERY",
+      "item": [
+        {
+          "idItemCart": "ecf3",
+          "descItemCart": "HOT-DOG ESPECIAL",
+          "photoItemCart": "/img/HotDogEspecial.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "12.99"
+        }
+      ],
+      "totalAmount": 12.99,
+      "dateSystemCommand": "18/09/2025",
+      "hourCommand": "15:34:59",
+      "statusCommand": "PENDENTE"
+    },
+    {
+      "id": "2a88",
+      "idCommand": "11",
+      "tableCommand": "02",
+      "typeConsumption": "LOCAL",
+      "item": [
+        {
+          "idItemCart": "3879",
+          "descItemCart": "PASTEL DE FRANGO",
+          "photoItemCart": "/img/Chicken pastry.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": "7.55"
+        },
+        {
+          "idItemCart": "9dd0",
+          "descItemCart": "COCA-COLA 350 ML",
+          "photoItemCart": "/img/Coca-Cola350ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": "3.49"
+        }
+      ],
+      "totalAmount": 22.08,
+      "dateSystemCommand": "18/09/2025",
+      "hourCommand": "15:38:28",
+      "statusCommand": "FINALIZADO"
+    },
+    {
+      "id": "7a45",
+      "idCommand": "12",
+      "tableCommand": "03",
+      "typeConsumption": "LOCAL",
+      "item": [
+        {
+          "idItemCart": "a635",
+          "descItemCart": "BOLO DE MORANGO",
+          "photoItemCart": "/img/Strawberry cake.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 7.45
+        },
+        {
+          "idItemCart": "90dc",
+          "descItemCart": "COCADA QUEIMADA",
+          "photoItemCart": "/img/Coconut.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 2.55
+        },
+        {
+          "idItemCart": "489e",
+          "descItemCart": "FANTA 350 ML",
+          "photoItemCart": "/img/Fanta Laranja 350 ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "3.49"
+        }
+      ],
+      "totalAmount": 20.94,
+      "dateSystemCommand": "18/09/2025",
+      "hourCommand": "15:41:06",
+      "statusCommand": "FINALIZADO"
+    },
+    {
+      "id": "5f36",
+      "idCommand": "13",
+      "tableCommand": "00",
+      "typeConsumption": "DELIVERY",
+      "item": [
+        {
+          "idItemCart": "f6c2",
+          "descItemCart": "BOLO DE CHOCOLATE",
+          "photoItemCart": "/img/Chocolate Cake.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": 6.29
+        },
+        {
+          "idItemCart": "9dd0",
+          "descItemCart": "COCA-COLA 350 ML",
+          "photoItemCart": "/img/Coca-Cola350ML.png",
+          "amountItemCart": 2,
+          "valueSaleItemCart": "3.49"
+        }
+      ],
+      "totalAmount": 19.56,
+      "dateSystemCommand": "18/09/2025",
+      "hourCommand": "18:12:06",
+      "statusCommand": "PENDENTE"
     }
   ],
   "sales": [

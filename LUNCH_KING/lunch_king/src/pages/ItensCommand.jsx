@@ -93,7 +93,7 @@ const ItensCommand = () => {
 
     <div className="itens-command-container">
         <ul className="general-list-itens-command">
-            {isItem !== false ? itemProducts.map((itemProdComm) => (
+            {isItem !== false ? itemProducts?.map((itemProdComm) => (
                 
                     <li className="item-list-command" key={itemProdComm.idProduct}>
                         <div className="photo-product-item-command"><img src={itemProdComm.photoProduct} alt="foto do produto" /></div>

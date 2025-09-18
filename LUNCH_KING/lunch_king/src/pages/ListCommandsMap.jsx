@@ -27,18 +27,18 @@ export const ListCommandsMap = () => {
           {itemCommand && itemCommand.map((command) => (
             <li className="item-list-commands" key={command.idCommand}>
                 <div className="subgroup-item-initial">
-                  <p style={{textDecoration: "underline"}}>{command.tableCommand}</p>
+                  <p style={{textDecoration: "underline"}}>MESA {command.tableCommand}</p>
                   <p>{command.typeConsumption}</p>
                 </div>
 
                 <div className="group-item-commands">
-                {command.itensCommand.map((item) => (
-                  <div className="subgroup-item-commands" key={item.idItem}>
-                    <img src={item.photoItem} alt="foto do produto" />
+                {command.item.map((item) => (
+                  <div className="subgroup-item-commands" key={item.idItemCart}>
+                    <img src={item.photoItemCart} alt="foto do produto" />
                       <div className="subgroup-item-values">
-                        <p>{item.descriptionItem}</p>
-                        <p>{item.amountItem} un</p>
-                        <p style={{color: "red",fontWeight: "bolder"}}>R$ {checkValue(item.valueSaleItem) ? item.valueSaleItem + "0" : item.valueSaleItem}</p>
+                        <p>{item.descItemCart}</p>
+                        <p>{item.amountItemCart} un</p>
+                        <p style={{color: "red",fontWeight: "bolder"}}>R$ {checkValue(item.valueSaleItemCart) ? item.valueSaleItemCart + "0" : item.valueSaleItemCart}</p>
                       </div>
                     
                   </div>
@@ -49,11 +49,11 @@ export const ListCommandsMap = () => {
                 <div className="subgroup-item-finally">
                   <div className="finally-itens">
                     <p>Valor Total</p>
-                    <p>R$ {checkValue(command.valueCommand) ? command.valueCommand + "0" : command.valueCommand}</p>
+                    <p>R$ {checkValue(command.totalAmount) ? command.totalAmount + "0" : command.totalAmount}</p>
                   </div>
                   <div className="finally-itens">
                     <p>Data</p>
-                    <p>{command.dateCommand}</p>
+                    <p>{command.dateSystemCommand}</p>
                   </div>
                   <div className="finally-itens">
                     <p>Hora</p>
