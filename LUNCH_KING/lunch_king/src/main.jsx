@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 // PAGES
 import ListProductsMap from './pages/ListProductsMap.jsx'
 import { ListCommandsMap } from './pages/ListCommandsMap.jsx'
+import ListSalesMap from './pages/ListSalesMap.jsx'
 import Products from './pages/Products.jsx'
 import Commands from './pages/Commands.jsx'
 import Home from './pages/Home.jsx'
@@ -51,6 +52,10 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
             element: <ItensCommand/>
           }
         ]
+      },
+      {
+        path: "/listsales",
+        element: <ListSalesMap/>
       }
     ]
   }

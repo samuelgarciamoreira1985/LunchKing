@@ -39,7 +39,7 @@ const MainFooter = () => {
             <a href="#">Usuários</a>
             <Link to="/listproducts">Produtos</Link>
             <Link to="/listcommands">Comandas</Link>
-            <a href="#">Vendas</a>
+            <Link to="/listsales">Vendas</Link>
         </div>
 
         <div className="contact-footer">
