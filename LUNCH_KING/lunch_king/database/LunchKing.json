@@ -518,10 +518,9 @@
       "statusCommand": "PENDENTE"
     },
     {
-      "id": "3605",
       "idCommand": "10",
-      "tableCommand": "00",
-      "typeConsumption": "DELIVERY",
+      "tableCommand": "03",
+      "typeConsumption": "LOCAL",
       "item": [
         {
           "idItemCart": "ecf3",
@@ -532,9 +531,10 @@
         }
       ],
       "totalAmount": 12.99,
-      "dateSystemCommand": "18/09/2025",
-      "hourCommand": "15:34:59",
-      "statusCommand": "PENDENTE"
+      "dateSystemCommand": "19/09/2025",
+      "hourCommand": "14:01:31",
+      "statusCommand": "FINALIZADO",
+      "id": "3605"
     },
     {
       "id": "2a88",
@@ -596,10 +596,9 @@
       "statusCommand": "FINALIZADO"
     },
     {
-      "id": "5f36",
       "idCommand": "13",
-      "tableCommand": "00",
-      "typeConsumption": "DELIVERY",
+      "tableCommand": "02",
+      "typeConsumption": "LOCAL",
       "item": [
         {
           "idItemCart": "f6c2",
@@ -609,17 +608,18 @@
           "valueSaleItemCart": 6.29
         },
         {
-          "idItemCart": "9dd0",
-          "descItemCart": "COCA-COLA 350 ML",
-          "photoItemCart": "/img/Coca-Cola350ML.png",
-          "amountItemCart": 2,
-          "valueSaleItemCart": "3.49"
+          "idItemCart": "a635",
+          "descItemCart": "BOLO DE MORANGO",
+          "photoItemCart": "/img/Strawberry cake.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 7.45
         }
       ],
-      "totalAmount": 19.56,
-      "dateSystemCommand": "18/09/2025",
-      "hourCommand": "18:12:06",
-      "statusCommand": "PENDENTE"
+      "totalAmount": 20.02,
+      "dateSystemCommand": "19/09/2025",
+      "hourCommand": "13:59:43",
+      "statusCommand": "FINALIZADO",
+      "id": "5f36"
     }
   ],
   "sales": [

@@ -26,7 +26,7 @@ const url = "http://localhost:3000/commands"
 
 const Commands = () => {
 
-    const { data: commands, httpConfig, delRegister, getProductsUpdate } = useRequests(url)
+    const { data: commands, httpConfig, delRegister, getProductsUpdate, updateRegister, getRefreshRegister } = useRequests(url)
 
     const { item,setItem,countAmount,setCountAmount,totalAmount,setTotalAmount,isItem,setIsItem } = useContext(CartContext)
 
@@ -41,6 +41,7 @@ const Commands = () => {
     const [idCommand,setIdCommand] = useState("") // ID - [REQUEST]
     const [typeConsumption,setTypeConsumption] = useState("") // TIPO DE CONSUMO - [REQUEST]
     const [tableCommand,setTableCommand] = useState("") // MESA - [REQUEST]
+    const [tempIdComm,setTempIdComm] = useState("")
     // FIM - REQUESTS
 
     // ESTADOS - ATIVA E DESATIVA  
@@ -243,7 +244,6 @@ const Commands = () => {
             setIconSelectCart(optionsCommands[4])
             e.preventDefault()
             setIsItem(true)
-            setIconConDelivery(optionsCommands[4])
 
             setDisableTableCommand(true)
 
@@ -316,10 +316,13 @@ const Commands = () => {
             setHourCommand("") // zera a hora
             setBtnStatusCommand("DESATIVADO")
             setEventCursorStatus(optionsCommands[5])
+            setStatusCommand("PENDENTE")
 
             setIsDisableUpDelCommand(false)
             setIsCursorUpDelCommand(optionsCommands[2])
             setEventIconUpDelCommand(optionsCommands[4])
+
+            getRefreshRegister(url)
         }
         }}))
     }
@@ -333,6 +336,85 @@ const Commands = () => {
                 })
          }
          else if (idCommand !== "" && tableCommand !== "" && typeConsumption !== "" && item.length !== 0 && totalAmount !== 0 && dateSystemCommand !== "" && hourCommand !== "" && statusCommand !== "") {
+            // VERIFICAÇÃO DE INDÍCE DE OPERAÇÃO***
+            if(indexOpCommands === 2){ // ALTERAÇÃO
+                 swal("Confirma a alteração da comanda?", {
+                 closeOnClickOutside: false,
+                    dangerMode: true,
+                    closeOnEsc: false,
+                    icon: "warning",
+                    title: "REI DOS LANCHES",
+                    buttons: {
+                    confirmar: {
+                    text: "Sim",
+                    value: "sim",
+                    className: "swal-cancelar-sim",
+                    },
+                    cancelar: {
+                    text: "Não",
+                    value: "nao",
+                    className: "swal-cancelar-nao"
+                    },       
+                    },
+                    })
+                    .then((value => {
+                    if (value === "sim") {
+                    const objCommands= {
+                        idCommand, // id da comanda
+                        tableCommand, // mesa da comanda
+                        typeConsumption, // consumo da comanda
+                        item, // objetos de itens da comanda
+                        totalAmount, // valor total da comanda
+                        dateSystemCommand, // data da comanda
+                        hourCommand, // hora da comanda
+                        statusCommand // situação da comanda	
+                        }
+                    updateRegister(url,objCommands,tempIdComm)
+                    swal({
+                    icon: "success",
+                    title: "REI DOS LANCHES",
+                    text: "Comanda alterada com sucesso!"
+                    })
+                    setBtnNewCommand(false)
+                    setBtnCancelCommand(true)
+                    setBtnSaveCommand(true)
+
+                    setColorNewCommands(optionsCommands[0]) 
+                    setColorCancelCommands(optionsCommands[1])
+                    setColorSaveCommands(optionsCommands[1])
+
+                    setCursorNewCommand(optionsCommands[2])
+                    setCursorCancelCommand(optionsCommands[3])
+                    setCursorSaveCommand(optionsCommands[3])
+
+                    setIdCommand("")
+                    setDisableIdCommand(true)
+
+                    setIndexConsumption(0)
+                    setValueColorConsumption("")
+                    setIconConLocal(optionsCommands[5])
+                    setIconConDelivery(optionsCommands[5])
+                    setIconSelectCart(optionsCommands[5])
+                    e.preventDefault()
+                    setIsItem(false)
+                    setItem([])
+                    setTotalAmount(0)
+
+                    setTableCommand("")
+                    setDisableTableCommand(true)
+
+                    setBtnHourCommand("DESATIVADO")
+                    setEventCursorHour(optionsCommands[5])
+                    setHourCommand("") // zera a hora
+                    setBtnStatusCommand("DESATIVADO")
+                    setEventCursorStatus(optionsCommands[5])
+                    setStatusCommand("PENDENTE")
+
+                    setIsDisableUpDelCommand(false)
+                    setIsCursorUpDelCommand(optionsCommands[2])
+                    setEventIconUpDelCommand(optionsCommands[4])
+                }}))
+                }
             if (indexOpCommands === 1){ // INCLUSÃO DE COMANDAS
                 const response = await fetch(`http://localhost:3000/commands?idCommand=${idCommand}`)
                 const dataResponse = await response.json()
@@ -464,7 +546,37 @@ const Commands = () => {
     }
 
     const handleClickUpdateCommand = async (idUpdateComm,idComm,tableComm,typeConComm,itemComm,amountTotalComm,dateComm,hourComm,statusComm,tUpComm) => {  // BOTÃO - ATUALIZAR COMANDA
-      handleClickNewCommand()
+      setDisableIdCommand(true)  
+      setBtnNewCommand(true)
+      setBtnCancelCommand(false)
+      setBtnSaveCommand(false)
+
+      setColorNewCommands(optionsCommands[1]) 
+      setColorCancelCommands(optionsCommands[0])
+      setColorSaveCommands(optionsCommands[0])
+
+      setCursorNewCommand(optionsCommands[3])
+      setCursorCancelCommand(optionsCommands[2])
+      setCursorSaveCommand(optionsCommands[2])
+
+      setIndexConsumption(1)
+      setIconConLocal(optionsCommands[4])
+      setIconConDelivery(optionsCommands[4])
+      setIconSelectCart(optionsCommands[4])
+      //e.preventDefault()
+      setIsItem(true)
+
+      setDisableTableCommand(true)
+
+      setBtnHourCommand("ATIVADO")
+      setEventCursorHour(optionsCommands[4])
+      setBtnStatusCommand("ATIVADO")
+      setEventCursorStatus(optionsCommands[4])
+
+      setIsDisableUpDelCommand(true)
+      setIsCursorUpDelCommand(optionsCommands[3])
+      setEventIconUpDelCommand(optionsCommands[5])
+
       getProductsUpdate(url,idUpdateComm)
 
       setIdCommand(idComm)
@@ -472,13 +584,14 @@ const Commands = () => {
       setTypeConsumption(typeConComm)
       setItem(itemComm)
       setTotalAmount(amountTotalComm)
+      dateComm = dateSystemCommand
       setHourCommand(hourComm)
       setStatusCommand(statusComm)
       
-      setIndexOpCommands(2)
-      
       setTempIdComm(tUpComm)
+      setIndexOpCommands(2)
     }
+      
     //*********FIM - BOTÕES DE NAVEGAÇÃO****** */
 
   return (
@@ -735,7 +848,7 @@ const Commands = () => {
                                                     </div>
 
                                                     <div className="buttons-del-update-groupCommands">
-                                                        <button className="btn-update-command" type="button" style={{cursor:isCursorUpDelCommand}} disabled={isDisableUpdDelCommand}><GrUpdate className="icon-updateButton-command" style={{pointerEvents:eventIconUpDelCommand}}/></button>
+                                                        <button className="btn-update-command" type="button" style={{cursor:isCursorUpDelCommand}} disabled={isDisableUpdDelCommand} onClick={() => handleClickUpdateCommand(itemCommand.id,itemCommand.idCommand,itemCommand.tableCommand,itemCommand.typeConsumption,itemCommand.item,itemCommand.totalAmount,itemCommand.dateSystemCommand,itemCommand.hourCommand,itemCommand.statusCommand,itemCommand.id)}><GrUpdate className="icon-updateButton-command" style={{pointerEvents:eventIconUpDelCommand}}/></button>
 
                                                         <button className="btn-del-command" type="button" style={{cursor:isCursorUpDelCommand}} disabled={isDisableUpdDelCommand} onClick={() => handleClickDeleteCommand(itemCommand.id)}><MdDelete className="icon-deleteButton-command" style={{pointerEvents:eventIconUpDelCommand}}/></button>
                                                     </div>
