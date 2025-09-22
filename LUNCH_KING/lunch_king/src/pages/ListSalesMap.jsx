@@ -1,3 +1,7 @@
+// REACT
+import MoneyList from "../components/InvoicingData/MoneyList"
+import CardList from "../components/InvoicingData/CardList"
+import PixList from "../components/InvoicingData/PixList"
 // CUSTOM HOOKS
 import { useSearch } from "../hooks/useSearch"
 //CSS
@@ -71,6 +75,13 @@ const ListSalesMap = () => {
                      <div className="invoicing-title">
                           <p><FaMoneyBill1Wave className="icon-address"/> DADOS DE FATURAMENTO</p>
                      </div>
+                     <div className="invoicing-initial">
+                          <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}>VALOR TOTAL: </span> R$ {checkValue(sale.valueSale) ? sale.valueSale + "0" : sale.valueSale}</p>
+                          <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}>FORMA DE PAGAMENTO:</span> {sale.paymentMethod}</p>
+                     </div>
+                     <div>
+                          {sale.paymentMethod === "DINHEIRO" ? <MoneyList/> : (sale.paymentMethod === "CARTÃO" ? <CardList/> : <PixList/>)}
+                      </div>
                 </div>
 
               </li>
