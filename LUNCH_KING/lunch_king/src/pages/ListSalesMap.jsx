@@ -4,6 +4,7 @@ import { useSearch } from "../hooks/useSearch"
 import "./ListSalesMap.css"
 // ÍCONES
 import { FaAddressBook } from "react-icons/fa";
+import { FaMoneyBill1Wave } from "react-icons/fa6";
 
 const url = "http://localhost:3000/sales"
 
@@ -63,6 +64,12 @@ const ListSalesMap = () => {
                           <p><span>UF:</span> {sale.deliveryAddressUf}</p>
                           <p><span>REGIÃO:</span> {sale.deliveryAddressRegion}</p>
                         </div>
+                     </div>
+                </div>
+
+                <div className="group-invoicing-sale">
+                     <div className="invoicing-title">
+                          <p><FaMoneyBill1Wave className="icon-address"/> DADOS DE FATURAMENTO</p>
                      </div>
                 </div>
 
