@@ -783,11 +783,11 @@
       "deliveryAddressRegion": "SUDESTE",
       "itemsSale": [
         {
-          "idItemCart": "ecf3",
-          "descItemCart": "HOT-DOG ESPECIAL",
-          "photoItemCart": "/img/HotDogEspecial.png",
-          "amountItemCart": 1,
-          "valueSaleItemCart": "12.99"
+          "idItemCartSale": "ecf3",
+          "descItemCartSale": "HOT-DOG ESPECIAL",
+          "photoItemCartSale": "/img/HotDogEspecial.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": "12.99"
         }
       ],
       "valueSale": 12.99,
