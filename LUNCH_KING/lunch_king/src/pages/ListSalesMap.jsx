@@ -1,20 +1,21 @@
-// REACT
-import MoneyList from "../components/InvoicingData/MoneyList"
-import CardList from "../components/InvoicingData/CardList"
-import PixList from "../components/InvoicingData/PixList"
 // CUSTOM HOOKS
+import { useState } from "react";
 import { useSearch } from "../hooks/useSearch"
 //CSS
 import "./ListSalesMap.css"
 // ÍCONES
 import { FaAddressBook } from "react-icons/fa";
 import { FaMoneyBill1Wave } from "react-icons/fa6";
+import { GiMoneyStack } from "react-icons/gi";
+import { GrMoney } from "react-icons/gr";
 
 const url = "http://localhost:3000/sales"
 
 const ListSalesMap = () => {
 
     const { data: listSales } = useSearch(url)
+
+    const [checkPayment,setCheckPayment] = useState("")
 
     const checkValue = (valueSale) => {
         const decimalPart = valueSale.toString().split(".")[1] || ''
@@ -79,8 +80,27 @@ const ListSalesMap = () => {
                           <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}>VALOR TOTAL: </span> R$ {checkValue(sale.valueSale) ? sale.valueSale + "0" : sale.valueSale}</p>
                           <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}>FORMA DE PAGAMENTO:</span> {sale.paymentMethod}</p>
                      </div>
-                     <div>
-                          {sale.paymentMethod === "DINHEIRO" ? <MoneyList/> : (sale.paymentMethod === "CARTÃO" ? <CardList/> : <PixList/>)}
+                     <div className="payment-types-sales">
+                          {sale.paymentMethod === "DINHEIRO" ? (<div className="money-sales">
+                            <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}><GiMoneyStack className="icon-money-input"/> VALOR DE ENTRADA:</span> R$ {checkValue(sale.inputValueSale) ? sale.inputValueSale + "0" : sale.inputValueSale}</p>
+                            <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}><GrMoney className="icon-money-change"/> TROCO:</span> {checkValue(sale.changeValueSale) ? sale.changeValueSale + "0" : sale.changeValueSale}</p>
+
+                          </div>) : sale.paymentMethod === "CARTÃO" ? (<div className="card-sales">
+                            <div className="card-sales-initial">
+                              <p>TIPO: {sale.typePaymentCard}</p>
+                              <p>NOME: {sale.cardName}</p>
+                              <p>NÚMERO: {sale.cardNumber}</p>
+                            </div>
+                            <div className="card-sales-finally">
+                              <p>CPF/CNPJ: {sale.cpfCnpjHolder}</p>
+                              <p>BANDEIRA: {sale.cardFlag}</p>
+                              <p>DATA DE VALIDADE: {sale.expirationDateCard}</p>
+                              <p>CÓDIGO DE SEGURANÇA: {sale.cvcCwCard}</p>
+                            </div>
+
+                          </div>) : (<div className="pix-sales">
+                            <h2>PIX</h2>  
+                          </div>)}
                       </div>
                 </div>
 
