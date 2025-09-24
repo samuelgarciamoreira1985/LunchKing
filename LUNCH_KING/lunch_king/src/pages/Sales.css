@@ -1,0 +1,333 @@
+.container-sales { /* CONTAINER PRINCIPAL - VENDAS */
+    height: 57vh;
+    width: 80vw;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.container-sales h2 {
+    padding: 10px;
+    color: #000;
+    font-size: 1.5rem;
+    font-family: "Caprasimo", serif;
+    font-weight: bold;
+    text-shadow: 1.5px 1.4px 5px #fff;
+    margin-bottom: 15px;
+}
+/* FORMULÁRIO DE VENDAS */
+.form-register-sales {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+/*-----------------DADOS DE ENTRADA-------------------------*/
+.input-initial-sales {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #086d9c9f;
+    width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
+    height: 30px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.input-initial-sales label {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.input-initial-sales span {
+    color: #fff;
+    font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-shadow: .4px .4px 2.5px #000;
+}
+
+.input-initial-sales input {
+    padding: 2px;
+    color: #000;
+    text-shadow: .9px .8px 5px #ffffff9c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    border-radius: 6px;
+    border: none;    
+    text-transform: uppercase;
+    height: 20px;
+}
+
+/*---------------------ITÉNS DA COMANDA-----------------------*/
+.command-items-sales {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffffd0;
+    width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
+    height: 200px;
+    margin-top: -7px;
+}
+
+.items-command-sales {
+    background-color: #086d9c9f;
+    width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
+    height: 200px;
+}
+
+.title-commmand-items-sales {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 0px;
+    background-color: #000000c0;
+}
+
+.title-commmand-items-sales p {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-shadow: .9px 1px 2px #000;
+    font-weight: 600;
+}
+
+.icon-items-command-sales {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-right: 6px;
+}
+/*---------------DADOS DE ENDEREÇO----------------------------*/
+.data-address-sales {
+    display: flex;
+    flex-direction: column;
+    width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
+    margin-top: -7px;
+}
+
+.title-data-address-sales {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 0px;
+    background-color: #000000c0;
+}
+
+.title-data-address-sales p {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-shadow: .9px 1px 2px #000;
+    font-weight: 600;
+}
+
+.icon-address-sales {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-right: 6px;
+}
+
+.address-initial { /* INÍCIO - CEP,LOGRADOURO E NÚMERO */
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    background-color: #ffffffd0;
+    height: 45px;
+    justify-content: space-around;
+    background-color: #086d9c9f;
+}
+
+.address-initial label {
+    margin-top: 1px;
+}
+
+.address-initial span {
+    color: #fff;
+    font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-shadow: .4px .4px 2.5px #000;
+}
+
+.address-initial input {
+    padding: 2px;
+    color: #000;
+    text-shadow: .9px .8px 5px #ffffff9c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    border-radius: 6px;
+    border: none;    
+    text-transform: uppercase;
+    height: 20px;
+}
+
+.address-finally { /* FIM - BAIRRO,CIDADE,ESTADO,UF E REGIÃO */
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    background-color: #ffffffd0;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    background-color: #086d9c9f;
+}
+
+.address-finally label {
+     margin-top: -10px;
+     margin-left: 35px;
+}
+
+.address-finally span {
+    color: #fff;
+    font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-shadow: .4px .4px 2.5px #000;
+}
+
+.address-finally input {
+    padding: 2px;
+    color: #000;
+    text-shadow: .9px .8px 5px #ffffff9c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    border-radius: 6px;
+    border: none;    
+    text-transform: uppercase;
+    height: 20px;
+}
+/* DADOS DE FATURAMENTO */
+.data-invoicing-sales {
+    display: flex;
+    flex-direction: column;
+    width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
+    margin-top: -7px;       
+    margin-bottom: 10px;
+}
+
+.title-data-invoicing-sales {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 0px;
+    background-color: #000000c0;
+}
+
+.title-data-invoicing-sales p {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-shadow: .9px 1px 2px #000;
+    font-weight: 600;
+}
+
+.icon-invoicing-sales {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-right: 6px;
+} /* ---------------------- */
+
+.data-payment-sales {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    position: relative;
+}
+
+.data-payment-sales label {
+    background-color: #000000a1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+}
+
+.data-payment-sales label span {
+    color: #fff;
+    align-self: flex-end;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    text-shadow: .3px .3px 3px #000;
+}
+
+.radio-payment {
+    opacity: 0;
+}
+
+.icon-money-payment {
+    color: #00ff0d;
+    font-size: 2.5rem;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.icon-money-payment:hover {
+    color: #7076f4;
+}
+
+.icon-card-payment {
+    color: #feffff;
+    font-size: 2.5rem;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.icon-card-payment:hover {
+    color: #7076f4;
+}
+
+.icon-card-visa {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-right: 6px;
+    position: absolute;
+    right: 200px;
+}
+
+.icon-card-mastercard {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-right: 6px;
+    position: absolute;
+    right: 150px;
+}
+
+.icon-card-nubank {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-right: 6px;
+    position: absolute;
+    right: 100px;
+}
+
+.icon-card-discover {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-right: 6px;
+    position: absolute;
+    right: 50px;
+}
+
+.icon-pix-payment {
+    color: #00ac00;
+    font-size: 2.5rem;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.icon-pix-payment:hover {
+    color: #7076f4;
+}
