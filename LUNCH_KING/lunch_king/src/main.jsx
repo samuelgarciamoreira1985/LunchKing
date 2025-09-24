@@ -10,6 +10,7 @@ import { ListCommandsMap } from './pages/ListCommandsMap.jsx'
 import ListSalesMap from './pages/ListSalesMap.jsx'
 import Products from './pages/Products.jsx'
 import Commands from './pages/Commands.jsx'
+import Sales from './pages/Sales.jsx'
 import Home from './pages/Home.jsx'
 import ProductsFilter from './pages/ProductsFilter.jsx'
 import ItensCommand from './pages/ItensCommand.jsx'
@@ -56,6 +57,10 @@ const routes = createBrowserRouter([ // Mapeamento de rotas***
       {
         path: "/listsales",
         element: <ListSalesMap/>
+      },
+      {
+        path: "/sales", // Tela de Vendas -- nav
+        element: <Sales/>
       }
     ]
   }

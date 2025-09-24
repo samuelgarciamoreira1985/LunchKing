@@ -18,9 +18,9 @@ const NavMainHeader = () => {
         <div className="nav-details">
           <Link to="/products" id="first-nav"><FaShoppingCart /> Produtos</Link>
           <Link to="/commands"><IoClipboardSharp /> Comandas</Link>
-          <a href="#"><RiMoneyDollarCircleFill /> Vendas</a>
+          <Link to="/sales"><RiMoneyDollarCircleFill /> Vendas</Link>
           <a href="#"><MdOutlineHelp /> Ajuda</a>
-          <a href="#" id="last-nav"><IoIosPeople /> Quem somos</a>
+          <a href="#"><IoIosPeople />Quem somos</a>
         </div>
     </div>
     

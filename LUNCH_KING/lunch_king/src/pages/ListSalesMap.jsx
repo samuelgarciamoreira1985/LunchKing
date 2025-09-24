@@ -87,20 +87,25 @@ const ListSalesMap = () => {
 
                           </div>) : sale.paymentMethod === "CARTÃO" ? (<div className="card-sales">
                             <div className="card-sales-initial">
-                              <p>TIPO: {sale.typePaymentCard}</p>
-                              <p>NOME: {sale.cardName}</p>
-                              <p>NÚMERO: {sale.cardNumber}</p>
+                              <p><span>TIPO:</span> {sale.typePaymentCard}</p>
+                              <p><span>NOME:</span> {sale.cardName}</p>
+                              <p><span>NÚMERO:</span> {sale.cardNumber}</p>
                             </div>
                             <div className="card-sales-finally">
-                              <p>CPF/CNPJ: {sale.cpfCnpjHolder}</p>
-                              <p>BANDEIRA: {sale.cardFlag}</p>
-                              <p>DATA DE VALIDADE: {sale.expirationDateCard}</p>
-                              <p>CÓDIGO DE SEGURANÇA: {sale.cvcCwCard}</p>
+                              <p><span>CPF/CNPJ:</span> {sale.cpfCnpjHolder}</p>
+                              <p><span>BANDEIRA:</span> {sale.cardFlag}</p>
+                              <p><span>VALIDADE:</span> {sale.expirationDateCard}</p>
+                              <p><span>CÓDIGO DE SEGURANÇA:</span> {sale.cvcCwCard}</p>
                             </div>
 
                           </div>) : (<div className="pix-sales">
-                            <h2>PIX</h2>  
+                            <img src={sale.qrCodePisSale} alt="imagem do qrCode do pix da venda" /> 
+                            <div className="pix-sales-data">
+                              <p><span>NOME: </span>{sale.cardName}</p>
+                              <p><span>CPF/CNPJ: </span>{sale.cpfCnpjHolder}</p>
+                            </div>
                           </div>)}
+
                       </div>
                 </div>
 
