@@ -247,13 +247,50 @@
     position: relative;
 }
 
-.data-payment-sales label {
+.click-type-payment {
     background-color: #000000a1;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding: 10px;
 }
+
+.hide-click-type-payment-money { /* DIV ESCONDIDA DE PAGAMENTO - MONEY*/
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    padding: 10px;
+}
+
+.hide-click-type-payment-money span {
+    color: #fff;
+    font-weight: 300;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-shadow: .4px .4px 2.5px #000;
+}
+
+.hide-click-type-payment-money input {
+    padding: 2px;
+    color: #000;
+    text-shadow: .9px .8px 5px #ffffff9c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    border-radius: 6px;
+    border: none;    
+    text-transform: uppercase;
+    height: 20px;
+}
+
+.hide-click-type-payment-money label {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 10px;
+} /* FIM - DIV ESCONDIDA DE PAGAMENTO - MONEY*/
 
 .data-payment-sales label span {
     color: #fff;
@@ -268,7 +305,7 @@
 }
 
 .icon-money-payment {
-    color: #00ff0d;
+    color: #ddd;
     font-size: 2.5rem;
     margin-right: 6px;
     cursor: pointer;
@@ -322,7 +359,7 @@
 }
 
 .icon-pix-payment {
-    color: #00ac00;
+    color: #ddd;
     font-size: 2.5rem;
     margin-right: 6px;
     cursor: pointer;
@@ -330,4 +367,66 @@
 
 .icon-pix-payment:hover {
     color: #7076f4;
+}
+/*----------DADOS FINAIS-------------*/
+
+.data-finally-sales {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #086d9c9f;
+    width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
+    height: 40px;
+    border-radius: 0px 0px 10px 10px;
+    margin-bottom: 10px;
+    margin-top: -17px;
+    padding-top: 3px;
+    
+}
+
+.data-finally-sales label {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.data-finally-sales span {
+    color: #fff;
+    font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    text-shadow: .4px .4px 2.5px #000;
+}
+
+.data-finally-sales input {
+    padding: 2px;
+    color: #000;
+    text-shadow: .9px .8px 5px #ffffff9c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    border-radius: 6px;
+    border: none;    
+    text-transform: uppercase;
+    height: 20px;
+}
+
+.data-finally-sales button {
+    width: 152px;
+    border-radius: 7px;
+    background-color: #022b61b4;
+    color: #ddd;
+    font-weight: 600;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 3.2px;
+    border: none;
+    text-shadow: .5px .5px 2px black;
+    cursor: pointer;
+}
+
+.data-finally-sales button:hover {
+    color: #dddddde1;
 }

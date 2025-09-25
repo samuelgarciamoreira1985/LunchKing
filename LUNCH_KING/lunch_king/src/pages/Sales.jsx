@@ -1,3 +1,5 @@
+// REACT
+import { useState } from "react";
 // CSS
 import "./Sales.css"
 //ÍCONES
@@ -10,6 +12,36 @@ import { RiVisaFill } from "react-icons/ri";
 import { SiNubank } from "react-icons/si";
 
 const Sales = () => {
+
+    const [typePaymentMoney,setTypePaymentMoney] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - MONEY
+    const [indexTypePaymentMoney,setIndexTypePaymentMoney] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - MONEY
+    const [typePaymentCard,setTypePaymentCard] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - CARD
+    const [indexTypePaymentCard,setIndexTypePaymentCard] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - CARD
+
+    // FUNÇÕES - TIPOS DE PAGAMENTOS
+    const changeTypePaymentMoney = (e) => { // FUNÇÃO - DINHEIRO
+        if (indexTypePaymentMoney === 1){
+            setTypePaymentMoney("ATIVADO")
+            setIndexTypePaymentMoney(2)
+        } 
+        else if (indexTypePaymentMoney === 2){
+            setTypePaymentMoney("DESATIVADO")
+            setIndexTypePaymentMoney(1)
+        }    
+        
+    }
+
+    const changeTypePaymentCard= (e) => { // FUNÇÃO - CARTÂO
+        if (indexTypePaymentCard === 1){
+            setTypePaymentCard("ATIVADO")
+            setIndexTypePaymentCard(2)
+        } 
+        else if (indexTypePaymentCard === 2){
+            setTypePaymentCard("DESATIVADO")
+            setIndexTypePaymentCard(1)
+        }    
+    }
+    // FIM - FUNÇÕES - TIPOS DE PAGAMENTOS
 
   return (
 
@@ -140,34 +172,121 @@ const Sales = () => {
 
                 <div className="data-payment-sales"> {/* PAGAMENTOS */}
 
-                    <label> {/* DINHEIRO */}
-                        <input type="radio" className="radio-payment"
-                        value="MONEY"
-                        />
-                        <GiMoneyStack className="icon-money-payment"/>
-                        <span>DINHEIRO</span>
-                    </label>
-                    <label> {/* CARTÃO */}
-                        <input type="radio" className="radio-payment"
-                        value="CARD"
-                        />
-                        <HiMiniCreditCard  className="icon-card-payment"/>
-                        <span>CARTÃO</span>
-                        <RiVisaFill  className="icon-card-visa"/>
-                        <FaCcMastercard className="icon-card-mastercard"/>
-                        <SiNubank className="icon-card-nubank"/>
-                        <FaCcDiscover className="icon-card-discover"/>
-                    </label>
-                    <label> {/* PIX */}
-                        <input type="radio" className="radio-payment"
-                        value="PIX"
-                        />
-                        <FaPix className="icon-pix-payment"/>
-                        <span>PIX</span>
-                    </label>
+                    <div className="click-type-payment">
+                        <label> {/* DINHEIRO */}
+                            <input type="radio" className="radio-payment"
+                            value={typePaymentMoney}
+                            checked={typePaymentMoney === "ATIVADO"}
+                            onChange={changeTypePaymentMoney}
+                            onClick={changeTypePaymentMoney}
+                            />
+                            <GiMoneyStack className="icon-money-payment"/>
+                            <span>DINHEIRO</span>
+                        </label>
+                        {typePaymentMoney === "ATIVADO" ? <div className="hide-click-type-payment-money">
+                            <label>
+                                <span>VALOR TOTAL R$</span>
+                                <input type="text" style={{textAlign:"center",width:"100px"}}
+                                id="id-total-money"
+                                name="n-total-money"
+                                disabled={true}
+                                required
+                                />
+                            </label>
+                            <label>
+                                <span>VALOR DE ENTRADA R$</span>
+                                <input type="text" style={{textAlign:"center",width:"100px"}}
+                                id="id-input-money"
+                                name="n-input-money"
+                                required
+                                />
+                            </label>
+                            <label>
+                                <span>TROCO R$ </span>
+                                <input type="text" style={{textAlign:"center",width:"100px"}}
+                                id="id-change-money"
+                                name="n-change-money"
+                                required
+                                />
+                            </label>
+                        </div> : ""}
+                        
+                    </div> {/* FIM - DINHEIRO */}
+
+                    <div className="click-type-payment">
+                        <label> {/* CARTÃO */}
+                            <input type="radio" className="radio-payment"
+                            value={typePaymentCard}
+                            checked={typePaymentCard === "ATIVADO"}
+                            onChange={changeTypePaymentCard}
+                            onClick={changeTypePaymentCard}
+                            />
+                            <HiMiniCreditCard  className="icon-card-payment"/>
+                            <span>CARTÃO</span>
+                            <RiVisaFill  className="icon-card-visa"/>
+                            <FaCcMastercard className="icon-card-mastercard"/>
+                            <SiNubank className="icon-card-nubank"/>
+                            <FaCcDiscover className="icon-card-discover"/>
+                        </label>
+                        {typePaymentCard === "ATIVADO" ? <div className="hide-click-type-payment-card">
+                            <label>
+                                <span>VALOR TOTAL R$</span>
+                                <input type="text" style={{textAlign:"center",width:"100px"}}
+                                id="id-total-card"
+                                name="n-total-card"
+                                disabled={true}
+                                required
+                                />
+                            </label>
+                            
+                        </div> : ""}
+                    </div> {/* FIM - CARTÃO */}
+
+                    <div className="click-type-payment">
+                        <label> {/* PIX */}
+                            <input type="radio" className="radio-payment"
+                            value="PIX"
+                            />
+                            <FaPix className="icon-pix-payment"/>
+                            <span>PIX</span>
+                        </label>
+                    </div>
 
                 </div>
 
+            </div>
+
+            <div className="data-finally-sales"> 
+                <label>
+                    <span>DATA: </span>
+                    <input type="text" style={{width:"120px",textAlign:"center"}}
+                    id="id-date-sale"
+                    name="n-date-sale"
+                    disabled={true}
+                    required
+                    />
+                </label>
+
+                <label>
+                    <button type="button">HORA</button>
+                    <input type="text" style={{width:"110px",textAlign:"center"}} 
+                    id="id-hour-sale"
+                    name="n-hour-sale"
+                    disabled={true}
+                    required
+                    />
+                </label>
+
+                <label>
+                    <button type="button">SITUAÇÃO</button>
+                    <input type="text" style={{width:"130px",textAlign:"center",backgroundColor:"#ff0000",color:"#ddd"}}
+                    id="id-status-sale"
+                    name="n-status-sale"
+                    value="PENDENTE"
+                    disabled={true}
+                    required
+                    />
+                </label>
             </div>
 
         </form>
