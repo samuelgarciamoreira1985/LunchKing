@@ -6,7 +6,7 @@ import "./Sales.css"
 import { ImCart } from "react-icons/im";
 import { FaAddressCard,FaCcMastercard,FaCcDiscover } from "react-icons/fa";
 import { FaMoneyBillWave,FaPix } from "react-icons/fa6";
-import { GiMoneyStack } from "react-icons/gi"
+import { GiMoneyStack,GiReceiveMoney,GiPayMoney   } from "react-icons/gi"
 import { HiMiniCreditCard } from "react-icons/hi2";
 import { RiVisaFill } from "react-icons/ri";
 import { SiNubank } from "react-icons/si";
@@ -181,7 +181,7 @@ const Sales = () => {
                             onClick={changeTypePaymentMoney}
                             />
                             <GiMoneyStack className="icon-money-payment"/>
-                            <span>DINHEIRO</span>
+                            <span style={{userSelect:"none"}}>DINHEIRO</span>
                         </label>
                         {typePaymentMoney === "ATIVADO" ? <div className="hide-click-type-payment-money">
                             <label>
@@ -222,23 +222,96 @@ const Sales = () => {
                             onClick={changeTypePaymentCard}
                             />
                             <HiMiniCreditCard  className="icon-card-payment"/>
-                            <span>CARTÃO</span>
+                            <span style={{userSelect:"none"}}>CARTÃO</span>
                             <RiVisaFill  className="icon-card-visa"/>
                             <FaCcMastercard className="icon-card-mastercard"/>
                             <SiNubank className="icon-card-nubank"/>
                             <FaCcDiscover className="icon-card-discover"/>
                         </label>
-                        {typePaymentCard === "ATIVADO" ? <div className="hide-click-type-payment-card">
-                            <label>
-                                <span>VALOR TOTAL R$</span>
-                                <input type="text" style={{textAlign:"center",width:"100px"}}
-                                id="id-total-card"
-                                name="n-total-card"
-                                disabled={true}
-                                required
-                                />
-                            </label>
-                            
+                        {typePaymentCard === "ATIVADO" ? <div style={{height:"90px"}} className="hide-click-type-payment-card">
+                                    <div className="hide-card-one" style={{border:"1px solid white",borderRadius:"10px",paddingRight:"5px",paddingTop:"3px",paddingBottom:"4px",height:"80px"}}>
+                                        <label className="hide-card-radio">
+                                            <input type="radio"
+                                            />
+                                            <GiReceiveMoney className="icon-hide-type-card"/>
+                                            <span style={{marginBottom:"30px"}}>CRÉDITO</span>
+                                        </label>
+                                        <label className="hide-card-radio">
+                                                <input type="radio"
+                                                />
+                                                <GiPayMoney className="icon-hide-type-card"/>
+                                                <span style={{marginBottom:"30px"}}>DÉBITO</span>
+                                        </label>
+                                    </div>
+
+                                    <div className="flags-card">
+                                            <label>
+                                                <input type="radio" 
+                                                
+                                                />
+                                                <RiVisaFill className="icon-flags"/>                                               
+                                            </label>
+                                            <label>
+                                                <input type="radio" 
+                                                
+                                                />
+                                                <FaCcMastercard className="icon-flags"/>                                             
+                                            </label>
+                                            <label>
+                                                <input type="radio" 
+                                                
+                                                />
+                                                <SiNubank className="icon-flags"/>                                              
+                                            </label>
+                                            <label>
+                                                <input type="radio" 
+                                                
+                                                />
+                                                <FaCcDiscover className="icon-flags"/>                                              
+                                            </label>
+                                    </div>
+                               
+
+                                <div className="hide-card-initial"> {/* NOME,NÚMERO */}
+                                    <label className="hide-card-initial-span">
+                                        <span>NOME</span>
+                                        <input type="text" style={{width:"370px",textAlign:"center"}}
+                                        id="id-name-card"
+                                        name="n-name-card"
+                                        />
+                                    </label>
+                                    <label className="hide-card-initial-span">
+                                        <span>NÚMERO</span>
+                                        <input type="text" style={{width:"200px",textAlign:"center"}}
+                                        id="id-number-card"
+                                        name="n-number-card"
+                                        />
+                                    </label>
+                                </div>
+
+                                    <div className="hide-card-finally"> {/* CPF/CNPJ,BANDEIRA,VALID,COD/SEGURANÇA */}
+                                        <label className="hide-card-finally-span">
+                                            <span>CPF/CNPJ</span>
+                                            <input type="text" style={{width:"150px",textAlign:"center"}}
+                                            id="id-cpfcnpj-card"
+                                            name="n-cpfcnpj-card"
+                                            />
+                                        </label>
+                                        <label className="hide-card-finally-span">
+                                            <span>VALIDADE</span>
+                                            <input type="text" style={{width:"100px",textAlign:"center"}}
+                                            id="id-expiration-card"
+                                            name="n-expiration-card"
+                                            />
+                                        </label>
+                                        <label className="hide-card-finally-span">
+                                            <span>SEGURANÇA</span>
+                                            <input type="text" style={{width:"80px",textAlign:"center"}}
+                                            id="id-cvcCwCard-card"
+                                            name="n-cvcCwCard-card"
+                                            />
+                                        </label>
+                                    </div>
                         </div> : ""}
                     </div> {/* FIM - CARTÃO */}
 

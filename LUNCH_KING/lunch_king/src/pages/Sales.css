@@ -256,6 +256,17 @@
     padding: 10px;
 }
 
+.hide-card-one {
+    display: flex;
+    flex-direction: row;
+    margin-left: -15px;
+}
+
+.container-card-type {
+    display: flex;
+    flex-direction: column;
+}
+
 .hide-click-type-payment-money { /* DIV ESCONDIDA DE PAGAMENTO - MONEY*/
     display: flex;
     flex-direction: row;
@@ -291,6 +302,135 @@
     gap: 8px;
     margin-top: 10px;
 } /* FIM - DIV ESCONDIDA DE PAGAMENTO - MONEY*/
+
+.hide-click-type-payment-card { /* DIV ESCONDIDA DE PAGAMENTO - CARD*/
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    justify-content: flex-start;
+    gap: 40px;
+    margin-top: 12px;
+    margin-left: 40px;
+    padding: 10px;
+    position: relative;
+}
+
+.flags-card {
+    position: absolute;
+    top: 50px;
+    margin-left: 9px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.flags-card input {
+    opacity: 0;
+}
+
+.icon-flags {
+    color: #ffffff;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.icon-flags:hover {
+    color: #7076f4;
+}
+
+.hide-card-radio {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    margin-top: -6px;
+}
+
+.icon-hide-type-card {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.icon-hide-type-card:hover {
+    color: #7076f4;
+}
+
+.hide-card-radio input {
+    opacity: 0;
+}
+
+.hide-card-initial {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    margin-left: -15px;
+    height: 25px;
+}
+
+.hide-card-initial-span {
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    gap: 7px;
+}
+
+.hide-card-initial-span span{
+    color: #fff;
+    align-self: flex-end;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    text-shadow: .3px .3px 3px #000;
+}
+
+.hide-card-initial-span input {
+    padding: 2px;
+    color: #000;
+    text-shadow: .9px .8px 5px #ffffff9c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    border-radius: 6px;
+    border: none;    
+    text-transform: uppercase;
+    height: 20px;
+}
+
+.hide-card-finally {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    left: 299px;
+    top: 40px;
+    width: 48vw;
+    gap: 30px;
+}
+
+.hide-card-finally-span {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+}
+
+.hide-card-finally-span span {
+    color: #fff;
+    align-self: flex-end;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    text-shadow: .3px .3px 3px #000;
+}
+
+.hide-card-finally-span input {
+    padding: 2px;
+    color: #000;
+    text-shadow: .9px .8px 5px #ffffff9c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    border-radius: 6px;
+    border: none;    
+    text-transform: uppercase;
+    height: 20px;
+}
+/* FIM - DIV ESCONDIDA DE PAGAMENTO - CARD */
 
 .data-payment-sales label span {
     color: #fff;
