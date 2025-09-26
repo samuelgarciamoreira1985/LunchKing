@@ -1,12 +1,13 @@
 // REACT
 import { useState } from "react";
 import QRCode from 'react-qr-code'
+import { useRequests } from "../hooks/useRequests"
 // CSS
 import "./Sales.css"
 //ÍCONES
 import { ImCart } from "react-icons/im";
-import { FaAddressCard,FaCcMastercard,FaCcDiscover } from "react-icons/fa";
-import { FaMoneyBillWave,FaPix,FaFileInvoiceDollar  } from "react-icons/fa6";
+import { FaAddressCard,FaCcMastercard,FaCcDiscover,FaAddressBook } from "react-icons/fa";
+import { FaMoneyBillWave,FaPix,FaFileInvoiceDollar,FaMoneyBill1Wave  } from "react-icons/fa6";
 import { GiMoneyStack,GiReceiveMoney,GiPayMoney   } from "react-icons/gi"
 import { HiMiniCreditCard } from "react-icons/hi2";
 import { RiVisaFill } from "react-icons/ri";
@@ -14,8 +15,13 @@ import { SiNubank } from "react-icons/si";
 import { MdCreateNewFolder } from "react-icons/md"
 import { TiCancel } from "react-icons/ti"
 import { BiSolidSave } from "react-icons/bi"
+import { GrMoney } from "react-icons/gr";
+
+const url = "http://localhost:3000/sales"
 
 const Sales = () => {
+
+    const { data: sales } = useRequests(url)
 
     const [typePaymentMoney,setTypePaymentMoney] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - MONEY
     const [indexTypePaymentMoney,setIndexTypePaymentMoney] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - MONEY
@@ -69,6 +75,13 @@ const Sales = () => {
         }    
     }
     // FIM - FUNÇÕES - TIPOS DE PAGAMENTOS
+
+    const checkValue = (valueSale) => {
+        const decimalPart = valueSale.toString().split(".")[1] || ''
+        const numberDecimal = decimalPart.length
+        if (numberDecimal === 1)
+        return numberDecimal + "0"    
+      }
 
   return (
 
@@ -337,6 +350,16 @@ const Sales = () => {
                                             id="id-cvcCwCard-card"
                                             name="n-cvcCwCard-card"
                                             />
+                                        </label>                                        
+                                    </div>
+                                    <div style={{position:"absolute",left:"300px",top:"70px"}}>
+                                        <label className="hide-card-finally-span">
+                                            <span>TOTAL R$ </span>
+                                            <input type="text" style={{width:"110px",textAlign:"center"}}
+                                            id="id-cvcCwCard-card"
+                                            name="n-cvcCwCard-card"
+                                            disabled={true}
+                                            />
                                         </label>
                                     </div>
                         </div> : ""}
@@ -383,7 +406,16 @@ const Sales = () => {
                                     required
                                     />
                                 </label>
-                                <label style={{marginTop:"34px"}}>
+                                <label>
+                                    <span style={{marginLeft:"-1px"}}>TOTAL R$ </span>
+                                    <input type="text" style={{textAlign:"center",width:"120px"}}
+                                    id="id-amount-pix"
+                                    name="n-amount-pix"
+                                    disabled={true}
+                                    required
+                                    />
+                                </label>
+                                <label style={{marginTop:"8px"}}>
                                     <span style={{fontSize:"1rem"}}>* O qrCode é gerado a partir do valor total da comanda!</span>
                                 </label>
                             </div>
@@ -440,6 +472,115 @@ const Sales = () => {
             </div>
             {/* FIM - BOTÕES DE AÇÃO */}
 
+            {/* ÍNICIO - GESTÃO - LISTA DE VENDAS */}                    
+            <div className="management-list-sales">
+                <ul className="general-management-list-sales">
+                    {sales && sales?.map((sale) => (
+                        <li className="item-list-management-sales" key={sale.id}>
+
+                            <div className="group-initial-sales-management"> {/* DADOS INICIAIS */}
+                                <p>REGISTRO: {sale.registerSaleCommand}</p>
+                                <p>CONSUMO: {sale.consumptionSaleCommand}</p>
+                                <p>MESA: {sale.tableCommandSale}</p>
+                            </div>
+
+                            <div className="group-items-cart-management-sales"> {/* CARRINHO */}
+                                {sale.itemsSale?.map((itemManagSale) => (
+                                    <div className="subgroup-items-cart-management-sale" key={itemManagSale.idItemCartSale}>
+                                        <img src={itemManagSale.photoItemCartSale} alt="foto do produto da comanda para o cadsatro da venda" />
+                                        <div className="items-cart-medium-management-sales">
+                                            <p>{itemManagSale.descItemCartSale}</p>
+                                            <p>x {itemManagSale.amountItemCartSale}</p>
+                                            <p style={{color: "red",fontWeight: "bolder"}}>R$ {checkValue(itemManagSale.valueSaleItemCartSale) ? itemManagSale.valueSaleItemCartSale + "0" : itemManagSale.valueSaleItemCartSale}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="group-address-management-sales"> {/* DADOS DE ENDEREÇO */}
+                                <div className="address-title-management">
+                                    <p><FaAddressBook className="icon-address-management"/>DADOS DE ENDEREÇO</p>
+                                </div>
+                                <div className="address-data-management">
+                                     <div className="address-data-manag-initial">
+                                        <p><span>CEP:</span> {sale.deliveryAddressCep}</p>
+                                        <p><span>LOGRADOURO:</span> {sale.deliveryAddressRoad}</p>
+                                        <p><span>NÚMERO:</span> {sale.deliveryAddressNumber}</p>
+                                     </div>
+                                     <div className="address-data-manag-medium">
+                                        <p><span>BAIRRO:</span> {sale.deliveryAddressHood}</p>
+                                        <p><span>CIDADE:</span> {sale.deliveryAddressCity}</p>
+                                        <p><span>ESTADO:</span> {sale.deliveryAddressState}</p>
+                                        <p><span>UF:</span> {sale.deliveryAddressUf}</p>
+                                        <p><span>REGIÃO:</span> {sale.deliveryAddressRegion}</p>
+                                     </div>
+                                </div>
+                            </div>
+
+                            <div className="group-invoicing-management-sales">
+                                <div className="invoicing-title-management">
+                                    <p><FaMoneyBill1Wave className="icon-title-management"/> DADOS DE FATURAMENTO</p>
+                                </div>
+
+                                <div className="invoicing-initial-management-sales">
+                                    <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}>VALOR TOTAL: </span> R$ {checkValue(sale.valueSale) ? sale.valueSale + "0" : sale.valueSale}</p>
+                                    <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}>FORMA DE PAGAMENTO:</span> {sale.paymentMethod}</p>
+                                </div>
+
+                                <div className="payment-type-management-sales">
+                                    {sale.paymentMethod === "DINHEIRO" ? (<div className="money-sales">
+                                    <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}><GiMoneyStack className="icon-money-input"/> VALOR DE ENTRADA:</span> R$ {checkValue(sale.inputValueSale) ? sale.inputValueSale + "0" : sale.inputValueSale}</p>
+                                    <p style={{color: "red",fontWeight: "bolder"}}><span style={{color:"#000", fontStyle:"italic",fontFamily:"revert"}}><GrMoney className="icon-money-change"/> TROCO:</span> R$ {checkValue(sale.changeValueSale) ? sale.changeValueSale + "0" : sale.changeValueSale}</p>
+
+                                   </div>) : sale.paymentMethod === "CARTÃO" ? (<div className="card-sales">
+                                   <div className="card-sales-initial">
+                                   <p><span>TIPO:</span> {sale.typePaymentCard}</p>
+                                   <p><span>NOME:</span> {sale.cardName}</p>
+                                   <p><span>NÚMERO:</span> {sale.cardNumber}</p>
+                                   </div>
+                                  <div className="card-sales-finally">
+                                    <p><span>CPF/CNPJ:</span> {sale.cpfCnpjHolder}</p>
+                                    <p><span>BANDEIRA:</span> {sale.cardFlag}</p>
+                                    <p><span>VALIDADE:</span> {sale.expirationDateCard}</p>
+                                    <p><span>CÓDIGO DE SEGURANÇA:</span> {sale.cvcCwCard}</p>
+                                  </div>
+
+                                 </div>) : (<div className="pix-sales">
+                                   <img src={sale.qrCodePisSale} alt="imagem do qrCode do pix da venda" /> 
+                                 <div className="pix-sales-data">
+                                  <p><span>NOME: </span>{sale.cardName}</p>
+                                  <p><span>CPF/CNPJ: </span>{sale.cpfCnpjHolder}</p>
+                                 </div>
+                                 </div>)}
+
+                                </div>
+                            </div>
+
+                            <div className="group-data-management-finally"> {/*FINAIS [DATA,HORA,SITUAÇÃO E BOTÃO DELETAR*/}
+                                    <div className="finally-title-management-sales">
+                                        <p><FaMoneyBill1Wave className="icon-title-management-finally"/>DADOS DE SISTEMA</p>
+                                    </div>
+                                    <div className="finally-data-sales">
+                                        <div className="finally-sales-date">
+                                            <p><span style={{fontFamily:"inherit"}}>DATA:</span></p>
+                                            <p>{sale.dateSale}</p>
+                                        </div>
+                                        <div className="finally-sales-hour">
+                                            <p><span style={{fontFamily:"inherit"}}>HORA:</span> </p>
+                                            <p>{sale.hourSale}</p>
+                                        </div>
+                                        <div className="finally-sales-status">
+                                            <p><span style={{fontFamily:"inherit"}}>SITUAÇÃO:</span> </p>
+                                            <p>{sale.paymentStatus}</p>
+                                        </div>
+                                    </div>
+                            </div>
+
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            {/* FIM - GESTÃO - LISTA DE VENDAS */}                      
         </form>
 
     </div>
