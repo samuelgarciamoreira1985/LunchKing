@@ -1,15 +1,19 @@
 // REACT
 import { useState } from "react";
+import QRCode from 'react-qr-code'
 // CSS
 import "./Sales.css"
 //ÍCONES
 import { ImCart } from "react-icons/im";
 import { FaAddressCard,FaCcMastercard,FaCcDiscover } from "react-icons/fa";
-import { FaMoneyBillWave,FaPix } from "react-icons/fa6";
+import { FaMoneyBillWave,FaPix,FaFileInvoiceDollar  } from "react-icons/fa6";
 import { GiMoneyStack,GiReceiveMoney,GiPayMoney   } from "react-icons/gi"
 import { HiMiniCreditCard } from "react-icons/hi2";
 import { RiVisaFill } from "react-icons/ri";
 import { SiNubank } from "react-icons/si";
+import { MdCreateNewFolder } from "react-icons/md"
+import { TiCancel } from "react-icons/ti"
+import { BiSolidSave } from "react-icons/bi"
 
 const Sales = () => {
 
@@ -17,12 +21,18 @@ const Sales = () => {
     const [indexTypePaymentMoney,setIndexTypePaymentMoney] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - MONEY
     const [typePaymentCard,setTypePaymentCard] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - CARD
     const [indexTypePaymentCard,setIndexTypePaymentCard] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - CARD
+    const [typePaymentPix,setTypePaymentPix] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - PIX
+    const [indexTypePaymentPix,setIndexTypePaymentPix] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - PIX
+    const [fieldValueSale,setFieldValueSale] = useState(120.89)
 
     // FUNÇÕES - TIPOS DE PAGAMENTOS
     const changeTypePaymentMoney = (e) => { // FUNÇÃO - DINHEIRO
         if (indexTypePaymentMoney === 1){
             setTypePaymentMoney("ATIVADO")
             setIndexTypePaymentMoney(2)
+
+            setTypePaymentCard("DESATIVADO")
+            setTypePaymentPix("DESATIVADO")
         } 
         else if (indexTypePaymentMoney === 2){
             setTypePaymentMoney("DESATIVADO")
@@ -35,10 +45,27 @@ const Sales = () => {
         if (indexTypePaymentCard === 1){
             setTypePaymentCard("ATIVADO")
             setIndexTypePaymentCard(2)
+
+            setTypePaymentMoney("DESATIVADO")
+            setTypePaymentPix("DESATIVADO")
         } 
         else if (indexTypePaymentCard === 2){
             setTypePaymentCard("DESATIVADO")
             setIndexTypePaymentCard(1)
+        }    
+    }
+
+    const changeTypePaymentPix= (e) => { // FUNÇÃO - PIX
+        if (indexTypePaymentPix === 1){
+            setTypePaymentPix("ATIVADO")
+            setIndexTypePaymentPix(2)
+
+            setTypePaymentMoney("DESATIVADO")
+            setTypePaymentCard("DESATIVADO")
+        } 
+        else if (indexTypePaymentPix === 2){
+            setTypePaymentPix("DESATIVADO")
+            setIndexTypePaymentPix(1)
         }    
     }
     // FIM - FUNÇÕES - TIPOS DE PAGAMENTOS
@@ -173,7 +200,7 @@ const Sales = () => {
                 <div className="data-payment-sales"> {/* PAGAMENTOS */}
 
                     <div className="click-type-payment">
-                        <label> {/* DINHEIRO */}
+                        <label onMouseOver={() => setIndexTypePaymentMoney(1)}> {/* DINHEIRO */}
                             <input type="radio" className="radio-payment"
                             value={typePaymentMoney}
                             checked={typePaymentMoney === "ATIVADO"}
@@ -214,7 +241,7 @@ const Sales = () => {
                     </div> {/* FIM - DINHEIRO */}
 
                     <div className="click-type-payment">
-                        <label> {/* CARTÃO */}
+                        <label onMouseOver={() => setIndexTypePaymentCard(1)}> {/* CARTÃO */}
                             <input type="radio" className="radio-payment"
                             value={typePaymentCard}
                             checked={typePaymentCard === "ATIVADO"}
@@ -316,14 +343,52 @@ const Sales = () => {
                     </div> {/* FIM - CARTÃO */}
 
                     <div className="click-type-payment">
-                        <label> {/* PIX */}
+                        <label onMouseOver={() => setIndexTypePaymentPix(1)}> {/* PIX */}
                             <input type="radio" className="radio-payment"
-                            value="PIX"
+                            value={typePaymentPix}
+                            checked={typePaymentPix === "ATIVADO"}
+                            onChange={changeTypePaymentPix}
+                            onClick={changeTypePaymentPix}
                             />
                             <FaPix className="icon-pix-payment"/>
-                            <span>PIX</span>
+                            <span style={{userSelect:"none"}}>PIX</span>
                         </label>
-                    </div>
+                        {typePaymentPix === "ATIVADO" ? <div className="hide-click-type-payment-pix">
+                            <div className="qrCode-pix">
+                                {fieldValueSale && (
+                                    <QRCode
+                                    title="GeeksForGeeks"
+                                    value={fieldValueSale}
+                                    bgColor="#ddd"
+                                    fgColor="#000"
+                                    size="110"
+                                    />
+                                )}
+                            </div>
+
+                            <div className="fields-pix">
+                                <label style={{marginLeft:"27px"}}>
+                                    <span>NOME</span>
+                                    <input type="text" style={{textAlign:"center",width:"350px"}}
+                                    id="id-name-pix"
+                                    name="n-name-pix"
+                                    required
+                                    />
+                                </label>
+                                <label>
+                                    <span>CPF/CNPJ</span>
+                                    <input type="text" style={{textAlign:"center",width:"200px"}}
+                                    id="id-cpfcnpj-pix"
+                                    name="n-cpfcnpj-pix"
+                                    required
+                                    />
+                                </label>
+                                <label style={{marginTop:"34px"}}>
+                                    <span style={{fontSize:"1rem"}}>* O qrCode é gerado a partir do valor total da comanda!</span>
+                                </label>
+                            </div>
+                        </div> : ""}
+                    </div> {/* FIM - PIX */}
 
                 </div>
 
@@ -361,6 +426,19 @@ const Sales = () => {
                     />
                 </label>
             </div>
+
+            {/* INÍCIO - BOTÕES DE AÇÃO [NOVO-CANCELAR-SALVAR-GERAR NOTA FISCAL] */}                    
+            <div className="group-buttons-action-sales">
+
+                    <button type="button"><MdCreateNewFolder className="icon-button-action-sales"/>Novo</button>
+
+                    <button type="button"><TiCancel className="icon-button-action-sales"/>Cancelar</button>
+
+                    <button type="button"><BiSolidSave className="icon-button-action-sales"/>Salvar</button>
+
+                    <button type="button"><FaFileInvoiceDollar className="icon-button-action-sales"/>Nota Fiscal</button>
+            </div>
+            {/* FIM - BOTÕES DE AÇÃO */}
 
         </form>
 
