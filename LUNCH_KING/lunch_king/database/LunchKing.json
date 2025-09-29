@@ -222,8 +222,8 @@
   "commands": [
     {
       "idCommand": 1,
-      "tableCommand": "02",
-      "typeConsumption": "CONSUMO NO LOCAL",
+      "tableCommand": "03",
+      "typeConsumption": "LOCAL",
       "item": [
         {
           "idItemCart": 1,
@@ -269,7 +269,7 @@
         }
       ],
       "totalAmount": 29.64,
-      "dateSystemCommand": "04/09/2025",
+      "dateSystemCommand": "29/09/2025",
       "hourCommand": "16:18",
       "statusCommand": "PENDENTE",
       "id": "c3f2"
@@ -343,7 +343,7 @@
     {
       "idCommand": 4,
       "tableCommand": "05",
-      "typeConsumption": "CONSUMO NO LOCAL",
+      "typeConsumption": "LOCAL",
       "item": [
         {
           "idItemCart": 13,
@@ -382,7 +382,7 @@
         }
       ],
       "totalAmount": 112.96,
-      "dateSystemCommand": "05/09/2025",
+      "dateSystemCommand": "29/09/2025",
       "hourCommand": "16:39",
       "statusCommand": "FINALIZADO",
       "id": "c3f5"
@@ -654,7 +654,7 @@
       ],
       "valueSale": 20.02,
       "paymentMethod": "DINHEIRO",
-      "inputValueSale": 22.50,
+      "inputValueSale": 22.5,
       "changeValueSale": 2.48,
       "typePaymentCard": "NULO",
       "cardNumber": 0,
@@ -753,7 +753,7 @@
       ],
       "valueSale": 44.87,
       "paymentMethod": "DINHEIRO",
-      "inputValueSale": 45.50,
+      "inputValueSale": 45.5,
       "changeValueSale": 0.63,
       "typePaymentCard": "NULO",
       "cardNumber": 0,

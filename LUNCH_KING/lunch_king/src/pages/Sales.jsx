@@ -1,5 +1,5 @@
 // REACT
-import { useState,useRef } from "react";
+import { useState,useRef, useEffect } from "react";
 import QRCode from 'react-qr-code'
 import { useRequests } from "../hooks/useRequests"
 import { useSend } from "../hooks/useSend";
@@ -29,7 +29,12 @@ const Sales = () => {
 
     const [idSale,setIdSale] = useState("") // [REQUEST]
     const [registerSale,setRegisterSale] = useState("") // [REQUEST]
+    const [consumptionSale,setConsumptionSale] = useState("") // [REQUEST]
+    const [tableSale,setTableSale] = useState("") // [REQUEST]
+    const [totalAmountSale,setTotalAmountSale] = useState("") // [REQUEST]
+    const [descItemSale,setDescItemSale] = useState([])
 
+    const [indexGet,setIndexGet] = useState(0)
     const refRegisterSale = useRef(null)
     const [typePaymentMoney,setTypePaymentMoney] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - MONEY
     const [indexTypePaymentMoney,setIndexTypePaymentMoney] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - MONEY
@@ -108,10 +113,25 @@ const Sales = () => {
       }
 
       const getRegisterSales = (e) => {
+        setIndexGet(1)
         setRegisterSale(refRegisterSale.current.value)
         getCommandsInSales(urlCommand,registerSale)
-        console.log(commandSale)
       }
+
+      useEffect(() => {
+        commandSale && commandSale?.map((saleList) => {
+            setConsumptionSale(saleList.typeConsumption) // CONSUMO DA COMANDA
+            setTableSale(saleList.tableCommand)
+            setTotalAmountSale(saleList.totalAmount)
+            {saleList && saleList.item?.map((itemS) => {
+                setDescItemSale([itemS.idItemCart,itemS.descItemCart,itemS.photoItemCart,itemS.amountItemCart,itemS.valueSaleItemCart])
+            })}
+              
+            console.log("valor" + descItemSale)
+            
+                
+        })
+      },[commandSale])
 
   return (
 
@@ -145,21 +165,24 @@ const Sales = () => {
                     <button type="button" className="button-search-register-sales" onClick={getRegisterSales}><BiSolidSearch className="icon-button-search-command"/></button>
                 </label>
 
+               
                 <label>
                     <span>CONSUMO: </span>
                     <input type="text" style={{width:"150px",textAlign:"center"}} 
                     id="id-consumption-sale"
                     name="n-consumption-sale"
+                    value={consumptionSale}
                     disabled={true}
                     required
                     />
                 </label>
-
+ 
                 <label>
                     <span>MESA: </span>
                     <input type="text" style={{width:"80px",textAlign:"center"}}
                     id="id-table-sale"
                     name="n-table-sale"
+                    value={tableSale}
                     disabled={true}
                     required
                     />
@@ -172,7 +195,23 @@ const Sales = () => {
                     <p><ImCart className="icon-items-command-sales"/> PRODUTOS DA COMANDA</p>
                 </div>
                 <div className="items-command-sales">
-
+                    
+                    <ul>
+                        <li key={descItemSale[0]}>
+                            <img src={descItemSale[2]} alt="" />
+                            <div>
+                                <p>{descItemSale[1]}</p>
+                                <p>x {descItemSale[3]}</p>
+                                 <p>R$ {descItemSale[4]}</p>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                       
+                            
+                        
+                    
+                    
                 </div>
             </div>
             {/* ------------------------------------------------------ */}
@@ -276,6 +315,7 @@ const Sales = () => {
                                 <input type="text" style={{textAlign:"center",width:"100px"}}
                                 id="id-total-money"
                                 name="n-total-money"
+                                value={totalAmountSale}
                                 disabled={true}
                                 required
                                 />
@@ -405,6 +445,7 @@ const Sales = () => {
                                             <input type="text" style={{width:"110px",textAlign:"center"}}
                                             id="id-cvcCwCard-card"
                                             name="n-cvcCwCard-card"
+                                            value={totalAmountSale}
                                             disabled={true}
                                             />
                                         </label>
@@ -458,6 +499,7 @@ const Sales = () => {
                                     <input type="text" style={{textAlign:"center",width:"120px"}}
                                     id="id-amount-pix"
                                     name="n-amount-pix"
+                                    value={totalAmountSale}
                                     disabled={true}
                                     required
                                     />
@@ -509,13 +551,13 @@ const Sales = () => {
             {/* INÍCIO - BOTÕES DE AÇÃO [NOVO-CANCELAR-SALVAR-GERAR NOTA FISCAL] */}                    
             <div className="group-buttons-action-sales">
 
-                    <button type="button"><MdCreateNewFolder className="icon-button-action-sales"/>Novo</button>
+                    <button type="button"><MdCreateNewFolder className="icon-button-action-sales"/>NOVA VENDA</button>
 
-                    <button type="button"><TiCancel className="icon-button-action-sales"/>Cancelar</button>
+                    <button type="button"><TiCancel className="icon-button-action-sales"/>CANCELAR VENDA</button>
 
-                    <button type="button"><BiSolidSave className="icon-button-action-sales"/>Salvar</button>
+                    <button type="button"><BiSolidSave className="icon-button-action-sales"/>FINALIZAR VENDA</button>
 
-                    <button type="button"><FaFileInvoiceDollar className="icon-button-action-sales"/>Nota Fiscal</button>
+                    <button type="button"><FaFileInvoiceDollar className="icon-button-action-sales"/>NOTA FISCAL</button>
             </div>
             {/* FIM - BOTÕES DE AÇÃO */}
 

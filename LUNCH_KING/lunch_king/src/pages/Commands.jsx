@@ -643,7 +643,7 @@ const Commands = () => {
                             
                         </div>
                     </div>
-                    <label className="initial-field"> {/* ID DE COMANDA */}
+                    <label className="initial-field"> {/* MESA DE COMANDA */}
                         <span className="span-normal">MESA</span>
                         <input type="text"
                         className="form-command-input-text"
