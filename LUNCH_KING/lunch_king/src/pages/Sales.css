@@ -66,6 +66,30 @@
     height: 20px;
 }
 
+.label-register {
+    margin-top: 6px;
+    position: relative;
+}
+
+.button-search-register-sales {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    left: 170px;
+    cursor: pointer;
+}
+
+.icon-button-search-command {
+    color: #0579a7;
+    font-size: 1.3rem;
+    
+}
+
+.icon-button-search-command:hover {
+    color: #0579a79f;
+    font-size: 1.2rem;
+}
+
 /*---------------------ITÉNS DA COMANDA-----------------------*/
 .command-items-sales {
     display: flex;
@@ -1002,6 +1026,7 @@
     justify-content: center;
     padding-bottom: 12px;
     border-radius: 0px 0px 10px 10px;
+    position: relative;
 }
 
 .finally-sales-date {
@@ -1074,4 +1099,24 @@
     font-weight: 600;
     font-style: italic;
     text-shadow: .2px .2px 2px #fff;
+}
+
+.button-del-finally-sales {
+    color: #fff;
+    background-color: rgba(216, 5, 5, 0.678);
+    border: none;
+    border-radius: 6px;
+    width: 100px;
+    height: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    text-shadow: .5px .5px 1px #000;
+    cursor: pointer;
+    position: absolute;
+    right: 30px;
+    top: 4.5px;
+}
+
+.button-del-finally-sales:hover {
+    background-color: #d805057c;
 }

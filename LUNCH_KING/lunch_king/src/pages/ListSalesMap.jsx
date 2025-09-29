@@ -8,6 +8,7 @@ import { FaAddressBook } from "react-icons/fa";
 import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { GiMoneyStack } from "react-icons/gi";
 import { GrMoney } from "react-icons/gr";
+import { SiDwavesystems } from "react-icons/si";
 
 const url = "http://localhost:3000/sales"
 
@@ -107,6 +108,26 @@ const ListSalesMap = () => {
                           </div>)}
 
                       </div>
+                </div>
+
+                <div className="list-sales-finally">
+                     <div className="list-finally-title">
+                          <p><SiDwavesystems  className="icon-system"/> DADOS DE SISTEMA</p>
+                     </div>
+                     <div className="finally-data-sales-list">
+                                        <div className="finally-sales-date-list">
+                                            <p><span style={{fontFamily:"inherit"}}>DATA:</span></p>
+                                            <p>{sale.dateSale}</p>
+                                        </div>
+                                        <div className="finally-sales-hour-list">
+                                            <p><span style={{fontFamily:"inherit"}}>HORA:</span> </p>
+                                            <p>{sale.hourSale}</p>
+                                        </div>
+                                        <div className="finally-sales-status-list">
+                                            <p><span style={{fontFamily:"inherit"}}>SITUAÇÃO:</span> </p>
+                                            <p>{sale.paymentStatus}</p>
+                                        </div>                       
+                                    </div>
                 </div>
 
               </li>

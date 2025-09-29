@@ -1,43 +1,17 @@
 import { useState, useEffect } from "react";
 
-export const useSend = (url) => {
+export const useSend = (urlCommand) => {
 
-    const [data,setData] = useState(null) // DADOS
-    const [error,setError] = useState(null) // ERROS
+    const [dataCommand,setDataCommand] = useState(null) // DADOS
 
-    const [config,setConfig] = useState(null) // CONFIGURAÇÃO DE ENVIO
-    const [method,setMethod] = useState(null) // MÉTODO DE ENVIO
-
-    const httpConfig = (data, method) => {
-        if (method === "POST") {
-            setConfig({
-                method,
-                Headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(data)
-            })
-            setMethod(method)
-        }
+    // GET - SALES-> COMMANDS
+    const getCommandsInSales = async (urlCommand,id) => {
+        const requestUpdate = await fetch(urlCommand+"?idCommand="+id)
+        const responseUpdate = await requestUpdate.json()
+        console.log(responseUpdate)
+        setDataCommand(responseUpdate)
     }
+    
 
-    useEffect(() => {
-
-        const httpRequest = async () => {
-            let json 
-            try {
-            if (method === "POST"){
-                let sendOptions = [url, config]
-                const res = await fetch(...sendOptions)
-                json = await res.json()
-            }
-        }
-        catch (error) {
-            console.log(error.message)
-        }
-        }
-
-        httpRequest()
-
-    },[config, method, url])
-
-    return { data, httpConfig, error }
+    return { dataCommand,getCommandsInSales }
 }

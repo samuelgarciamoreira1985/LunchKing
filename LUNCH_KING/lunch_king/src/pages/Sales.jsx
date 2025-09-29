@@ -1,7 +1,8 @@
 // REACT
-import { useState } from "react";
+import { useState,useRef } from "react";
 import QRCode from 'react-qr-code'
 import { useRequests } from "../hooks/useRequests"
+import { useSend } from "../hooks/useSend";
 // CSS
 import "./Sales.css"
 //ÍCONES
@@ -11,25 +12,48 @@ import { FaMoneyBillWave,FaPix,FaFileInvoiceDollar,FaMoneyBill1Wave  } from "rea
 import { GiMoneyStack,GiReceiveMoney,GiPayMoney   } from "react-icons/gi"
 import { HiMiniCreditCard } from "react-icons/hi2";
 import { RiVisaFill } from "react-icons/ri";
-import { SiNubank } from "react-icons/si";
+import { SiNubank,SiDwavesystems  } from "react-icons/si";
 import { MdCreateNewFolder } from "react-icons/md"
 import { TiCancel } from "react-icons/ti"
-import { BiSolidSave } from "react-icons/bi"
+import { BiBullseye, BiSolidSave,BiSolidSearch } from "react-icons/bi"
 import { GrMoney } from "react-icons/gr";
+import { data } from "react-router-dom";
 
 const url = "http://localhost:3000/sales"
+const urlCommand = "http://localhost:3000/commands"
 
 const Sales = () => {
 
     const { data: sales } = useRequests(url)
+    const { dataCommand: commandSale,getCommandsInSales } = useSend(urlCommand)
 
+    const [idSale,setIdSale] = useState("") // [REQUEST]
+    const [registerSale,setRegisterSale] = useState("") // [REQUEST]
+
+    const refRegisterSale = useRef(null)
     const [typePaymentMoney,setTypePaymentMoney] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - MONEY
     const [indexTypePaymentMoney,setIndexTypePaymentMoney] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - MONEY
     const [typePaymentCard,setTypePaymentCard] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - CARD
     const [indexTypePaymentCard,setIndexTypePaymentCard] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - CARD
     const [typePaymentPix,setTypePaymentPix] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - PIX
     const [indexTypePaymentPix,setIndexTypePaymentPix] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - PIX
-    const [fieldValueSale,setFieldValueSale] = useState(120.89)
+    const [fieldValueSale,setFieldValueSale] = useState(12.49)
+
+    // INÍCIO - VALIDAÇÃO DE INPUT DE ID E REGISTRO DE VENDA
+    const validDigitsId = (textDigitedId) => {
+        return textDigitedId.replace(/[^0-9]/g, "")
+    }
+
+    const ChangeMaskIdSale = (e) => {
+    const updateTextDigitedId = validDigitsId(e.target.value)
+    setIdSale(updateTextDigitedId)
+    }
+
+    const ChangeMaskRegisterSale = (e) => {
+    const updateTextDigitedId = validDigitsId(e.target.value)
+    setRegisterSale(updateTextDigitedId)
+    }
+   // FIM - VALIDAÇÃO DE ID
 
     // FUNÇÕES - TIPOS DE PAGAMENTOS
     const changeTypePaymentMoney = (e) => { // FUNÇÃO - DINHEIRO
@@ -83,6 +107,12 @@ const Sales = () => {
         return numberDecimal + "0"    
       }
 
+      const getRegisterSales = (e) => {
+        setRegisterSale(refRegisterSale.current.value)
+        getCommandsInSales(urlCommand,registerSale)
+        console.log(commandSale)
+      }
+
   return (
 
     <div className="container-sales">
@@ -92,28 +122,45 @@ const Sales = () => {
 
             <div className="input-initial-sales"> 
                 <label>
-                    <span>REGISTRO: </span>
-                    <input type="text" style={{width:"80px"}}
+                    <span>ID: </span>
+                    <input type="text" style={{width:"80px",textAlign:"center"}}
                     id="id-id-sale"
                     name="n-id-sale"
+                    value={idSale}
+                    onChange={(e) => ChangeMaskIdSale(e)}
                     required
                     />
                 </label>
 
+                <label className="label-register">
+                    <span>REGISTRO: </span>
+                    <input type="text" style={{width:"100px",textAlign:"center"}}
+                    id="id-register-sale"
+                    name="n-register-sale"
+                    value={registerSale}
+                    onChange={(e) => ChangeMaskRegisterSale(e)}
+                    ref={refRegisterSale}
+                    required
+                    />
+                    <button type="button" className="button-search-register-sales" onClick={getRegisterSales}><BiSolidSearch className="icon-button-search-command"/></button>
+                </label>
+
                 <label>
                     <span>CONSUMO: </span>
-                    <input type="text" style={{width:"150px"}} 
+                    <input type="text" style={{width:"150px",textAlign:"center"}} 
                     id="id-consumption-sale"
                     name="n-consumption-sale"
+                    disabled={true}
                     required
                     />
                 </label>
 
                 <label>
                     <span>MESA: </span>
-                    <input type="text" style={{width:"80px"}}
+                    <input type="text" style={{width:"80px",textAlign:"center"}}
                     id="id-table-sale"
                     name="n-table-sale"
+                    disabled={true}
                     required
                     />
                 </label>
@@ -558,7 +605,7 @@ const Sales = () => {
 
                             <div className="group-data-management-finally"> {/*FINAIS [DATA,HORA,SITUAÇÃO E BOTÃO DELETAR*/}
                                     <div className="finally-title-management-sales">
-                                        <p><FaMoneyBill1Wave className="icon-title-management-finally"/>DADOS DE SISTEMA</p>
+                                        <p><SiDwavesystems  className="icon-title-management-finally"/>DADOS DE SISTEMA</p>
                                     </div>
                                     <div className="finally-data-sales">
                                         <div className="finally-sales-date">
@@ -572,6 +619,9 @@ const Sales = () => {
                                         <div className="finally-sales-status">
                                             <p><span style={{fontFamily:"inherit"}}>SITUAÇÃO:</span> </p>
                                             <p>{sale.paymentStatus}</p>
+                                        </div>
+                                        <div className="finally-sales-status">
+                                            <button type="button" className="button-del-finally-sales">DELETAR</button>
                                         </div>
                                     </div>
                             </div>
