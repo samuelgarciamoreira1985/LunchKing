@@ -620,6 +620,32 @@
       "hourCommand": "13:59:43",
       "statusCommand": "FINALIZADO",
       "id": "5f36"
+    },
+    {
+      "idCommand": "14",
+      "tableCommand": "05",
+      "typeConsumption": "LOCAL",
+      "item": [
+        {
+          "idItemCart": "489e",
+          "descItemCart": "FANTA 350 ML",
+          "photoItemCart": "/img/Fanta Laranja 350 ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "3.49"
+        },
+        {
+          "idItemCart": "9dd0",
+          "descItemCart": "COCA-COLA 350 ML",
+          "photoItemCart": "/img/Coca-Cola350ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "3.49"
+        }
+      ],
+      "totalAmount": 6.98,
+      "dateSystemCommand": "29/09/2025",
+      "hourCommand": "20:50:37",
+      "statusCommand": "PENDENTE",
+      "id": "af7b"
     }
   ],
   "sales": [

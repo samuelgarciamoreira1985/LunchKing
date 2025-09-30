@@ -32,7 +32,10 @@ const Sales = () => {
     const [consumptionSale,setConsumptionSale] = useState("") // [REQUEST]
     const [tableSale,setTableSale] = useState("") // [REQUEST]
     const [totalAmountSale,setTotalAmountSale] = useState("") // [REQUEST]
-    const [descItemSale,setDescItemSale] = useState([])
+
+    const [isDisabledRegister,setIsDisabledRegister] = useState(false) // DESATIVA - CAMPO DE REGISTRO
+    const [isDisabledBtnItems,setIsDisabledBtnItems] = useState(false) // DESATIVA - BOTÃO DE BUSCA DE PRODUTOS
+    const [isDisabledCursorBtnItems,setIsDisabledCursorBtnItems] = useState("pointer") // DESATIVA - CURSOR BUSCA
 
     const [indexGet,setIndexGet] = useState(0)
     const refRegisterSale = useRef(null)
@@ -42,7 +45,7 @@ const Sales = () => {
     const [indexTypePaymentCard,setIndexTypePaymentCard] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - CARD
     const [typePaymentPix,setTypePaymentPix] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - PIX
     const [indexTypePaymentPix,setIndexTypePaymentPix] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - PIX
-    const [fieldValueSale,setFieldValueSale] = useState(12.49)
+    const [fieldValueSale,setFieldValueSale] = useState(12.49) // GERA O QRCODE - PIX
 
     // INÍCIO - VALIDAÇÃO DE INPUT DE ID E REGISTRO DE VENDA
     const validDigitsId = (textDigitedId) => {
@@ -112,24 +115,30 @@ const Sales = () => {
         return numberDecimal + "0"    
       }
 
-      const getRegisterSales = (e) => {
-        setIndexGet(1)
-        setRegisterSale(refRegisterSale.current.value)
-        getCommandsInSales(urlCommand,registerSale)
+      const getRegisterSales = async (e) => {
+        const response = await fetch(`http://localhost:3000/commands?idCommand=${registerSale}`)
+            const dataResponse = await response.json()
+            if (dataResponse.length === 0){
+                swal({
+                  icon: "error",
+                  title: "REI DOS LANCHES",
+                  text: "O registro da comanda não consta no sistema!"
+                })}
+                else {
+                 setIndexGet(1)
+                 setRegisterSale(refRegisterSale.current.value)
+                 getCommandsInSales(urlCommand,registerSale)
+                 setIsDisabledRegister(true)
+                 setIsDisabledBtnItems(true)
+                 setIsDisabledCursorBtnItems("none")
+                }
       }
 
       useEffect(() => {
         commandSale && commandSale?.map((saleList) => {
             setConsumptionSale(saleList.typeConsumption) // CONSUMO DA COMANDA
             setTableSale(saleList.tableCommand)
-            setTotalAmountSale(saleList.totalAmount)
-            {saleList && saleList.item?.map((itemS) => {
-                setDescItemSale([itemS.idItemCart,itemS.descItemCart,itemS.photoItemCart,itemS.amountItemCart,itemS.valueSaleItemCart])
-            })}
-              
-            console.log("valor" + descItemSale)
-            
-                
+            setTotalAmountSale(saleList.totalAmount)        
         })
       },[commandSale])
 
@@ -160,9 +169,10 @@ const Sales = () => {
                     value={registerSale}
                     onChange={(e) => ChangeMaskRegisterSale(e)}
                     ref={refRegisterSale}
+                    disabled={isDisabledRegister}
                     required
                     />
-                    <button type="button" className="button-search-register-sales" onClick={getRegisterSales}><BiSolidSearch className="icon-button-search-command"/></button>
+                    <button type="button" disabled={isDisabledBtnItems} style={{cursor:isDisabledCursorBtnItems}} className="button-search-register-sales" onClick={getRegisterSales}><BiSolidSearch className="icon-button-search-command"/></button>
                 </label>
 
                
@@ -196,22 +206,24 @@ const Sales = () => {
                 </div>
                 <div className="items-command-sales">
                     
-                    <ul>
-                        <li key={descItemSale[0]}>
-                            <img src={descItemSale[2]} alt="" />
-                            <div>
-                                <p>{descItemSale[1]}</p>
-                                <p>x {descItemSale[3]}</p>
-                                 <p>R$ {descItemSale[4]}</p>
+                    <ul className="list-items-sales">
+                        {commandSale && commandSale?.map(itemS => (       
+
+                            <li key={itemS.id}>
+                            {itemS && itemS.item?.map((itemSS) => (
+                            <div className="sub-list-sales" key={itemSS.idItemCart}>
+                                <img src={itemSS.photoItemCart} alt="" />
+                                <div className="sub-items-cart-finally">
+                                    <p>{itemSS.descItemCart}</p>
+                                    <p>x {itemSS.amountItemCart}</p>
+                                     <p style={{color:"red", textShadow: ".2px .2px 7px white"}}>R$ {checkValue(itemSS.valueSaleItemCart) ? itemSS.valueSaleItemCart + "0" : itemSS.valueSaleItemCart}</p>
+                                </div>
                             </div>
+                            ))}
+
                         </li>
-                        
-                    </ul>
-                       
-                            
-                        
-                    
-                    
+                        ))}
+                    </ul>  
                 </div>
             </div>
             {/* ------------------------------------------------------ */}
@@ -315,7 +327,7 @@ const Sales = () => {
                                 <input type="text" style={{textAlign:"center",width:"100px"}}
                                 id="id-total-money"
                                 name="n-total-money"
-                                value={totalAmountSale}
+                                value={checkValue(totalAmountSale) ? totalAmountSale + "0" : totalAmountSale}
                                 disabled={true}
                                 required
                                 />
@@ -445,7 +457,7 @@ const Sales = () => {
                                             <input type="text" style={{width:"110px",textAlign:"center"}}
                                             id="id-cvcCwCard-card"
                                             name="n-cvcCwCard-card"
-                                            value={totalAmountSale}
+                                            value={checkValue(totalAmountSale) ? totalAmountSale + "0" : totalAmountSale}
                                             disabled={true}
                                             />
                                         </label>
@@ -499,7 +511,7 @@ const Sales = () => {
                                     <input type="text" style={{textAlign:"center",width:"120px"}}
                                     id="id-amount-pix"
                                     name="n-amount-pix"
-                                    value={totalAmountSale}
+                                    value={checkValue(totalAmountSale) ? totalAmountSale + "0" : totalAmountSale}
                                     disabled={true}
                                     required
                                     />

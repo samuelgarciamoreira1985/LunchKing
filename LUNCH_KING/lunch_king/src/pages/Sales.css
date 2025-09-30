@@ -90,20 +90,64 @@
     font-size: 1.2rem;
 }
 
+.list-items-sales { /* UL */
+    display: flex;
+    flex-direction: row;
+}
+
+.list-items-sales li {
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.sub-list-sales {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    padding: 10px;
+}
+
+.sub-list-sales img {
+    width: 50px;
+    height: 70px;
+}
+
+.sub-items-cart-finally {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    align-items: flex-start;
+    justify-items: center;
+}
+
+.sub-items-cart-finally p {
+    color: #ffffff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1rem;
+    text-shadow: .5px .5px 2px #000;
+}
+
 /*---------------------ITÉNS DA COMANDA-----------------------*/
 .command-items-sales {
     display: flex;
     flex-direction: column;
     background-color: #ffffffd0;
     width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
-    height: 200px;
     margin-top: -7px;
 }
 
 .items-command-sales {
+    display: flex;
+    flex-direction: column;
     background-color: #086d9c9f;
     width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
     height: 200px;
+    
 }
 
 .title-commmand-items-sales {
