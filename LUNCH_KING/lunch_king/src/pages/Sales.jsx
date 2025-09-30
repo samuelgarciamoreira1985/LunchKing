@@ -1,4 +1,5 @@
 // REACT
+import { Tooltip } from "@mui/material"
 import { useState,useRef, useEffect } from "react";
 import QRCode from 'react-qr-code'
 import { useRequests } from "../hooks/useRequests"
@@ -12,7 +13,7 @@ import { FaMoneyBillWave,FaPix,FaFileInvoiceDollar,FaMoneyBill1Wave  } from "rea
 import { GiMoneyStack,GiReceiveMoney,GiPayMoney   } from "react-icons/gi"
 import { HiMiniCreditCard } from "react-icons/hi2";
 import { RiVisaFill } from "react-icons/ri";
-import { SiNubank,SiDwavesystems  } from "react-icons/si";
+import { SiNubank,SiDwavesystems,SiCeph   } from "react-icons/si";
 import { MdCreateNewFolder } from "react-icons/md"
 import { TiCancel } from "react-icons/ti"
 import { BiBullseye, BiSolidSave,BiSolidSearch } from "react-icons/bi"
@@ -27,15 +28,33 @@ const Sales = () => {
     const { data: sales } = useRequests(url)
     const { dataCommand: commandSale,getCommandsInSales } = useSend(urlCommand)
 
-    const [idSale,setIdSale] = useState("") // [REQUEST]
-    const [registerSale,setRegisterSale] = useState("") // [REQUEST]
-    const [consumptionSale,setConsumptionSale] = useState("") // [REQUEST]
-    const [tableSale,setTableSale] = useState("") // [REQUEST]
-    const [totalAmountSale,setTotalAmountSale] = useState("") // [REQUEST]
+    const [idSale,setIdSale] = useState("") // [REQUEST] ID
+    const [registerSale,setRegisterSale] = useState("") // [REQUEST] REGISTRO
+    const [consumptionSale,setConsumptionSale] = useState("") // [REQUEST] CONSUMO
+    const [tableSale,setTableSale] = useState("") // [REQUEST] MESA
+    const [addressCep,setAddressCep] = useState("") // [REQUEST] CEP
+    const [addressRoad,setAddressRoad] = useState("") // [REQUEST] LOGRADOURO
+    const [addressNumber,setAddressNumber] = useState("") // [REQUEST] NÚMERO
+    const [addressHood,setAddressHood] = useState("") // [REQUEST] BAIRRO
+    const [addressCity,setAddressCity] = useState("") // [REQUEST] CIDADE
+    const [addressState,setAddressState] = useState("") // [REQUEST] ESTADO
+    const [addressUf,setAddressUf] = useState("") // [REQUEST] UF
+    const [addressRegion,setAddressRegion] = useState("") // [REQUEST] REGIÃO
+    const [totalAmountSale,setTotalAmountSale] = useState("") // [REQUEST] TOTAL DA VENDA
 
+    const [isDisabledBtnCep,setIsDisabledBtnCep] = useState(true) // DESATIVA - BOTÃO DE CONSULTA DE CEP
+    const [isDisabledCursorBtnCep,setIsDisabledCursorBtnCep] = useState("default") // DESATIVA - CURSOR BUSCA DE CEP
     const [isDisabledRegister,setIsDisabledRegister] = useState(false) // DESATIVA - CAMPO DE REGISTRO
     const [isDisabledBtnItems,setIsDisabledBtnItems] = useState(false) // DESATIVA - BOTÃO DE BUSCA DE PRODUTOS
     const [isDisabledCursorBtnItems,setIsDisabledCursorBtnItems] = useState("pointer") // DESATIVA - CURSOR BUSCA
+    const [isDisabledAddressCep,setIsDisabledAddressCep] = useState(true) // DESATIVA - CEP
+    const [isDisabledAddressRoad,setIsDisabledAddressRoad] = useState(true) // DESATIVA - LOGRADOURO
+    const [isDisabledAddressNumber,setIsDisabledAddressNumber] = useState(true) // DESATIVA - NÚMERO
+    const [isDisabledAddressHood,setIsDisabledAddressHood] = useState(true) // DESATIVA - BAIRRO
+    const [isDisabledAddressCity,setIsDisabledAddressCity] = useState(true) // DESATIVA - CIDADE
+    const [isDisabledAddressState,setIsDisabledAddressState] = useState(true) // DESATIVA - ESTADO
+    const [isDisabledAddressUf,setIsDisabledAddressUf] = useState(true) // DESATIVA - UF
+    const [isDisabledAddressRegion,setIsDisabledAddressRegion] = useState(true) // DESATIVA - REGIÃO
 
     const [indexGet,setIndexGet] = useState(0)
     const refRegisterSale = useRef(null)
@@ -138,9 +157,75 @@ const Sales = () => {
         commandSale && commandSale?.map((saleList) => {
             setConsumptionSale(saleList.typeConsumption) // CONSUMO DA COMANDA
             setTableSale(saleList.tableCommand)
-            setTotalAmountSale(saleList.totalAmount)        
+            setTotalAmountSale(saleList.totalAmount)   
+            console.log("consumo: " + saleList.typeConsumption)  
+
+            if (saleList.typeConsumption === "LOCAL") {
+                setAddressCep("17065-209")
+                setAddressRoad("RUA FRANCISCO RAIMUNDO DE CARVALHO")
+                setAddressNumber("5-62")
+                setAddressHood("NOVA ESPERANÇA")
+                setAddressCity("BAURU")
+                setAddressState("SÃO PAULO")
+                setAddressUf("SP")
+                setAddressRegion("SUDESTE")
+                setIsDisabledAddressCep(true)
+                setIsDisabledAddressRoad(true)
+                setIsDisabledAddressNumber(true)
+                setIsDisabledAddressHood(true)
+                setIsDisabledAddressCity(true)
+                setIsDisabledAddressState(true)
+                setIsDisabledAddressUf(true)
+                setIsDisabledAddressRegion(true)
+                setIsDisabledBtnCep(true)
+                setIsDisabledCursorBtnCep("default")
+                 }
+            else if (saleList.typeConsumption === "DELIVERY") {
+                setAddressCep("")
+                setAddressRoad("")
+                setAddressNumber("")
+                setAddressHood("")
+                setAddressCity("")
+                setAddressState("")
+                setAddressUf("")
+                setAddressRegion("")
+                setIsDisabledAddressCep(false)
+                setIsDisabledAddressRoad(false)
+                setIsDisabledAddressNumber(false)
+                setIsDisabledAddressHood(false)
+                setIsDisabledAddressCity(false)
+                setIsDisabledAddressState(false)
+                setIsDisabledAddressUf(false)
+                setIsDisabledAddressRegion(false)
+                setIsDisabledBtnCep(false)
+                setIsDisabledCursorBtnCep("pointer")
+                 }    
         })
       },[commandSale])
+
+      const getCep = async (cep) => { // BUSCAR CEP NO SITE: VIACEP
+        const requestCep = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        const responseCep = await requestCep.json()
+        if (responseCep.length !== 0 ) {
+            console.log("tem cep sim")
+            console.log(responseCep)
+            setAddressRoad(responseCep.logradouro) // SETANDO O LOGRADOURO...
+            setAddressNumber(responseCep.complemento) // SETANDO O NÚMERO
+            setAddressHood(responseCep.bairro) // SETANDO O BAIRRO 
+            setAddressCity(responseCep.localidade) // SETANDO A CIDADE
+            setAddressState(responseCep.estado) // SETANDO O ESTADO
+            setAddressUf(responseCep.uf) // SETANDO O UF 
+            setAddressRegion(responseCep.regiao) // SETANDO A REGIÃO
+        }
+        else if (responseCep.length === 0 ) {
+            swal({
+               closeOnClickOutside: false,
+               icon: "success",
+               title: "REI DOS LANCHES",
+               text: "Cep não consta cadastrado no sistema!"
+                })  
+        }
+      }
 
   return (
 
@@ -235,25 +320,35 @@ const Sales = () => {
                 <div className="address-initial">
                     <label>
                         <span>CEP: </span>
-                        <input type="text" style={{width:"130px",textAlign:"center"}}
+                        <input type="text" style={{width:"110px",textAlign:"center"}}
                         id="id-cep-address"
                         name="n-cep-address"
+                        value={addressCep}
+                        onChange={(e) => setAddressCep(e.target.value)}
+                        disabled={isDisabledAddressCep}
                         required
                         />
+                        <button type="button" className="btn-search-cep" onClick={() => getCep(addressCep)} style={{cursor:isDisabledCursorBtnCep}} disabled={isDisabledBtnCep}><SiCeph className="icon-btn-cep"/></button>
                     </label>
                     <label>
                         <span>LOGRADOURO: </span>
-                        <input type="text" style={{width:"400px",textAlign:"center"}}
+                        <input type="text" style={{width:"390px",textAlign:"center"}}
                         id="id-road-address"
                         name="n-road-address"
+                        value={addressRoad}
+                        onChange={(e) => setAddressRoad(e.target.value)}
+                        disabled={isDisabledAddressRoad}
                         required
                         />
                     </label>
                     <label>
                         <span>NÚMERO: </span>
-                        <input type="text" style={{width:"70px",textAlign:"center"}}
+                        <input type="text" style={{width:"160px",textAlign:"center"}}
                         id="id-number-address"
                         name="n-number-address"
+                        value={addressNumber}
+                        onChange={(e) => setAddressNumber(e.target.value)}
+                        disabled={isDisabledAddressNumber}
                         required
                         />
                     </label>
@@ -262,9 +357,12 @@ const Sales = () => {
                 <div className="address-finally">
                     <label>
                         <span>BAIRRO </span>
-                        <input type="text" style={{width:"200px",textAlign:"center"}}
+                        <input type="text" style={{width:"220px",textAlign:"center"}}
                         id="id-hood-address"
                         name="n-hood-address"
+                        value={addressHood}
+                        onChange={(e) => setAddressHood(e.target.value)}
+                        disabled={isDisabledAddressHood}
                         required
                         />
                     </label>
@@ -273,6 +371,9 @@ const Sales = () => {
                         <input type="text" style={{width:"250px",textAlign:"center"}}
                         id="id-city-address"
                         name="n-city-address"
+                        value={addressCity}
+                        onChange={(e) => setAddressCity(e.target.value)}
+                        disabled={isDisabledAddressCity}
                         required
                         />
                     </label>
@@ -281,6 +382,9 @@ const Sales = () => {
                         <input type="text" style={{width:"150px",textAlign:"center"}}
                         id="id-state-address"
                         name="n-state-address"
+                        value={addressState}
+                        onChange={(e) => setAddressState(e.target.value)}
+                        disabled={isDisabledAddressState}
                         required
                         />
                     </label>
@@ -289,6 +393,9 @@ const Sales = () => {
                         <input type="text" style={{width:"70px",textAlign:"center"}}
                         id="id-uf-address"
                         name="n-uf-address"
+                        value={addressUf}
+                        onChange={(e) => setAddressUf(e.target.value)}
+                        disabled={isDisabledAddressUf}
                         required
                         />
                     </label>
@@ -297,6 +404,9 @@ const Sales = () => {
                         <input type="text" style={{width:"130px",textAlign:"center"}}
                         id="id-region-address"
                         name="n-region-address"
+                        value={addressRegion}
+                        onChange={(e) => setAddressRegion(e.target.value)}
+                        disabled={isDisabledAddressRegion}
                         required
                         />
                     </label>
