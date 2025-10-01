@@ -10,7 +10,7 @@ import "./Sales.css"
 import { ImCart } from "react-icons/im";
 import { FaAddressCard,FaCcMastercard,FaCcDiscover,FaAddressBook } from "react-icons/fa";
 import { FaMoneyBillWave,FaPix,FaFileInvoiceDollar,FaMoneyBill1Wave  } from "react-icons/fa6";
-import { GiMoneyStack,GiReceiveMoney,GiPayMoney   } from "react-icons/gi"
+import { GiMoneyStack,GiReceiveMoney,GiPayMoney, GiConsoleController   } from "react-icons/gi"
 import { HiMiniCreditCard } from "react-icons/hi2";
 import { RiVisaFill } from "react-icons/ri";
 import { SiNubank,SiDwavesystems,SiCeph   } from "react-icons/si";
@@ -18,7 +18,7 @@ import { MdCreateNewFolder } from "react-icons/md"
 import { TiCancel } from "react-icons/ti"
 import { BiBullseye, BiSolidSave,BiSolidSearch } from "react-icons/bi"
 import { GrMoney } from "react-icons/gr";
-import { data } from "react-router-dom";
+import { data, useViewTransitionState } from "react-router-dom";
 
 const url = "http://localhost:3000/sales"
 const urlCommand = "http://localhost:3000/commands"
@@ -40,7 +40,17 @@ const Sales = () => {
     const [addressState,setAddressState] = useState("") // [REQUEST] ESTADO
     const [addressUf,setAddressUf] = useState("") // [REQUEST] UF
     const [addressRegion,setAddressRegion] = useState("") // [REQUEST] REGIÃO
-    const [totalAmountSale,setTotalAmountSale] = useState("") // [REQUEST] TOTAL DA VENDA
+    const [totalAmountSale,setTotalAmountSale] = useState(0) // [REQUEST] TOTAL DA VENDA
+    const [paymentMethod,setPaymentMethod] = useState("") // [REQUEST] MÉTODO DE PAGAMENTO]
+    const [inputValueSale,setInputValueSale] = useState("") // [REQUEST] VALOR DE ENTRADA - DINHEIRO
+    const [changeValueSale,setChangeValueSale] = useState("") // [REQUEST] TROCO - DINHEIRO
+    const [typeCard,setTypeCard] = useState("") // [REQUEST] TIPO DO CARTÃO - CRÉDITO OU DÉBITO
+    const [cardNumber,setCardNumber] = useState("") // [REQUEST] NÚMERO DO CARTÃO
+    const [cardFlag,setCardFlag] = useState("") // [REQUEST] BANDEIRA DO CARTÃO
+    const [expirationCard,setExpirationCard] = useState("") // [REQUEST] DATA DE VALIDADE DO CARTÃO
+    const [cvccwCard,setCvccwCard] = useState("") // [REQUEST] CÓDIGO DE SEGURANÇA DO CARTÃO
+    const [cardName,setCardName] = useState("") // [REQUEST] NOME DO CARTÃO
+    const [cpfcnpjCard,setCpfcnpjCard] = useState("") // [REQUEST] CPF OU CNPJ DO CARTÃO
 
     const [isDisabledBtnCep,setIsDisabledBtnCep] = useState(true) // DESATIVA - BOTÃO DE CONSULTA DE CEP
     const [isDisabledCursorBtnCep,setIsDisabledCursorBtnCep] = useState("default") // DESATIVA - CURSOR BUSCA DE CEP
@@ -55,6 +65,8 @@ const Sales = () => {
     const [isDisabledAddressState,setIsDisabledAddressState] = useState(true) // DESATIVA - ESTADO
     const [isDisabledAddressUf,setIsDisabledAddressUf] = useState(true) // DESATIVA - UF
     const [isDisabledAddressRegion,setIsDisabledAddressRegion] = useState(true) // DESATIVA - REGIÃO
+
+    const [colorTypeCard,setColorTypeCard] = useState("") // COR DO TEXTO DO TIPO DE CARTÃO
 
     const [indexGet,setIndexGet] = useState(0)
     const refRegisterSale = useRef(null)
@@ -224,6 +236,43 @@ const Sales = () => {
                title: "REI DOS LANCHES",
                text: "Cep não consta cadastrado no sistema!"
                 })  
+        }
+      }
+
+      const calcMoney = () => {
+          const resChangeSale = inputValueSale - totalAmountSale
+          const resFinally = Number(resChangeSale)
+          setChangeValueSale(resFinally.toFixed(2))
+      }
+
+      useEffect(() => { // CALCULO DE TROCO...
+        calcMoney()
+      },[inputValueSale])
+
+      const changeMethodPayment = (valuePayment) => {
+        setPaymentMethod(valuePayment)
+        if (valuePayment === "DINHEIRO") {
+            console.log("pagamento:" + paymentMethod)
+        }
+        else if (valuePayment === "CARTÃO") {
+            setInputValueSale("")
+            setChangeValueSale("")
+        }
+        else if (valuePayment === "PIX") {
+            setInputValueSale("")
+            setChangeValueSale("")
+        }
+      }
+
+      const changeTypeCard = (e) => {
+        setTypeCard(e.target.value)
+        if (e.target.value === "CRÉDITO") {
+            setColorTypeCard("COLOR_CRÉDITO")
+            console.log("cartão: " + e.target.value)
+        }
+        else if (e.target.value === "DÉBITO") {
+            setColorTypeCard("COLOR_DÉBITO")
+            console.log("cartão: " + e.target.value)
         }
       }
 
@@ -420,7 +469,7 @@ const Sales = () => {
 
                 <div className="data-payment-sales"> {/* PAGAMENTOS */}
 
-                    <div className="click-type-payment">
+                    <div className="click-type-payment" onClick={() => changeMethodPayment("DINHEIRO")}>
                         <label onMouseOver={() => setIndexTypePaymentMoney(1)}> {/* DINHEIRO */}
                             <input type="radio" className="radio-payment"
                             value={typePaymentMoney}
@@ -438,6 +487,7 @@ const Sales = () => {
                                 id="id-total-money"
                                 name="n-total-money"
                                 value={checkValue(totalAmountSale) ? totalAmountSale + "0" : totalAmountSale}
+                                readOnly={true}
                                 disabled={true}
                                 required
                                 />
@@ -447,6 +497,8 @@ const Sales = () => {
                                 <input type="text" style={{textAlign:"center",width:"100px"}}
                                 id="id-input-money"
                                 name="n-input-money"
+                                value={inputValueSale}
+                                onChange={(e) => setInputValueSale(e.target.value)}
                                 required
                                 />
                             </label>
@@ -454,6 +506,8 @@ const Sales = () => {
                                 <span>TROCO R$ </span>
                                 <input type="text" style={{textAlign:"center",width:"100px"}}
                                 id="id-change-money"
+                                value={changeValueSale}
+                                readOnly={true}
                                 name="n-change-money"
                                 required
                                 />
@@ -462,7 +516,7 @@ const Sales = () => {
                         
                     </div> {/* FIM - DINHEIRO */}
 
-                    <div className="click-type-payment">
+                    <div className="click-type-payment" onClick={() => changeMethodPayment("CARTÃO")}>
                         <label onMouseOver={() => setIndexTypePaymentCard(1)}> {/* CARTÃO */}
                             <input type="radio" className="radio-payment"
                             value={typePaymentCard}
@@ -481,15 +535,21 @@ const Sales = () => {
                                     <div className="hide-card-one" style={{border:"1px solid white",borderRadius:"10px",paddingRight:"5px",paddingTop:"3px",paddingBottom:"4px",height:"80px"}}>
                                         <label className="hide-card-radio">
                                             <input type="radio"
+                                            value="CRÉDITO"
+                                            checked={typeCard === "CRÉDITO"}
+                                            onChange={changeTypeCard}
                                             />
                                             <GiReceiveMoney className="icon-hide-type-card"/>
-                                            <span style={{marginBottom:"30px"}}>CRÉDITO</span>
+                                            <span style={{marginBottom:"30px",color:colorTypeCard === "COLOR_CRÉDITO" ? "#7076f4" : "#fff",textShadow:colorTypeCard === "COLOR_CRÉDITO" ? ".3px .3px 3px #000" : ""}}>CRÉDITO</span>
                                         </label>
                                         <label className="hide-card-radio">
                                                 <input type="radio"
+                                                value="DÉBITO"
+                                                checked={typeCard === "DÉBITO"}
+                                                onChange={changeTypeCard}
                                                 />
                                                 <GiPayMoney className="icon-hide-type-card"/>
-                                                <span style={{marginBottom:"30px"}}>DÉBITO</span>
+                                                <span style={{marginBottom:"30px",color:colorTypeCard === "COLOR_DÉBITO" ? "#7076f4" : "#fff",textShadow:colorTypeCard === "COLOR_DÉBITO" ? ".3px .3px 3px #000" : ""}}>DÉBITO</span>
                                         </label>
                                     </div>
 
@@ -527,6 +587,8 @@ const Sales = () => {
                                         <input type="text" style={{width:"370px",textAlign:"center"}}
                                         id="id-name-card"
                                         name="n-name-card"
+                                        value={cardName}
+                                        onChange={(e) => setCardName(e.target.value)}
                                         />
                                     </label>
                                     <label className="hide-card-initial-span">
@@ -534,6 +596,8 @@ const Sales = () => {
                                         <input type="text" style={{width:"200px",textAlign:"center"}}
                                         id="id-number-card"
                                         name="n-number-card"
+                                        value={cardNumber}
+                                        onChange={(e) => setCardNumber(e.target.value)}
                                         />
                                     </label>
                                 </div>
@@ -544,6 +608,8 @@ const Sales = () => {
                                             <input type="text" style={{width:"150px",textAlign:"center"}}
                                             id="id-cpfcnpj-card"
                                             name="n-cpfcnpj-card"
+                                            value={cpfcnpjCard}
+                                            onChange={(e) => setCpfcnpjCard(e.target.value)}
                                             />
                                         </label>
                                         <label className="hide-card-finally-span">
@@ -551,6 +617,8 @@ const Sales = () => {
                                             <input type="text" style={{width:"100px",textAlign:"center"}}
                                             id="id-expiration-card"
                                             name="n-expiration-card"
+                                            value={expirationCard}
+                                            onChange={(e) => setExpirationCard(e.target.value)}
                                             />
                                         </label>
                                         <label className="hide-card-finally-span">
@@ -558,6 +626,8 @@ const Sales = () => {
                                             <input type="text" style={{width:"80px",textAlign:"center"}}
                                             id="id-cvcCwCard-card"
                                             name="n-cvcCwCard-card"
+                                            value={cvccwCard}
+                                            onChange={(e) => setCvccwCard(e.target.value)}
                                             />
                                         </label>                                        
                                     </div>
@@ -575,7 +645,7 @@ const Sales = () => {
                         </div> : ""}
                     </div> {/* FIM - CARTÃO */}
 
-                    <div className="click-type-payment">
+                    <div className="click-type-payment" onClick={() => changeMethodPayment("PIX")}>
                         <label onMouseOver={() => setIndexTypePaymentPix(1)}> {/* PIX */}
                             <input type="radio" className="radio-payment"
                             value={typePaymentPix}
