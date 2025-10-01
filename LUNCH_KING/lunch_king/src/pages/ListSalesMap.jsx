@@ -9,6 +9,7 @@ import { FaMoneyBill1Wave } from "react-icons/fa6";
 import { GiMoneyStack } from "react-icons/gi";
 import { GrMoney } from "react-icons/gr";
 import { SiDwavesystems } from "react-icons/si";
+import { BsQrCode } from "react-icons/bs";
 
 const url = "http://localhost:3000/sales"
 
@@ -99,12 +100,8 @@ const ListSalesMap = () => {
                               <p><span>CÓDIGO DE SEGURANÇA:</span> {sale.cvcCwCard}</p>
                             </div>
 
-                          </div>) : (<div className="pix-sales">
-                            <img src={sale.qrCodePisSale} alt="imagem do qrCode do pix da venda" /> 
-                            <div className="pix-sales-data">
-                              <p><span>NOME: </span>{sale.cardName}</p>
-                              <p><span>CPF/CNPJ: </span>{sale.cpfCnpjHolder}</p>
-                            </div>
+                          </div>) : (<div className="pix-sales">           
+                            <p><BsQrCode className="icon-qrcode-pix"/>VALOR DO QRCODE <span style={{color:"red"}}>R$ {checkValue(sale.qrCodePisSale) ? sale.qrCodePisSale + "0" : sale.qrCodePisSale}</span></p> 
                           </div>)}
 
                       </div>

@@ -692,7 +692,7 @@
       "qrCodePisSale": "NULO",
       "dateSale": "19/09/2025",
       "hourSale": "16:33",
-      "paymentStatus": "PAGO",
+      "paymentStatus": "FINALIZADO",
       "id": "86c9"
     },
     {
@@ -745,7 +745,7 @@
       "qrCodePisSale": "NULO",
       "dateSale": "19/09/2025",
       "hourSale": "17:49",
-      "paymentStatus": "PAGO",
+      "paymentStatus": "FINALIZADO",
       "id": "86c10"
     },
     {
@@ -791,7 +791,7 @@
       "qrCodePisSale": "NULO",
       "dateSale": "19/09/2025",
       "hourSale": "18:02",
-      "paymentStatus": "PAGO",
+      "paymentStatus": "FINALIZADO",
       "id": "86c11"
     },
     {
@@ -827,10 +827,10 @@
       "cvcCwCard": 0,
       "cardName": "PATRÍCIA GONÇALVES MELO",
       "cpfCnpjHolder": 35498734573,
-      "qrCodePisSale": "/img/qrCodeExample.png",
+      "qrCodePisSale": 12.99,
       "dateSale": "19/09/2025",
       "hourSale": "18:07",
-      "paymentStatus": "PAGO",
+      "paymentStatus": "FINALIZADO",
       "id": "86c12"
     }
   ]

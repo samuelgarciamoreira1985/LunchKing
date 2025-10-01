@@ -51,6 +51,8 @@ const Sales = () => {
     const [cvccwCard,setCvccwCard] = useState("") // [REQUEST] CÓDIGO DE SEGURANÇA DO CARTÃO
     const [cardName,setCardName] = useState("") // [REQUEST] NOME DO CARTÃO
     const [cpfcnpjCard,setCpfcnpjCard] = useState("") // [REQUEST] CPF OU CNPJ DO CARTÃO
+    const [hourSale,setHourSale] = useState("") // [REQUEST] HORA DA VENDA
+    const [statusSale,setStatusSale] = useState("PENDENTE") // STATUS DA VENDA
 
     const [isDisabledBtnCep,setIsDisabledBtnCep] = useState(true) // DESATIVA - BOTÃO DE CONSULTA DE CEP
     const [isDisabledCursorBtnCep,setIsDisabledCursorBtnCep] = useState("default") // DESATIVA - CURSOR BUSCA DE CEP
@@ -67,6 +69,7 @@ const Sales = () => {
     const [isDisabledAddressRegion,setIsDisabledAddressRegion] = useState(true) // DESATIVA - REGIÃO
 
     const [colorTypeCard,setColorTypeCard] = useState("") // COR DO TEXTO DO TIPO DE CARTÃO
+    const [colorFlagCard,setColorFlagCard] = useState("") // COR DO TEXTO DA BANDEIRA DO CARTÃO
 
     const [indexGet,setIndexGet] = useState(0)
     const refRegisterSale = useRef(null)
@@ -76,7 +79,7 @@ const Sales = () => {
     const [indexTypePaymentCard,setIndexTypePaymentCard] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - CARD
     const [typePaymentPix,setTypePaymentPix] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - PIX
     const [indexTypePaymentPix,setIndexTypePaymentPix] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - PIX
-    const [fieldValueSale,setFieldValueSale] = useState(12.49) // GERA O QRCODE - PIX
+    const [fieldValueSale,setFieldValueSale] = useState(0) // GERA O QRCODE - PIX
 
     // INÍCIO - VALIDAÇÃO DE INPUT DE ID E REGISTRO DE VENDA
     const validDigitsId = (textDigitedId) => {
@@ -249,32 +252,83 @@ const Sales = () => {
         calcMoney()
       },[inputValueSale])
 
-      const changeMethodPayment = (valuePayment) => {
+      const changeMethodPayment = (valuePayment) => { // LIMPA MÉTODOS DE PAGAMENTO CONFORME ESCOLHA
         setPaymentMethod(valuePayment)
         if (valuePayment === "DINHEIRO") {
-            console.log("pagamento:" + paymentMethod)
+            setTypeCard("") // LIMPA CARTÃO
+            setCardFlag("") // LIMPA CARTÃO
+            setCardName("") // LIMPA CARTÃO E PIX
+            setCardNumber("") // LIMPA CARTÃO
+            setCpfcnpjCard("") // LIMPA CARTÃO E PIX
+            setExpirationCard("") // LIMPA CARTÃO
+            setCvccwCard("") // LIMPA CARTÃO
+            setColorTypeCard("") // LIMPA CARTÃO
+            setColorFlagCard("") // LIMPA CARTÃO
         }
         else if (valuePayment === "CARTÃO") {
-            setInputValueSale("")
-            setChangeValueSale("")
+            setInputValueSale("") // LIMPA DINHEIRO
+            setChangeValueSale("") // LIMPA DINHEIRO
         }
         else if (valuePayment === "PIX") {
-            setInputValueSale("")
-            setChangeValueSale("")
+            setInputValueSale("") // LIMPA DINHEIRO
+            setChangeValueSale("") // LIMPA DINHEIRO
+            setTypeCard("") // LIMPA CARTÃO
+            setCardFlag("") // LIMPA CARTÃO
+            setCardName("") // LIMPA CARTÃO E PIX
+            setCardNumber("") // LIMPA CARTÃO
+            setCpfcnpjCard("") // LIMPA CARTÃO E PIX
+            setExpirationCard("") // LIMPA CARTÃO
+            setCvccwCard("") // LIMPA CARTÃO
+            setColorTypeCard("") // LIMPA CARTÃ
+            setColorFlagCard("") // LIMPA CARTÃ
         }
       }
 
-      const changeTypeCard = (e) => {
+      const changeTypeCard = (e) => { // COLETA DE VALORES - TIPO DE CARTÃO
         setTypeCard(e.target.value)
         if (e.target.value === "CRÉDITO") {
             setColorTypeCard("COLOR_CRÉDITO")
-            console.log("cartão: " + e.target.value)
         }
         else if (e.target.value === "DÉBITO") {
             setColorTypeCard("COLOR_DÉBITO")
-            console.log("cartão: " + e.target.value)
         }
       }
+
+      const changeFlagCard = (e) => { // COLETA DE VALORES - BANDEIRA DO CARTÃO
+        setCardFlag(e.target.value)
+        if (e.target.value === "VISA") {
+            setColorFlagCard("COLOR_VISA")
+        }
+        else if (e.target.value === "MASTERCARD") {
+            setColorFlagCard("COLOR_MASTERCARD")
+        }
+        else if (e.target.value === "NUBANK") {
+            setColorFlagCard("COLOR_NUBANK")
+        }
+        else if (e.target.value === "DISCOVER") {
+            setColorFlagCard("COLOR_DISCOVER")
+        }
+      }
+
+      useEffect(() => { // COLETA DE VALOR DE QRCODE - PIX
+        setFieldValueSale(totalAmountSale)
+      },[totalAmountSale])
+
+      // COLETA DE DATA E HORA DO SISTEMA - VENDA
+        const dateHourSystemSale = new Date()
+        const dateSystemSale = dateHourSystemSale.toLocaleDateString()
+        const hourSystemSale = dateHourSystemSale.toLocaleTimeString()
+        const handleHourSystemCommand = () => {
+         setHourSale(hourSystemSale)
+        }
+
+      // TROCA DE STATUS DA VENDA
+         const changeColorStatusSale = () => {
+           if (statusSale === "PENDENTE")
+              setStatusSale("FINALIZADO")
+           else if (statusSale === "FINALIZADO")
+              setStatusSale("PENDENTE")
+         } // ************************************
 
   return (
 
@@ -556,27 +610,35 @@ const Sales = () => {
                                     <div className="flags-card">
                                             <label>
                                                 <input type="radio" 
-                                                
+                                                value="VISA"
+                                                checked={cardFlag === "VISA"}
+                                                onChange={changeFlagCard}
                                                 />
-                                                <RiVisaFill className="icon-flags"/>                                               
+                                                <RiVisaFill className="icon-flags" style={{color:colorFlagCard === "COLOR_VISA" ? "#7076f4" : "#fff"}}/>                                               
                                             </label>
                                             <label>
                                                 <input type="radio" 
-                                                
+                                                value="MASTERCARD"
+                                                checked={cardFlag === "MASTERCARD"}
+                                                onChange={changeFlagCard}
                                                 />
-                                                <FaCcMastercard className="icon-flags"/>                                             
+                                                <FaCcMastercard className="icon-flags" style={{color:colorFlagCard === "COLOR_MASTERCARD" ? "#7076f4" : "#fff"}}/>                                             
                                             </label>
                                             <label>
                                                 <input type="radio" 
-                                                
+                                                value="NUBANK"
+                                                checked={cardFlag === "NUBANK"}
+                                                onChange={changeFlagCard}
                                                 />
-                                                <SiNubank className="icon-flags"/>                                              
+                                                <SiNubank className="icon-flags" style={{color:colorFlagCard === "COLOR_NUBANK" ? "#7076f4" : "#fff"}}/>                                              
                                             </label>
                                             <label>
                                                 <input type="radio" 
-                                                
+                                                value="DISCOVER"
+                                                checked={cardFlag === "DISCOVER"}
+                                                onChange={changeFlagCard}
                                                 />
-                                                <FaCcDiscover className="icon-flags"/>                                              
+                                                <FaCcDiscover className="icon-flags" style={{color:colorFlagCard === "COLOR_DISCOVER" ? "#7076f4" : "#fff"}}/>                                              
                                             </label>
                                     </div>
                                
@@ -660,7 +722,7 @@ const Sales = () => {
                             <div className="qrCode-pix">
                                 {fieldValueSale && (
                                     <QRCode
-                                    title="GeeksForGeeks"
+                                    title="qrCodePis"
                                     value={fieldValueSale}
                                     bgColor="#ddd"
                                     fgColor="#000"
@@ -670,22 +732,6 @@ const Sales = () => {
                             </div>
 
                             <div className="fields-pix">
-                                <label style={{marginLeft:"27px"}}>
-                                    <span>NOME</span>
-                                    <input type="text" style={{textAlign:"center",width:"350px"}}
-                                    id="id-name-pix"
-                                    name="n-name-pix"
-                                    required
-                                    />
-                                </label>
-                                <label>
-                                    <span>CPF/CNPJ</span>
-                                    <input type="text" style={{textAlign:"center",width:"200px"}}
-                                    id="id-cpfcnpj-pix"
-                                    name="n-cpfcnpj-pix"
-                                    required
-                                    />
-                                </label>
                                 <label>
                                     <span style={{marginLeft:"-1px"}}>TOTAL R$ </span>
                                     <input type="text" style={{textAlign:"center",width:"120px"}}
@@ -713,27 +759,29 @@ const Sales = () => {
                     <input type="text" style={{width:"120px",textAlign:"center"}}
                     id="id-date-sale"
                     name="n-date-sale"
+                    value={dateSystemSale}
                     disabled={true}
                     required
                     />
                 </label>
 
                 <label>
-                    <button type="button">HORA</button>
+                    <button type="button" onClick={handleHourSystemCommand}>HORA</button>
                     <input type="text" style={{width:"110px",textAlign:"center"}} 
                     id="id-hour-sale"
                     name="n-hour-sale"
+                    value={hourSale}
                     disabled={true}
                     required
                     />
                 </label>
 
                 <label>
-                    <button type="button">SITUAÇÃO</button>
-                    <input type="text" style={{width:"130px",textAlign:"center",backgroundColor:"#ff0000",color:"#ddd"}}
+                    <button type="button" onClick={changeColorStatusSale}>SITUAÇÃO</button>
+                    <input type="text" style={{width:"130px",textAlign:"center",backgroundColor:statusSale === "PENDENTE" ? "#ff0000" : "#018a01",color:"#ddd"}}
                     id="id-status-sale"
                     name="n-status-sale"
-                    value="PENDENTE"
+                    value={statusSale === "PENDENTE" ? "PENDENTE" : "FINALIZADO"}
                     disabled={true}
                     required
                     />
