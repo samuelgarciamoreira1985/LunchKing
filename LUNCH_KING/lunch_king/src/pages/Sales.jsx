@@ -56,11 +56,13 @@ const Sales = () => {
     const [itemCartSale,setItemCartSale] = useState([]) // [REQUEST] ITÉNS DO CARRINHO - VENDA
     const [fieldValueSale,setFieldValueSale] = useState(0) // [REQUEST] GERA O QRCODE - PIX
 
+    const [isDisabledPaymentAll,setIsDisabledPaymentAll] = useState("none") // DESATIVA EVENTOS DA DIV DE PAGAMENTOS
+    const [isDisabledIdSales,setIsDisabledIdSales] = useState(true)    // DESATIVA ID DA VENDA
     const [isDisabledBtnCep,setIsDisabledBtnCep] = useState(true) // DESATIVA - BOTÃO DE CONSULTA DE CEP
     const [isDisabledCursorBtnCep,setIsDisabledCursorBtnCep] = useState("default") // DESATIVA - CURSOR BUSCA DE CEP
-    const [isDisabledRegister,setIsDisabledRegister] = useState(false) // DESATIVA - CAMPO DE REGISTRO
-    const [isDisabledBtnItems,setIsDisabledBtnItems] = useState(false) // DESATIVA - BOTÃO DE BUSCA DE PRODUTOS
-    const [isDisabledCursorBtnItems,setIsDisabledCursorBtnItems] = useState("pointer") // DESATIVA - CURSOR BUSCA
+    const [isDisabledRegister,setIsDisabledRegister] = useState(true) // DESATIVA - CAMPO DE REGISTRO
+    const [isDisabledBtnItems,setIsDisabledBtnItems] = useState(true) // DESATIVA - BOTÃO DE BUSCA DE PRODUTOS
+    const [isDisabledCursorBtnItems,setIsDisabledCursorBtnItems] = useState("default") // DESATIVA - CURSOR BUSCA
     const [isDisabledAddressCep,setIsDisabledAddressCep] = useState(true) // DESATIVA - CEP
     const [isDisabledAddressRoad,setIsDisabledAddressRoad] = useState(true) // DESATIVA - LOGRADOURO
     const [isDisabledAddressNumber,setIsDisabledAddressNumber] = useState(true) // DESATIVA - NÚMERO
@@ -69,6 +71,14 @@ const Sales = () => {
     const [isDisabledAddressState,setIsDisabledAddressState] = useState(true) // DESATIVA - ESTADO
     const [isDisabledAddressUf,setIsDisabledAddressUf] = useState(true) // DESATIVA - UF
     const [isDisabledAddressRegion,setIsDisabledAddressRegion] = useState(true) // DESATIVA - REGIÃO
+    const [btnHourSales,setBtnHourSales] = useState("DESATIVADO") // DESATIVA BOTÃO DE COLETA DE HORA
+    const [eventCursorHourSales,setEventCursorHourSales] = useState("none") // DESATIVA EVENTOS DE HORA
+    const [btnStatusSales,setBtnStatusSales] = useState("DESATIVADO") // DESATIVA BOTÃO DE COLETA DE STATUS
+    const [eventCursorStatusSales,setEventCursorStatusSales] = useState("none") // DESATIVA EVENTOS DE STATUS
+    // BOTÃO - DELETAR DA LISTA DE VENDAS
+    const [isDisabledDelSales,setIsDisabledDelSales] = useState(false) // DESATIVA BOTÃO DELETE DE VENDAS
+    const [isCursorDelSales,setIsCursorDelSales] = useState("pointer") // DESATIVA CURSOR DELETE DE VENDAS
+    const [eventDelSales,setEventDelSales] = useState("fill") // DESATIVA EVENTOS DO BOTÃO DELETE DE VENDAS
 
     const [colorTypeCard,setColorTypeCard] = useState("") // COR DO TEXTO DO TIPO DE CARTÃO
     const [colorFlagCard,setColorFlagCard] = useState("") // COR DO TEXTO DA BANDEIRA DO CARTÃO
@@ -82,6 +92,19 @@ const Sales = () => {
     const [typePaymentPix,setTypePaymentPix] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - PIX
     const [indexTypePaymentPix,setIndexTypePaymentPix] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - PIX
     const [controlCartSale,setControlCartSale] = useState("")
+
+    const [btnNewSale,setBtnNewSale] = useState(false)
+    const [btnCancelSale,setBtnCancelSale] = useState(true)
+    const [btnSaveSale,setBtnSaveSale] = useState(true)
+    const [btnInvoiceSale,setBtnInvoiceSale] = useState(true)
+    const [colorNewSales, setColorNewSales] = useState("#0044ffcb")
+    const [colorCancelSales, setColorCancelSales] = useState("#0044ff96")
+    const [colorSaveSales, setColorSaveSales] = useState("#0044ff96")
+    const [colorInvoiceSales, setColorInvoiceSales] = useState("#0044ff96")
+    const [cursorNewSales, setCursorNewSales] = useState("pointer")
+    const [cursorCancelSales, setCursorCancelSales] = useState("default")
+    const [cursorSaveSales, setCursorSaveSales] = useState("default")
+    const [cursorInvoiceSales, setCursorInvoiceSales] = useState("default")
 
     // INÍCIO - VALIDAÇÃO DE INPUT DE ID E REGISTRO DE VENDA
     const validDigitsId = (textDigitedId) => {
@@ -346,6 +369,49 @@ const Sales = () => {
             }
          }
 
+         //***************************BOTÕES DE AÇÃO********************************* */
+         // 0 - ATIVO, 1 - INATIVO, 2 - CURSOR PONTEIRO, 3 - CURSOR PADRÃO, 4 - ELEMENTO ATIVADO
+         // 5 - ELEMENTO DESATIVADO
+         // 0- SEM OPERAÇÃO 1-NOVO 2-ALTERAR 3-DELETAR 4-CANCELAR 5-SALVAR
+
+         const [indexOpSales, setIndexOpSales] = useState(0) 
+         const optionsSales = ["#0044ffcb","#0044ff96","pointer","default","fill","none"]
+
+         const handleClickNewSale = (e) => { // BOTÃO - NOVA VENDA**
+            if (btnNewSale === false) {
+               setIndexOpSales(1) // operação nova venda
+               setBtnNewSale(true)
+               setBtnCancelSale(false)
+               setBtnSaveSale(false)
+
+               setColorNewSales(optionsSales[1]) 
+               setColorCancelSales(optionsSales[0])
+               setColorSaveSales(optionsSales[0])
+               setColorInvoiceSales(optionsSales[0])
+
+               setCursorNewSales(optionsSales[3])
+               setCursorCancelSales(optionsSales[2])
+               setCursorSaveSales(optionsSales[2])
+               setCursorInvoiceSales(optionsSales[2])
+
+               setIsDisabledIdSales(false) 
+               setIsDisabledRegister(false)
+               setIsDisabledBtnItems(false)
+               setIsDisabledCursorBtnItems("pointer")
+
+               setIsDisabledPaymentAll("all") 
+
+               setBtnHourSales("ATIVADO")
+               setEventCursorHourSales(optionsSales[4])
+               setBtnStatusSales("ATIVADO")
+               setEventCursorStatusSales(optionsSales[4])
+
+               setIsDisabledDelSales(true)
+               setIsCursorDelSales(optionsSales[3]) 
+               setEventDelSales(optionsSales[5])     
+            }
+         }
+
   return (
 
     <div className="container-sales">
@@ -361,6 +427,7 @@ const Sales = () => {
                     name="n-id-sale"
                     value={idSale}
                     onChange={(e) => ChangeMaskIdSale(e)}
+                    disabled={isDisabledIdSales}
                     required
                     />
                 </label>
@@ -534,7 +601,7 @@ const Sales = () => {
                 </div>
             </div> {/* ------------------------------------------------------ */}
 
-            <div className="data-invoicing-sales">
+            <div className="data-invoicing-sales" style={{pointerEvents:isDisabledPaymentAll}}>
                 <div className="title-data-invoicing-sales">
                     <p><FaMoneyBillWave className="icon-invoicing-sales"/> DADOS DE FATURAMENTO</p>
                 </div>
@@ -784,7 +851,7 @@ const Sales = () => {
                 </label>
 
                 <label>
-                    <button type="button" onClick={handleHourSystemCommand}>HORA</button>
+                    <button type="button" onClick={handleHourSystemCommand} disabled={btnHourSales === "DESATIVADO" ? true : false} style={{pointerEvents:eventCursorHourSales}}>HORA</button>
                     <input type="text" style={{width:"110px",textAlign:"center"}} 
                     id="id-hour-sale"
                     name="n-hour-sale"
@@ -795,7 +862,7 @@ const Sales = () => {
                 </label>
 
                 <label>
-                    <button type="button" onClick={changeColorStatusSale}>SITUAÇÃO</button>
+                    <button type="button" onClick={changeColorStatusSale} disabled={btnStatusSales === "DESATIVADO" ? true : false} style={{pointerEvents:eventCursorStatusSales}}>SITUAÇÃO</button>
                     <input type="text" style={{width:"130px",textAlign:"center",backgroundColor:statusSale === "PENDENTE" ? "#ff0000" : "#018a01",color:"#ddd"}}
                     id="id-status-sale"
                     name="n-status-sale"
@@ -809,13 +876,13 @@ const Sales = () => {
             {/* INÍCIO - BOTÕES DE AÇÃO [NOVO-CANCELAR-SALVAR-GERAR NOTA FISCAL] */}                    
             <div className="group-buttons-action-sales">
 
-                    <button type="button"><MdCreateNewFolder className="icon-button-action-sales"/>NOVA VENDA</button>
+                    <button type="button" disabled={btnNewSale} style={{backgroundColor: colorNewSales, cursor: cursorNewSales}} onClick={(e) => handleClickNewSale(e)}><MdCreateNewFolder className="icon-button-action-sales"/>NOVA VENDA</button>
 
-                    <button type="button"><TiCancel className="icon-button-action-sales"/>CANCELAR VENDA</button>
+                    <button type="button" disabled={btnCancelSale} style={{backgroundColor: colorCancelSales, cursor: cursorCancelSales}}><TiCancel className="icon-button-action-sales"/>CANCELAR VENDA</button>
 
-                    <button type="button"><BiSolidSave className="icon-button-action-sales"/>FINALIZAR VENDA</button>
+                    <button type="button" disabled={btnSaveSale} style={{backgroundColor: colorSaveSales, cursor: cursorSaveSales}}><BiSolidSave className="icon-button-action-sales"/>FINALIZAR VENDA</button>
 
-                    <button type="button"><FaFileInvoiceDollar className="icon-button-action-sales"/>NOTA FISCAL</button>
+                    <button type="button" disabled={btnInvoiceSale} style={{backgroundColor: colorInvoiceSales, cursor: cursorInvoiceSales}}><FaFileInvoiceDollar className="icon-button-action-sales"/>NOTA FISCAL</button>
             </div>
             {/* FIM - BOTÕES DE AÇÃO */}
 
@@ -921,7 +988,7 @@ const Sales = () => {
                                             <p>{sale.paymentStatus}</p>
                                         </div>
                                         <div className="finally-sales-status">
-                                            <button type="button" className="button-del-finally-sales">DELETAR</button>
+                                            <button type="button" className="button-del-finally-sales" style={{cursor:isCursorDelSales,pointerEvents:eventDelSales}} disabled={isDisabledDelSales}>DELETAR</button>
                                         </div>
                                     </div>
                             </div>
