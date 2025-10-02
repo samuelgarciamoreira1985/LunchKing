@@ -10,7 +10,7 @@ import "./Sales.css"
 import { ImCart } from "react-icons/im";
 import { FaAddressCard,FaCcMastercard,FaCcDiscover,FaAddressBook } from "react-icons/fa";
 import { FaMoneyBillWave,FaPix,FaFileInvoiceDollar,FaMoneyBill1Wave  } from "react-icons/fa6";
-import { GiMoneyStack,GiReceiveMoney,GiPayMoney, GiConsoleController   } from "react-icons/gi"
+import { GiMoneyStack,GiReceiveMoney,GiPayMoney, GiConsoleController,GiConfirmed    } from "react-icons/gi"
 import { HiMiniCreditCard } from "react-icons/hi2";
 import { RiVisaFill } from "react-icons/ri";
 import { SiNubank,SiDwavesystems,SiCeph   } from "react-icons/si";
@@ -52,7 +52,9 @@ const Sales = () => {
     const [cardName,setCardName] = useState("") // [REQUEST] NOME DO CARTÃO
     const [cpfcnpjCard,setCpfcnpjCard] = useState("") // [REQUEST] CPF OU CNPJ DO CARTÃO
     const [hourSale,setHourSale] = useState("") // [REQUEST] HORA DA VENDA
-    const [statusSale,setStatusSale] = useState("PENDENTE") // STATUS DA VENDA
+    const [statusSale,setStatusSale] = useState("PENDENTE") // [REQUEST] STATUS DA VENDA
+    const [itemCartSale,setItemCartSale] = useState([]) // [REQUEST] ITÉNS DO CARRINHO - VENDA
+    const [fieldValueSale,setFieldValueSale] = useState(0) // [REQUEST] GERA O QRCODE - PIX
 
     const [isDisabledBtnCep,setIsDisabledBtnCep] = useState(true) // DESATIVA - BOTÃO DE CONSULTA DE CEP
     const [isDisabledCursorBtnCep,setIsDisabledCursorBtnCep] = useState("default") // DESATIVA - CURSOR BUSCA DE CEP
@@ -79,7 +81,7 @@ const Sales = () => {
     const [indexTypePaymentCard,setIndexTypePaymentCard] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - CARD
     const [typePaymentPix,setTypePaymentPix] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - PIX
     const [indexTypePaymentPix,setIndexTypePaymentPix] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - PIX
-    const [fieldValueSale,setFieldValueSale] = useState(0) // GERA O QRCODE - PIX
+    const [controlCartSale,setControlCartSale] = useState("")
 
     // INÍCIO - VALIDAÇÃO DE INPUT DE ID E REGISTRO DE VENDA
     const validDigitsId = (textDigitedId) => {
@@ -330,6 +332,20 @@ const Sales = () => {
               setStatusSale("PENDENTE")
          } // ************************************
 
+         const addItemCartSale = (idItem,descItem,photoItem,amountItem,valueSaleItem) => {
+            const newCarSale = {
+                "idItemCartSale": idItem,
+                "descItemCartSale": descItem,
+                "photoItemCartSale": photoItem,
+                "amountItemCartSale": amountItem,
+                "valueSaleItemCartSale": valueSaleItem
+            }
+            if (controlCartSale === ""){
+                setItemCartSale(prevItems => [...prevItems,newCarSale])
+                console.log(itemCartSale)
+            }
+         }
+
   return (
 
     <div className="container-sales">
@@ -405,10 +421,12 @@ const Sales = () => {
                                     <p>{itemSS.descItemCart}</p>
                                     <p>x {itemSS.amountItemCart}</p>
                                      <p style={{color:"red", textShadow: ".2px .2px 7px white"}}>R$ {checkValue(itemSS.valueSaleItemCart) ? itemSS.valueSaleItemCart + "0" : itemSS.valueSaleItemCart}</p>
+                                      <input type="text" style={{display:"none"}} onChange={() => addItemCartSale(itemSS.idItemCart,itemSS.descItemCart,itemSS.photoItemCart,itemSS.amountItemCart,itemSS.valueSaleItemCart)}
+                                      value={controlCartSale}                          
+                                      />
                                 </div>
                             </div>
                             ))}
-
                         </li>
                         ))}
                     </ul>  
