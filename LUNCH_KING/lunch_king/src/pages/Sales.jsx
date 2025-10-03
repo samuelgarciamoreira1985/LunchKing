@@ -25,8 +25,10 @@ const urlCommand = "http://localhost:3000/commands"
 
 const Sales = () => {
 
-    const { data: sales } = useRequests(url)
+    const { data: sales,getRefreshRegister } = useRequests(url)
     const { dataCommand: commandSale,getCommandsInSales } = useSend(urlCommand)
+
+    const [controlMapCart,setControlMapCart] = useState(false) // CONTROLE - MAP DO CARRINHO
 
     const [idSale,setIdSale] = useState("") // [REQUEST] ID
     const [registerSale,setRegisterSale] = useState("") // [REQUEST] REGISTRO
@@ -79,6 +81,8 @@ const Sales = () => {
     const [isDisabledDelSales,setIsDisabledDelSales] = useState(false) // DESATIVA BOTÃO DELETE DE VENDAS
     const [isCursorDelSales,setIsCursorDelSales] = useState("pointer") // DESATIVA CURSOR DELETE DE VENDAS
     const [eventDelSales,setEventDelSales] = useState("fill") // DESATIVA EVENTOS DO BOTÃO DELETE DE VENDAS
+
+    const [eventBtnCep,setEventBtnCep] = useState("none") // DESATIVA EVENTOS DO BOTÃO BUSCA DE CEP
 
     const [colorTypeCard,setColorTypeCard] = useState("") // COR DO TEXTO DO TIPO DE CARTÃO
     const [colorFlagCard,setColorFlagCard] = useState("") // COR DO TEXTO DA BANDEIRA DO CARTÃO
@@ -190,6 +194,8 @@ const Sales = () => {
                  setIsDisabledRegister(true)
                  setIsDisabledBtnItems(true)
                  setIsDisabledCursorBtnItems("none")
+                 setControlMapCart(true)
+                 setIsDisabledPaymentAll("all") 
                 }
       }
 
@@ -219,6 +225,7 @@ const Sales = () => {
                 setIsDisabledAddressRegion(true)
                 setIsDisabledBtnCep(true)
                 setIsDisabledCursorBtnCep("default")
+                setEventBtnCep("none")
                  }
             else if (saleList.typeConsumption === "DELIVERY") {
                 setAddressCep("")
@@ -239,6 +246,7 @@ const Sales = () => {
                 setIsDisabledAddressRegion(false)
                 setIsDisabledBtnCep(false)
                 setIsDisabledCursorBtnCep("pointer")
+                setEventBtnCep("fill")
                  }    
         })
       },[commandSale])
@@ -383,23 +391,22 @@ const Sales = () => {
                setBtnNewSale(true)
                setBtnCancelSale(false)
                setBtnSaveSale(false)
+               setBtnInvoiceSale(true)
 
                setColorNewSales(optionsSales[1]) 
                setColorCancelSales(optionsSales[0])
                setColorSaveSales(optionsSales[0])
-               setColorInvoiceSales(optionsSales[0])
+               setColorInvoiceSales(optionsSales[1])
 
                setCursorNewSales(optionsSales[3])
                setCursorCancelSales(optionsSales[2])
                setCursorSaveSales(optionsSales[2])
-               setCursorInvoiceSales(optionsSales[2])
+               setCursorInvoiceSales(optionsSales[3])
 
                setIsDisabledIdSales(false) 
                setIsDisabledRegister(false)
                setIsDisabledBtnItems(false)
                setIsDisabledCursorBtnItems("pointer")
-
-               setIsDisabledPaymentAll("all") 
 
                setBtnHourSales("ATIVADO")
                setEventCursorHourSales(optionsSales[4])
@@ -410,6 +417,130 @@ const Sales = () => {
                setIsCursorDelSales(optionsSales[3]) 
                setEventDelSales(optionsSales[5])     
             }
+         }
+
+         const handleClickCancelSale = (e) => { // BOTÃO - CANCELAR VENDA** 
+            swal("Deseja realmente cancelar o cadastro ou alteração da venda?", {
+                closeOnClickOutside: false,
+                dangerMode: true,
+                closeOnEsc: false,
+                icon: "warning",
+                title: "REI DOS LANCHES",
+                buttons: {
+                  confirmar: {
+                  text: "Sim",
+                  value: "sim",
+                  className: "swal-cancelar-sim",
+                  },
+                  cancelar: {
+                     text: "Não",
+                     value: "nao",
+                     className: "swal-cancelar-nao"
+                     },
+                    },
+                    })
+                    .then((value => {
+                     if (value === "sim") { 
+                        if (btnCancelSale === false) {
+                            setIndexOpSales(0) // cancelando a venda
+                            setBtnNewSale(false)
+                            setBtnCancelSale(true)
+                            setBtnSaveSale(true)
+                            setBtnInvoiceSale(true)
+
+                            setColorNewSales(optionsSales[0]) 
+                            setColorCancelSales(optionsSales[1])
+                            setColorSaveSales(optionsSales[1])
+                            setColorInvoiceSales(optionsSales[1])
+
+                            setCursorNewSales(optionsSales[2])
+                            setCursorCancelSales(optionsSales[3])
+                            setCursorSaveSales(optionsSales[3])
+                            setCursorInvoiceSales(optionsSales[3])
+                            
+                            setIdSale("")
+                            setIsDisabledIdSales(true) 
+                            setRegisterSale("")
+                            setIsDisabledRegister(true)
+                            setIsDisabledBtnItems(true)
+                            setIsDisabledCursorBtnItems("default")
+                            setConsumptionSale("")
+                            setTableSale("")
+
+                            setItemCartSale([]) // LIMPA O CARRINHO...
+                            setControlMapCart(false) // DESATIVA A RENDERIZAÇÃO DO CARRINHO...
+
+                            setAddressCep("")
+                            setAddressRoad("")
+                            setAddressNumber("")
+                            setAddressHood("")
+                            setAddressCity("")
+                            setAddressState("")
+                            setAddressUf("")
+                            setAddressRegion("")
+                            setIsDisabledAddressCep(true)
+                            setIsDisabledAddressRoad(true)
+                            setIsDisabledAddressNumber(true)
+                            setIsDisabledAddressHood(true)
+                            setIsDisabledAddressCity(true)
+                            setIsDisabledAddressState(true)
+                            setIsDisabledAddressUf(true)
+                            setIsDisabledAddressRegion(true)
+                            setIsDisabledBtnCep(true)
+                            setIsDisabledCursorBtnCep("default")
+                            setEventBtnCep("none")
+
+                            setIsDisabledPaymentAll("none") // DESATIVA AS DIVS DE PAGAMENTO
+                            setTypePaymentMoney("DESATIVADO")
+                            setTypePaymentCard("DESATIVADO")
+                            setTypePaymentPix("DESATIVADO")
+                            setInputValueSale("") // LIMPA DINHEIRO
+                            setChangeValueSale("") // LIMPA DINHEIRO
+                            setTypeCard("") // LIMPA CARTÃO
+                            setCardFlag("") // LIMPA CARTÃO
+                            setCardName("") // LIMPA CARTÃO E PIX
+                            setCardNumber("") // LIMPA CARTÃO
+                            setCpfcnpjCard("") // LIMPA CARTÃO E PIX
+                            setExpirationCard("") // LIMPA CARTÃO
+                            setCvccwCard("") // LIMPA CARTÃO
+                            setColorTypeCard("") // LIMPA CARTÃO
+                            setColorFlagCard("") // LIMPA CARTÃO
+                            setFieldValueSale(0) // LIMPA O QRCODE
+                            setTotalAmountSale(0) // LIMPA TODOS OS CAMPOS DE TOTAL DA VENDA*
+
+                            setBtnHourSales("DESATIVADO")
+                            setEventCursorHourSales(optionsSales[5])
+                            setHourSale("")
+                            setBtnStatusSales("DESATIVADO")
+                            setEventCursorStatusSales(optionsSales[5])    
+                            setStatusSale("PENDENTE")
+
+                            setIsDisabledDelSales(false)
+                            setIsCursorDelSales(optionsSales[2]) 
+                            setEventDelSales(optionsSales[4])  
+
+                            getRefreshRegister(url)
+                        }
+                     }}))
+         }
+
+         const handleClickSaveSale = async (e) => { // BOTÃO - SALVAR VENDA
+            if (idSale === "" || registerSale === "" || consumptionSale === "" || tableSale === "" || itemCartSale.length !== 0) { // CAMPOS DE VENDA
+                swal({
+                    icon: "warning",
+                    title: "INFORMAÇÕES DE VENDA",
+                    text: "Existe(m) campo(s) de venda a ser(em) preenchido(s)!"
+                    })    
+            }
+            else if (addressCep === "" || addressRoad === "" || addressNumber === "" || addressRoad === "" || addressCity === "" || addressState === "" || addressUf === "" || addressRegion === "") { // ENDEREÇO
+                swal({
+                    icon: "warning",
+                    title: "INFORMAÇÕES DE ENDEREÇO",
+                    text: "Existe(m) campo(s) de endereço a ser(em) preenchido(s)!"
+                    })        
+            }
+            
+
          }
 
   return (
@@ -478,7 +609,7 @@ const Sales = () => {
                 <div className="items-command-sales">
                     
                     <ul className="list-items-sales">
-                        {commandSale && commandSale?.map(itemS => (       
+                        {controlMapCart === true  ? commandSale?.map(itemS => (       
 
                             <li key={itemS.id}>
                             {itemS && itemS.item?.map((itemSS) => (
@@ -494,8 +625,8 @@ const Sales = () => {
                                 </div>
                             </div>
                             ))}
-                        </li>
-                        ))}
+                        </li>                    
+                        )) : ""}
                     </ul>  
                 </div>
             </div>
@@ -516,7 +647,7 @@ const Sales = () => {
                         disabled={isDisabledAddressCep}
                         required
                         />
-                        <button type="button" className="btn-search-cep" onClick={() => getCep(addressCep)} style={{cursor:isDisabledCursorBtnCep}} disabled={isDisabledBtnCep}><SiCeph className="icon-btn-cep"/></button>
+                        <button type="button" className="btn-search-cep" onClick={() => getCep(addressCep)} style={{cursor:isDisabledCursorBtnCep,pointerEvents:eventBtnCep}} disabled={isDisabledBtnCep}><SiCeph className="icon-btn-cep"/></button>
                     </label>
                     <label>
                         <span>LOGRADOURO: </span>
@@ -878,9 +1009,9 @@ const Sales = () => {
 
                     <button type="button" disabled={btnNewSale} style={{backgroundColor: colorNewSales, cursor: cursorNewSales}} onClick={(e) => handleClickNewSale(e)}><MdCreateNewFolder className="icon-button-action-sales"/>NOVA VENDA</button>
 
-                    <button type="button" disabled={btnCancelSale} style={{backgroundColor: colorCancelSales, cursor: cursorCancelSales}}><TiCancel className="icon-button-action-sales"/>CANCELAR VENDA</button>
+                    <button type="button" onClick={(e) => handleClickCancelSale(e)} disabled={btnCancelSale} style={{backgroundColor: colorCancelSales, cursor: cursorCancelSales}}><TiCancel className="icon-button-action-sales"/>CANCELAR VENDA</button>
 
-                    <button type="button" disabled={btnSaveSale} style={{backgroundColor: colorSaveSales, cursor: cursorSaveSales}}><BiSolidSave className="icon-button-action-sales"/>FINALIZAR VENDA</button>
+                    <button type="button" onClick={(e) => handleClickSaveSale(e)} disabled={btnSaveSale} style={{backgroundColor: colorSaveSales, cursor: cursorSaveSales}}><BiSolidSave className="icon-button-action-sales"/>FINALIZAR VENDA</button>
 
                     <button type="button" disabled={btnInvoiceSale} style={{backgroundColor: colorInvoiceSales, cursor: cursorInvoiceSales}}><FaFileInvoiceDollar className="icon-button-action-sales"/>NOTA FISCAL</button>
             </div>
