@@ -31,31 +31,31 @@ const Sales = () => {
     const [controlMapCart,setControlMapCart] = useState(false) // CONTROLE - MAP DO CARRINHO
 
     const [idSale,setIdSale] = useState("") // [REQUEST] ID
-    const [registerSale,setRegisterSale] = useState("") // [REQUEST] REGISTRO
-    const [consumptionSale,setConsumptionSale] = useState("") // [REQUEST] CONSUMO
-    const [tableSale,setTableSale] = useState("") // [REQUEST] MESA
-    const [addressCep,setAddressCep] = useState("") // [REQUEST] CEP
-    const [addressRoad,setAddressRoad] = useState("") // [REQUEST] LOGRADOURO
-    const [addressNumber,setAddressNumber] = useState("") // [REQUEST] NÚMERO
-    const [addressHood,setAddressHood] = useState("") // [REQUEST] BAIRRO
-    const [addressCity,setAddressCity] = useState("") // [REQUEST] CIDADE
-    const [addressState,setAddressState] = useState("") // [REQUEST] ESTADO
-    const [addressUf,setAddressUf] = useState("") // [REQUEST] UF
-    const [addressRegion,setAddressRegion] = useState("") // [REQUEST] REGIÃO
-    const [totalAmountSale,setTotalAmountSale] = useState(0) // [REQUEST] TOTAL DA VENDA
+    const [registerSaleCommand,setRegisterSaleCommand] = useState("") // [REQUEST] REGISTRO
+    const [consumptionSaleCommand,setConsumptionSaleCommand] = useState("") // [REQUEST] CONSUMO
+    const [tableCommandSale,setTableCommandSale] = useState("") // [REQUEST] MESA
+    const [deliveryAddressCep,setDeliveryAddressCep] = useState("") // [REQUEST] CEP
+    const [deliveryAddressRoad,setDeliveryAddressRoad] = useState("") // [REQUEST] LOGRADOURO
+    const [deliveryAddressNumber,setDeliveryAddressNumber] = useState("") // [REQUEST] NÚMERO
+    const [deliveryAddressHood,setDeliveryAddressHood] = useState("") // [REQUEST] BAIRRO
+    const [deliveryAddressCity,setDeliveryAddressCity] = useState("") // [REQUEST] CIDADE
+    const [deliveryAddressState,setDeliveryAddressState] = useState("") // [REQUEST] ESTADO
+    const [deliveryAddressUf,setDeliveryAddressUf] = useState("") // [REQUEST] UF
+    const [deliveryAddressRegion,setDeliveryAddressRegion] = useState("") // [REQUEST] REGIÃO
+    const [valueSale,setValueSale] = useState(0) // [REQUEST] TOTAL DA VENDA
     const [paymentMethod,setPaymentMethod] = useState("") // [REQUEST] MÉTODO DE PAGAMENTO]
     const [inputValueSale,setInputValueSale] = useState("") // [REQUEST] VALOR DE ENTRADA - DINHEIRO
     const [changeValueSale,setChangeValueSale] = useState("") // [REQUEST] TROCO - DINHEIRO
-    const [typeCard,setTypeCard] = useState("") // [REQUEST] TIPO DO CARTÃO - CRÉDITO OU DÉBITO
+    const [typePaymentCard,setTypePaymentCard] = useState("") // [REQUEST] TIPO DO CARTÃO - CRÉDITO OU DÉBITO
     const [cardNumber,setCardNumber] = useState("") // [REQUEST] NÚMERO DO CARTÃO
     const [cardFlag,setCardFlag] = useState("") // [REQUEST] BANDEIRA DO CARTÃO
-    const [expirationCard,setExpirationCard] = useState("") // [REQUEST] DATA DE VALIDADE DO CARTÃO
-    const [cvccwCard,setCvccwCard] = useState("") // [REQUEST] CÓDIGO DE SEGURANÇA DO CARTÃO
+    const [expirationDateCard,setExpirationDateCard] = useState("") // [REQUEST] DATA DE VALIDADE DO CARTÃO
+    const [cvcCwCard,setCvcCwCard] = useState("") // [REQUEST] CÓDIGO DE SEGURANÇA DO CARTÃO
     const [cardName,setCardName] = useState("") // [REQUEST] NOME DO CARTÃO
-    const [cpfcnpjCard,setCpfcnpjCard] = useState("") // [REQUEST] CPF OU CNPJ DO CARTÃO
+    const [cpfCnpjHolder,setCpfCnpjHolder] = useState("") // [REQUEST] CPF OU CNPJ DO CARTÃO
     const [hourSale,setHourSale] = useState("") // [REQUEST] HORA DA VENDA
     const [statusSale,setStatusSale] = useState("PENDENTE") // [REQUEST] STATUS DA VENDA
-    const [itemCartSale,setItemCartSale] = useState([]) // [REQUEST] ITÉNS DO CARRINHO - VENDA
+    const [itemsSale,setItemsSale] = useState([]) // [REQUEST] ITÉNS DO CARRINHO - VENDA
     const [fieldValueSale,setFieldValueSale] = useState(0) // [REQUEST] GERA O QRCODE - PIX
 
     const [isDisabledPaymentAll,setIsDisabledPaymentAll] = useState("none") // DESATIVA EVENTOS DA DIV DE PAGAMENTOS
@@ -91,7 +91,7 @@ const Sales = () => {
     const refRegisterSale = useRef(null)
     const [typePaymentMoney,setTypePaymentMoney] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - MONEY
     const [indexTypePaymentMoney,setIndexTypePaymentMoney] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - MONEY
-    const [typePaymentCard,setTypePaymentCard] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - CARD
+    const [typePaymentCardR,setTypePaymentCardR] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - CARD
     const [indexTypePaymentCard,setIndexTypePaymentCard] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - CARD
     const [typePaymentPix,setTypePaymentPix] = useState("") // RADIO BUTTON - TIPO DE PAGAMENTO  - PIX
     const [indexTypePaymentPix,setIndexTypePaymentPix] = useState(1) // ÍNDICE DE CONTROLE DE PAGAMENTO - PIX
@@ -122,7 +122,7 @@ const Sales = () => {
 
     const ChangeMaskRegisterSale = (e) => {
     const updateTextDigitedId = validDigitsId(e.target.value)
-    setRegisterSale(updateTextDigitedId)
+    setRegisterSaleCommand(updateTextDigitedId)
     }
    // FIM - VALIDAÇÃO DE ID
 
@@ -132,7 +132,7 @@ const Sales = () => {
             setTypePaymentMoney("ATIVADO")
             setIndexTypePaymentMoney(2)
 
-            setTypePaymentCard("DESATIVADO")
+            setTypePaymentCardR("DESATIVADO")
             setTypePaymentPix("DESATIVADO")
         } 
         else if (indexTypePaymentMoney === 2){
@@ -144,14 +144,14 @@ const Sales = () => {
 
     const changeTypePaymentCard= (e) => { // FUNÇÃO - CARTÂO
         if (indexTypePaymentCard === 1){
-            setTypePaymentCard("ATIVADO")
+            setTypePaymentCardR("ATIVADO")
             setIndexTypePaymentCard(2)
 
             setTypePaymentMoney("DESATIVADO")
             setTypePaymentPix("DESATIVADO")
         } 
         else if (indexTypePaymentCard === 2){
-            setTypePaymentCard("DESATIVADO")
+            setTypePaymentCardR("DESATIVADO")
             setIndexTypePaymentCard(1)
         }    
     }
@@ -162,7 +162,7 @@ const Sales = () => {
             setIndexTypePaymentPix(2)
 
             setTypePaymentMoney("DESATIVADO")
-            setTypePaymentCard("DESATIVADO")
+            setTypePaymentCardR("DESATIVADO")
         } 
         else if (indexTypePaymentPix === 2){
             setTypePaymentPix("DESATIVADO")
@@ -179,7 +179,7 @@ const Sales = () => {
       }
 
       const getRegisterSales = async (e) => {
-        const response = await fetch(`http://localhost:3000/commands?idCommand=${registerSale}`)
+        const response = await fetch(`http://localhost:3000/commands?idCommand=${registerSaleCommand}`)
             const dataResponse = await response.json()
             if (dataResponse.length === 0){
                 swal({
@@ -188,33 +188,50 @@ const Sales = () => {
                   text: "O registro da comanda não consta no sistema!"
                 })}
                 else {
-                 setIndexGet(1)
-                 setRegisterSale(refRegisterSale.current.value)
-                 getCommandsInSales(urlCommand,registerSale)
-                 setIsDisabledRegister(true)
-                 setIsDisabledBtnItems(true)
-                 setIsDisabledCursorBtnItems("none")
-                 setControlMapCart(true)
-                 setIsDisabledPaymentAll("all") 
+                 if (idSale !== "") {
+                    if (registerSaleCommand !== ""){
+                        setIndexGet(1)
+                        setRegisterSaleCommand(refRegisterSale.current.value)
+                        getCommandsInSales(urlCommand,registerSaleCommand)
+                        setIsDisabledRegister(true)
+                        setIsDisabledBtnItems(true)
+                        setIsDisabledCursorBtnItems("none")
+                        setControlMapCart(true)               
+                    }
+                    else {
+                        swal({
+                             icon: "error",
+                             title: "INFORMAÇÕES DE VENDA",
+                             text: "É preciso preencher informar o registro da comanda!"
+                             })
+                    }
+                 }   
+                 else{
+                    swal({
+                        icon: "error",
+                        title: "INFORMAÇÕES DE VENDA",
+                         text: "É preciso preencher informar o ID da venda!"
+                        })
+                 }
                 }
       }
 
       useEffect(() => {
         commandSale && commandSale?.map((saleList) => {
-            setConsumptionSale(saleList.typeConsumption) // CONSUMO DA COMANDA
-            setTableSale(saleList.tableCommand)
-            setTotalAmountSale(saleList.totalAmount)   
+            setConsumptionSaleCommand(saleList.typeConsumption) // CONSUMO DA COMANDA
+            setTableCommandSale(saleList.tableCommand)
+            setValueSale(saleList.totalAmount)   
             console.log("consumo: " + saleList.typeConsumption)  
 
             if (saleList.typeConsumption === "LOCAL") {
-                setAddressCep("17065-209")
-                setAddressRoad("RUA FRANCISCO RAIMUNDO DE CARVALHO")
-                setAddressNumber("5-62")
-                setAddressHood("NOVA ESPERANÇA")
-                setAddressCity("BAURU")
-                setAddressState("SÃO PAULO")
-                setAddressUf("SP")
-                setAddressRegion("SUDESTE")
+                setDeliveryAddressCep("17065-209")
+                setDeliveryAddressRoad("RUA FRANCISCO RAIMUNDO DE CARVALHO")
+                setDeliveryAddressNumber("5-62")
+                setDeliveryAddressHood("NOVA ESPERANÇA")
+                setDeliveryAddressCity("BAURU")
+                setDeliveryAddressState("SÃO PAULO")
+                setDeliveryAddressUf("SP")
+                setDeliveryAddressRegion("SUDESTE")
                 setIsDisabledAddressCep(true)
                 setIsDisabledAddressRoad(true)
                 setIsDisabledAddressNumber(true)
@@ -226,16 +243,20 @@ const Sales = () => {
                 setIsDisabledBtnCep(true)
                 setIsDisabledCursorBtnCep("default")
                 setEventBtnCep("none")
+                setBtnSaveSale(false)
+                setColorSaveSales(optionsSales[0])
+                setCursorSaveSales(optionsSales[2])
+                setIsDisabledPaymentAll("all")     
                  }
             else if (saleList.typeConsumption === "DELIVERY") {
-                setAddressCep("")
-                setAddressRoad("")
-                setAddressNumber("")
-                setAddressHood("")
-                setAddressCity("")
-                setAddressState("")
-                setAddressUf("")
-                setAddressRegion("")
+                setDeliveryAddressCep("")
+                setDeliveryAddressRoad("")
+                setDeliveryAddressNumber("")
+                setDeliveryAddressHood("")
+                setDeliveryAddressCity("")
+                setDeliveryAddressState("")
+                setDeliveryAddressUf("")
+                setDeliveryAddressRegion("")
                 setIsDisabledAddressCep(false)
                 setIsDisabledAddressRoad(false)
                 setIsDisabledAddressNumber(false)
@@ -257,13 +278,17 @@ const Sales = () => {
         if (responseCep.length !== 0 ) {
             console.log("tem cep sim")
             console.log(responseCep)
-            setAddressRoad(responseCep.logradouro) // SETANDO O LOGRADOURO...
-            setAddressNumber(responseCep.complemento) // SETANDO O NÚMERO
-            setAddressHood(responseCep.bairro) // SETANDO O BAIRRO 
-            setAddressCity(responseCep.localidade) // SETANDO A CIDADE
-            setAddressState(responseCep.estado) // SETANDO O ESTADO
-            setAddressUf(responseCep.uf) // SETANDO O UF 
-            setAddressRegion(responseCep.regiao) // SETANDO A REGIÃO
+            setDeliveryAddressRoad(responseCep.logradouro) // SETANDO O LOGRADOURO...
+            setDeliveryAddressNumber(responseCep.complemento) // SETANDO O NÚMERO
+            setDeliveryAddressHood(responseCep.bairro) // SETANDO O BAIRRO 
+            setDeliveryAddressCity(responseCep.localidade) // SETANDO A CIDADE
+            setDeliveryAddressState(responseCep.estado) // SETANDO O ESTADO
+            setDeliveryAddressUf(responseCep.uf) // SETANDO O UF 
+            setDeliveryAddressRegion(responseCep.regiao) // SETANDO A REGIÃO
+            setBtnSaveSale(false)
+            setColorSaveSales(optionsSales[0])
+            setCursorSaveSales(optionsSales[2])
+            setIsDisabledPaymentAll("all")     
         }
         else if (responseCep.length === 0 ) {
             swal({
@@ -276,7 +301,7 @@ const Sales = () => {
       }
 
       const calcMoney = () => {
-          const resChangeSale = inputValueSale - totalAmountSale
+          const resChangeSale = inputValueSale - valueSale
           const resFinally = Number(resChangeSale)
           setChangeValueSale(resFinally.toFixed(2))
       }
@@ -288,37 +313,37 @@ const Sales = () => {
       const changeMethodPayment = (valuePayment) => { // LIMPA MÉTODOS DE PAGAMENTO CONFORME ESCOLHA
         setPaymentMethod(valuePayment)
         if (valuePayment === "DINHEIRO") {
-            setTypeCard("") // LIMPA CARTÃO
-            setCardFlag("") // LIMPA CARTÃO
-            setCardName("") // LIMPA CARTÃO E PIX
-            setCardNumber("") // LIMPA CARTÃO
-            setCpfcnpjCard("") // LIMPA CARTÃO E PIX
-            setExpirationCard("") // LIMPA CARTÃO
-            setCvccwCard("") // LIMPA CARTÃO
+            setTypePaymentCard("NULO") // LIMPA CARTÃO
+            setCardFlag("NULO") // LIMPA CARTÃO
+            setCardName("NULO") // LIMPA CARTÃO 
+            setCardNumber(0) // LIMPA CARTÃO
+            setCpfCnpjHolder(0) // LIMPA CARTÃO 
+            setExpirationDateCard("00/00") // LIMPA CARTÃO
+            setCvcCwCard(0) // LIMPA CARTÃO
             setColorTypeCard("") // LIMPA CARTÃO
             setColorFlagCard("") // LIMPA CARTÃO
         }
         else if (valuePayment === "CARTÃO") {
-            setInputValueSale("") // LIMPA DINHEIRO
-            setChangeValueSale("") // LIMPA DINHEIRO
+            setInputValueSale(0) // LIMPA DINHEIRO
+            setChangeValueSale(0) // LIMPA DINHEIRO
         }
         else if (valuePayment === "PIX") {
-            setInputValueSale("") // LIMPA DINHEIRO
-            setChangeValueSale("") // LIMPA DINHEIRO
-            setTypeCard("") // LIMPA CARTÃO
-            setCardFlag("") // LIMPA CARTÃO
-            setCardName("") // LIMPA CARTÃO E PIX
-            setCardNumber("") // LIMPA CARTÃO
-            setCpfcnpjCard("") // LIMPA CARTÃO E PIX
-            setExpirationCard("") // LIMPA CARTÃO
-            setCvccwCard("") // LIMPA CARTÃO
+            setInputValueSale(0) // LIMPA DINHEIRO
+            setChangeValueSale(0) // LIMPA DINHEIRO
+            setTypePaymentCard("NULO") // LIMPA CARTÃO
+            setCardFlag("NULO") // LIMPA CARTÃO
+            setCardName("NULO") // LIMPA CARTÃO 
+            setCardNumber(0) // LIMPA CARTÃO
+            setCpfCnpjHolder(0) // LIMPA CARTÃO 
+            setExpirationDateCard("00/00") // LIMPA CARTÃO
+            setCvcCwCard(0) // LIMPA CARTÃO
             setColorTypeCard("") // LIMPA CARTÃ
             setColorFlagCard("") // LIMPA CARTÃ
         }
       }
 
       const changeTypeCard = (e) => { // COLETA DE VALORES - TIPO DE CARTÃO
-        setTypeCard(e.target.value)
+        setTypePaymentCard(e.target.value)
         if (e.target.value === "CRÉDITO") {
             setColorTypeCard("COLOR_CRÉDITO")
         }
@@ -344,8 +369,8 @@ const Sales = () => {
       }
 
       useEffect(() => { // COLETA DE VALOR DE QRCODE - PIX
-        setFieldValueSale(totalAmountSale)
-      },[totalAmountSale])
+        setFieldValueSale(valueSale)
+      },[valueSale])
 
       // COLETA DE DATA E HORA DO SISTEMA - VENDA
         const dateHourSystemSale = new Date()
@@ -372,8 +397,8 @@ const Sales = () => {
                 "valueSaleItemCartSale": valueSaleItem
             }
             if (controlCartSale === ""){
-                setItemCartSale(prevItems => [...prevItems,newCarSale])
-                console.log(itemCartSale)
+                setItemsSale(prevItems => [...prevItems,newCarSale])
+                console.log(itemsSale)
             }
          }
 
@@ -390,17 +415,14 @@ const Sales = () => {
                setIndexOpSales(1) // operação nova venda
                setBtnNewSale(true)
                setBtnCancelSale(false)
-               setBtnSaveSale(false)
                setBtnInvoiceSale(true)
 
                setColorNewSales(optionsSales[1]) 
                setColorCancelSales(optionsSales[0])
-               setColorSaveSales(optionsSales[0])
                setColorInvoiceSales(optionsSales[1])
 
                setCursorNewSales(optionsSales[3])
                setCursorCancelSales(optionsSales[2])
-               setCursorSaveSales(optionsSales[2])
                setCursorInvoiceSales(optionsSales[3])
 
                setIsDisabledIdSales(false) 
@@ -460,24 +482,24 @@ const Sales = () => {
                             
                             setIdSale("")
                             setIsDisabledIdSales(true) 
-                            setRegisterSale("")
+                            setRegisterSaleCommand("")
                             setIsDisabledRegister(true)
                             setIsDisabledBtnItems(true)
                             setIsDisabledCursorBtnItems("default")
                             setConsumptionSale("")
                             setTableSale("")
 
-                            setItemCartSale([]) // LIMPA O CARRINHO...
+                            setItemsSale([]) // LIMPA O CARRINHO...
                             setControlMapCart(false) // DESATIVA A RENDERIZAÇÃO DO CARRINHO...
 
-                            setAddressCep("")
-                            setAddressRoad("")
-                            setAddressNumber("")
-                            setAddressHood("")
-                            setAddressCity("")
-                            setAddressState("")
-                            setAddressUf("")
-                            setAddressRegion("")
+                            setDeliveryAddressCep("")
+                            setDeliveryAddressRoad("")
+                            setDeliveryAddressNumber("")
+                            setDeliveryAddressHood("")
+                            setDeliveryAddressCity("")
+                            setDeliveryAddressState("")
+                            setDeliveryAddressUf("")
+                            setDeliveryAddressRegion("")
                             setIsDisabledAddressCep(true)
                             setIsDisabledAddressRoad(true)
                             setIsDisabledAddressNumber(true)
@@ -492,7 +514,7 @@ const Sales = () => {
 
                             setIsDisabledPaymentAll("none") // DESATIVA AS DIVS DE PAGAMENTO
                             setTypePaymentMoney("DESATIVADO")
-                            setTypePaymentCard("DESATIVADO")
+                            setTypePaymentCardR("DESATIVADO")
                             setTypePaymentPix("DESATIVADO")
                             setInputValueSale("") // LIMPA DINHEIRO
                             setChangeValueSale("") // LIMPA DINHEIRO
@@ -500,13 +522,13 @@ const Sales = () => {
                             setCardFlag("") // LIMPA CARTÃO
                             setCardName("") // LIMPA CARTÃO E PIX
                             setCardNumber("") // LIMPA CARTÃO
-                            setCpfcnpjCard("") // LIMPA CARTÃO E PIX
-                            setExpirationCard("") // LIMPA CARTÃO
-                            setCvccwCard("") // LIMPA CARTÃO
+                            setCpfCnpjHolder("") // LIMPA CARTÃO E PIX
+                            setExpirationDateCard("") // LIMPA CARTÃO
+                            setCvcCwCard("") // LIMPA CARTÃO
                             setColorTypeCard("") // LIMPA CARTÃO
                             setColorFlagCard("") // LIMPA CARTÃO
                             setFieldValueSale(0) // LIMPA O QRCODE
-                            setTotalAmountSale(0) // LIMPA TODOS OS CAMPOS DE TOTAL DA VENDA*
+                            setValueSale(0) // LIMPA TODOS OS CAMPOS DE TOTAL DA VENDA*
 
                             setBtnHourSales("DESATIVADO")
                             setEventCursorHourSales(optionsSales[5])
@@ -525,21 +547,7 @@ const Sales = () => {
          }
 
          const handleClickSaveSale = async (e) => { // BOTÃO - SALVAR VENDA
-            if (idSale === "" || registerSale === "" || consumptionSale === "" || tableSale === "" || itemCartSale.length !== 0) { // CAMPOS DE VENDA
-                swal({
-                    icon: "warning",
-                    title: "INFORMAÇÕES DE VENDA",
-                    text: "Existe(m) campo(s) de venda a ser(em) preenchido(s)!"
-                    })    
-            }
-            else if (addressCep === "" || addressRoad === "" || addressNumber === "" || addressRoad === "" || addressCity === "" || addressState === "" || addressUf === "" || addressRegion === "") { // ENDEREÇO
-                swal({
-                    icon: "warning",
-                    title: "INFORMAÇÕES DE ENDEREÇO",
-                    text: "Existe(m) campo(s) de endereço a ser(em) preenchido(s)!"
-                    })        
-            }
-            else if (paymentMethod === "") {
+            if (paymentMethod === "") {
                     swal({
                     icon: "warning",
                     title: "INFORMAÇÕES DE PAGAMENTO",
@@ -547,32 +555,41 @@ const Sales = () => {
                     })   
             }
             else if (paymentMethod === "DINHEIRO") {
+                alert("dinheiro")
                 if (inputValueSale === "" || changeValueSale === "") {
-                    swal({
-                    icon: "warning",
-                    title: "INFORMAÇÕES DE PAGAMENTO EM DINHEIRO",
-                    text: "Existe(m) campo(s) de pagamento em dinheiro a ser(em) preenchido(s)!"
-                    })   
-                }
+                        swal({
+                        icon: "warning",
+                        title: "INFORMAÇÕES DE PAGAMENTO EM DINHEIRO",
+                        text: "Existe(m) campo(s) de pagamento em dinheiro a ser(em) preenchido(s)!"
+                        })   
+                    }
+                    else {
+                        alert("DINHEIRO - GRAVA REGISTRO")
+                        loadSaveSales()
+                    }
             }
             else if (paymentMethod === "CARTÃO") {
-                if (typeCard === "" || cardFlag === "" || cardName === "" || cardNumber === "" || cpfcnpjCard === "" || expirationCard === "" || cvccwCard === "") {
-                    swal({
-                    icon: "warning",
-                    title: "INFORMAÇÕES DE PAGAMENTO EM CARTÃO",
-                    text: "Existe(m) campo(s) de pagamento em cartão a ser(em) preenchido(s)!"
-                    })   
-                }
-            }
-            else if (dateSystemSale === "" || hourSale === "" || statusSale === "") {
-                    swal({
+                alert("CARTÃO")
+                    if (typePaymentCard === "" || cardFlag === "" || cardName === "" || cardNumber === "" || cpfcnpjCard === "" || expirationCard === "" || cvccwCard === "") {
+                        swal({
                         icon: "warning",
-                        title: "INFORMAÇÕES DE SISTEMA",
-                        text: "Existe(m) campo(s) de sistema a ser(em) preenchido(s)!"
+                        title: "INFORMAÇÕES DE PAGAMENTO EM CARTÃO",
+                        text: "Existe(m) campo(s) de pagamento em cartão a ser(em) preenchido(s)!"
                         })   
+                    }
+                    else {
+                        alert("CARTÃO - GRAVA REGISTRO")
+                        loadSaveSales()
+                    }
             }
-            else {
-                if (indexOpSales === 1) { // INCLUSÃO DE VENDAS
+            else if (paymentMethod === "PIX") {
+                alert("PIX - GRAVA REGISTRO")
+                loadSaveSales()
+            }                       
+         }
+
+         const loadSaveSales = async (e) => { // INCLUSÃO DE VENDAS
+            if (indexOpSales === 1) { 
                     const response = await fetch(`http://localhost:3000/sales?idSale=${idSale}`)
                     const dataResponse = await response.json()
                     if (dataResponse.length !== 0){
@@ -607,29 +624,29 @@ const Sales = () => {
                             // ***LÓGICA PARA CONFIRMAÇÃO DO CADASTRO DA VENDA***
                               const objSales= {
                                 idSale,   // ID
-		                        registerSale, // REGISTRO DE VENDA
-		                        consumptionSale, // CONSUMO DA COMANDA
-		                        tableSale, // MESA DA COMANDA
-		                        addressCep, // CEP
-		                        addressRoad, // LOGRADOURO
-		                        addressNumber, // NÚMERO
-		                        addressHood, // BAIRRO
-		                        addressCity, // CIDADE
-		                        addressState, // ESTADO
-		                        addressUf, // UF
-		                        addressRegion, // REGIÃO
-		                        itemCartSale, // ITÉNS DA COMANDA DE VENDA
-		                        totalAmountSale, // VALOR TOTAL DA VENDA
+		                        registerSaleCommand, // REGISTRO DE VENDA
+		                        consumptionSaleCommand, // CONSUMO DA COMANDA
+		                        tableCommandSale, // MESA DA COMANDA
+		                        deliveryAddressCep, // CEP
+		                        deliveryAddressRoad, // LOGRADOURO
+		                        deliveryAddressNumber, // NÚMERO
+		                        deliveryAddressHood, // BAIRRO
+		                        deliveryAddressCity, // CIDADE
+		                        deliveryAddressState, // ESTADO
+		                        deliveryAddressUf, // UF
+		                        deliveryAddressRegion, // REGIÃO
+		                        itemsSale, // ITÉNS DA COMANDA DE VENDA
+		                        valueSale, // VALOR TOTAL DA VENDA
 		                        paymentMethod, // MÉTODO DE PAGAMENTO	
 		                        inputValueSale, // VALOR DE ENTRADA - DINHEIRO
 		                        changeValueSale, // TROCO - DINHEIRO
-		                        typeCard, // TIPO DE CARTÃO - CRÉDITO OU DÉBITO
+		                        typePaymentCard, // TIPO DE CARTÃO - CRÉDITO OU DÉBITO
 		                        cardNumber, // NÚMERO DO CARTÃO
 		                        cardFlag, // BANDEIRA DO CARTÃO
-		                        expirationCard, // DATA DE VALIDADE DO CARTÃO
-		                        cvccwCard, // CÓDIGO DE SEGURANÇA
+		                        expirationDateCard, // DATA DE VALIDADE DO CARTÃO
+		                        cvcCwCard, // CÓDIGO DE SEGURANÇA
 		                        cardName, // NOME DO CARTÃO
-		                        cpfcnpjCard, // CPF/CNPJ DO CARTÃO	
+		                        cpfCnpjHolder, // CPF/CNPJ DO CARTÃO	
 		                        fieldValueSale,	// QRCODE - PIS
 		                        dateSystemSale, // DATA DA VENDA
 		                        hourSale, // HORA DA VENDA
@@ -648,8 +665,6 @@ const Sales = () => {
                 }
                 }))}
             }
-          }
-
          }
 
   return (
@@ -677,7 +692,7 @@ const Sales = () => {
                     <input type="text" style={{width:"100px",textAlign:"center"}}
                     id="id-register-sale"
                     name="n-register-sale"
-                    value={registerSale}
+                    value={registerSaleCommand}
                     onChange={(e) => ChangeMaskRegisterSale(e)}
                     ref={refRegisterSale}
                     disabled={isDisabledRegister}
@@ -692,7 +707,7 @@ const Sales = () => {
                     <input type="text" style={{width:"150px",textAlign:"center"}} 
                     id="id-consumption-sale"
                     name="n-consumption-sale"
-                    value={consumptionSale}
+                    value={consumptionSaleCommand}
                     disabled={true}
                     required
                     />
@@ -703,7 +718,7 @@ const Sales = () => {
                     <input type="text" style={{width:"80px",textAlign:"center"}}
                     id="id-table-sale"
                     name="n-table-sale"
-                    value={tableSale}
+                    value={tableCommandSale}
                     disabled={true}
                     required
                     />
@@ -751,20 +766,20 @@ const Sales = () => {
                         <input type="text" style={{width:"110px",textAlign:"center"}}
                         id="id-cep-address"
                         name="n-cep-address"
-                        value={addressCep}
-                        onChange={(e) => setAddressCep(e.target.value)}
+                        value={deliveryAddressCep}
+                        onChange={(e) => setDeliveryAddressCep(e.target.value)}
                         disabled={isDisabledAddressCep}
                         required
                         />
-                        <button type="button" className="btn-search-cep" onClick={() => getCep(addressCep)} style={{cursor:isDisabledCursorBtnCep,pointerEvents:eventBtnCep}} disabled={isDisabledBtnCep}><SiCeph className="icon-btn-cep"/></button>
+                        <button type="button" className="btn-search-cep" onClick={() => getCep(deliveryAddressCep)} style={{cursor:isDisabledCursorBtnCep,pointerEvents:eventBtnCep}} disabled={isDisabledBtnCep}><SiCeph className="icon-btn-cep"/></button>
                     </label>
                     <label>
                         <span>LOGRADOURO: </span>
                         <input type="text" style={{width:"390px",textAlign:"center"}}
                         id="id-road-address"
                         name="n-road-address"
-                        value={addressRoad}
-                        onChange={(e) => setAddressRoad(e.target.value)}
+                        value={deliveryAddressRoad}
+                        onChange={(e) => setDeliveryAddressRoad(e.target.value)}
                         disabled={isDisabledAddressRoad}
                         required
                         />
@@ -774,8 +789,8 @@ const Sales = () => {
                         <input type="text" style={{width:"160px",textAlign:"center"}}
                         id="id-number-address"
                         name="n-number-address"
-                        value={addressNumber}
-                        onChange={(e) => setAddressNumber(e.target.value)}
+                        value={deliveryAddressNumber}
+                        onChange={(e) => setDeliveryAddressNumber(e.target.value)}
                         disabled={isDisabledAddressNumber}
                         required
                         />
@@ -788,8 +803,8 @@ const Sales = () => {
                         <input type="text" style={{width:"220px",textAlign:"center"}}
                         id="id-hood-address"
                         name="n-hood-address"
-                        value={addressHood}
-                        onChange={(e) => setAddressHood(e.target.value)}
+                        value={deliveryAddressHood}
+                        onChange={(e) => setDeliveryAddressHood(e.target.value)}
                         disabled={isDisabledAddressHood}
                         required
                         />
@@ -799,8 +814,8 @@ const Sales = () => {
                         <input type="text" style={{width:"250px",textAlign:"center"}}
                         id="id-city-address"
                         name="n-city-address"
-                        value={addressCity}
-                        onChange={(e) => setAddressCity(e.target.value)}
+                        value={deliveryAddressCity}
+                        onChange={(e) => setDeliveryAddressCity(e.target.value)}
                         disabled={isDisabledAddressCity}
                         required
                         />
@@ -810,8 +825,8 @@ const Sales = () => {
                         <input type="text" style={{width:"150px",textAlign:"center"}}
                         id="id-state-address"
                         name="n-state-address"
-                        value={addressState}
-                        onChange={(e) => setAddressState(e.target.value)}
+                        value={deliveryAddressState}
+                        onChange={(e) => setDeliveryAddressState(e.target.value)}
                         disabled={isDisabledAddressState}
                         required
                         />
@@ -821,8 +836,8 @@ const Sales = () => {
                         <input type="text" style={{width:"70px",textAlign:"center"}}
                         id="id-uf-address"
                         name="n-uf-address"
-                        value={addressUf}
-                        onChange={(e) => setAddressUf(e.target.value)}
+                        value={deliveryAddressUf}
+                        onChange={(e) => setDeliveryAddressUf(e.target.value)}
                         disabled={isDisabledAddressUf}
                         required
                         />
@@ -832,8 +847,8 @@ const Sales = () => {
                         <input type="text" style={{width:"130px",textAlign:"center"}}
                         id="id-region-address"
                         name="n-region-address"
-                        value={addressRegion}
-                        onChange={(e) => setAddressRegion(e.target.value)}
+                        value={deliveryAddressRegion}
+                        onChange={(e) => setDeliveryAddressRegion(e.target.value)}
                         disabled={isDisabledAddressRegion}
                         required
                         />
@@ -865,7 +880,7 @@ const Sales = () => {
                                 <input type="text" style={{textAlign:"center",width:"100px"}}
                                 id="id-total-money"
                                 name="n-total-money"
-                                value={checkValue(totalAmountSale) ? totalAmountSale + "0" : totalAmountSale}
+                                value={checkValue(valueSale) ? valueSale + "0" : valueSale}
                                 readOnly={true}
                                 disabled={true}
                                 required
@@ -898,8 +913,8 @@ const Sales = () => {
                     <div className="click-type-payment" onClick={() => changeMethodPayment("CARTÃO")}>
                         <label onMouseOver={() => setIndexTypePaymentCard(1)}> {/* CARTÃO */}
                             <input type="radio" className="radio-payment"
-                            value={typePaymentCard}
-                            checked={typePaymentCard === "ATIVADO"}
+                            value={typePaymentCardR}
+                            checked={typePaymentCardR === "ATIVADO"}
                             onChange={changeTypePaymentCard}
                             onClick={changeTypePaymentCard}
                             />
@@ -910,12 +925,12 @@ const Sales = () => {
                             <SiNubank className="icon-card-nubank"/>
                             <FaCcDiscover className="icon-card-discover"/>
                         </label>
-                        {typePaymentCard === "ATIVADO" ? <div style={{height:"90px"}} className="hide-click-type-payment-card">
+                        {typePaymentCardR === "ATIVADO" ? <div style={{height:"90px"}} className="hide-click-type-payment-card">
                                     <div className="hide-card-one" style={{border:"1px solid white",borderRadius:"10px",paddingRight:"5px",paddingTop:"3px",paddingBottom:"4px",height:"80px"}}>
                                         <label className="hide-card-radio">
                                             <input type="radio"
                                             value="CRÉDITO"
-                                            checked={typeCard === "CRÉDITO"}
+                                            checked={typePaymentCard === "CRÉDITO"}
                                             onChange={changeTypeCard}
                                             />
                                             <GiReceiveMoney className="icon-hide-type-card"/>
@@ -924,7 +939,7 @@ const Sales = () => {
                                         <label className="hide-card-radio">
                                                 <input type="radio"
                                                 value="DÉBITO"
-                                                checked={typeCard === "DÉBITO"}
+                                                checked={typePaymentCard === "DÉBITO"}
                                                 onChange={changeTypeCard}
                                                 />
                                                 <GiPayMoney className="icon-hide-type-card"/>
@@ -995,8 +1010,8 @@ const Sales = () => {
                                             <input type="text" style={{width:"150px",textAlign:"center"}}
                                             id="id-cpfcnpj-card"
                                             name="n-cpfcnpj-card"
-                                            value={cpfcnpjCard}
-                                            onChange={(e) => setCpfcnpjCard(e.target.value)}
+                                            value={cpfCnpjHolder}
+                                            onChange={(e) => setCpfCnpjHolder(e.target.value)}
                                             />
                                         </label>
                                         <label className="hide-card-finally-span">
@@ -1004,8 +1019,8 @@ const Sales = () => {
                                             <input type="text" style={{width:"100px",textAlign:"center"}}
                                             id="id-expiration-card"
                                             name="n-expiration-card"
-                                            value={expirationCard}
-                                            onChange={(e) => setExpirationCard(e.target.value)}
+                                            value={expirationDateCard}
+                                            onChange={(e) => setExpirationDateCard(e.target.value)}
                                             />
                                         </label>
                                         <label className="hide-card-finally-span">
@@ -1013,8 +1028,8 @@ const Sales = () => {
                                             <input type="text" style={{width:"80px",textAlign:"center"}}
                                             id="id-cvcCwCard-card"
                                             name="n-cvcCwCard-card"
-                                            value={cvccwCard}
-                                            onChange={(e) => setCvccwCard(e.target.value)}
+                                            value={cvcCwCard}
+                                            onChange={(e) => setCvcCwCard(e.target.value)}
                                             />
                                         </label>                                        
                                     </div>
@@ -1024,7 +1039,7 @@ const Sales = () => {
                                             <input type="text" style={{width:"110px",textAlign:"center"}}
                                             id="id-cvcCwCard-card"
                                             name="n-cvcCwCard-card"
-                                            value={checkValue(totalAmountSale) ? totalAmountSale + "0" : totalAmountSale}
+                                            value={checkValue(valueSale) ? valueSale + "0" : valueSale}
                                             disabled={true}
                                             />
                                         </label>
@@ -1062,7 +1077,7 @@ const Sales = () => {
                                     <input type="text" style={{textAlign:"center",width:"120px"}}
                                     id="id-amount-pix"
                                     name="n-amount-pix"
-                                    value={checkValue(totalAmountSale) ? totalAmountSale + "0" : totalAmountSale}
+                                    value={checkValue(valueSale) ? valueSale + "0" : valueSale}
                                     disabled={true}
                                     required
                                     />
