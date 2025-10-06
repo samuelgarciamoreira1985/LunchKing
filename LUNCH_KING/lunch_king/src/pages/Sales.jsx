@@ -25,7 +25,7 @@ const urlCommand = "http://localhost:3000/commands"
 
 const Sales = () => {
 
-    const { data: sales,getRefreshRegister } = useRequests(url)
+    const { data: sales,getRefreshRegister,httpConfig } = useRequests(url)
     const { dataCommand: commandSale,getCommandsInSales } = useSend(urlCommand)
 
     const [controlMapCart,setControlMapCart] = useState(false) // CONTROLE - MAP DO CARRINHO
@@ -539,7 +539,116 @@ const Sales = () => {
                     text: "Existe(m) campo(s) de endereço a ser(em) preenchido(s)!"
                     })        
             }
-            
+            else if (paymentMethod === "") {
+                    swal({
+                    icon: "warning",
+                    title: "INFORMAÇÕES DE PAGAMENTO",
+                    text: "É preciso selecionar uma forma de pagamento para finalizar a venda!"
+                    })   
+            }
+            else if (paymentMethod === "DINHEIRO") {
+                if (inputValueSale === "" || changeValueSale === "") {
+                    swal({
+                    icon: "warning",
+                    title: "INFORMAÇÕES DE PAGAMENTO EM DINHEIRO",
+                    text: "Existe(m) campo(s) de pagamento em dinheiro a ser(em) preenchido(s)!"
+                    })   
+                }
+            }
+            else if (paymentMethod === "CARTÃO") {
+                if (typeCard === "" || cardFlag === "" || cardName === "" || cardNumber === "" || cpfcnpjCard === "" || expirationCard === "" || cvccwCard === "") {
+                    swal({
+                    icon: "warning",
+                    title: "INFORMAÇÕES DE PAGAMENTO EM CARTÃO",
+                    text: "Existe(m) campo(s) de pagamento em cartão a ser(em) preenchido(s)!"
+                    })   
+                }
+            }
+            else if (dateSystemSale === "" || hourSale === "" || statusSale === "") {
+                    swal({
+                        icon: "warning",
+                        title: "INFORMAÇÕES DE SISTEMA",
+                        text: "Existe(m) campo(s) de sistema a ser(em) preenchido(s)!"
+                        })   
+            }
+            else {
+                if (indexOpSales === 1) { // INCLUSÃO DE VENDAS
+                    const response = await fetch(`http://localhost:3000/sales?idSale=${idSale}`)
+                    const dataResponse = await response.json()
+                    if (dataResponse.length !== 0){
+                        swal({
+                         icon: "error",
+                         title: "REI DOS LANCHES",
+                         text: "O Id da venda já existe no sistema!"
+                            })
+                     } 
+                     if (dataResponse.length === 0){
+                        swal("Confirma a efetivação da venda?", {
+                            closeOnClickOutside: false,
+                            dangerMode: true,
+                            closeOnEsc: false,
+                            icon: "warning",
+                            title: "REI DOS LANCHES",
+                            buttons: {
+                            confirmar: {
+                            text: "Sim",
+                            value: "sim",
+                            className: "swal-cancelar-sim",
+                              },
+                            cancelar: {
+                            text: "Não",
+                            value: "nao",
+                            className: "swal-cancelar-nao"
+                             },
+                             },
+                         })
+                         .then((value => {
+                        if (value === "sim") {
+                            // ***LÓGICA PARA CONFIRMAÇÃO DO CADASTRO DA VENDA***
+                              const objSales= {
+                                idSale,   // ID
+		                        registerSale, // REGISTRO DE VENDA
+		                        consumptionSale, // CONSUMO DA COMANDA
+		                        tableSale, // MESA DA COMANDA
+		                        addressCep, // CEP
+		                        addressRoad, // LOGRADOURO
+		                        addressNumber, // NÚMERO
+		                        addressHood, // BAIRRO
+		                        addressCity, // CIDADE
+		                        addressState, // ESTADO
+		                        addressUf, // UF
+		                        addressRegion, // REGIÃO
+		                        itemCartSale, // ITÉNS DA COMANDA DE VENDA
+		                        totalAmountSale, // VALOR TOTAL DA VENDA
+		                        paymentMethod, // MÉTODO DE PAGAMENTO	
+		                        inputValueSale, // VALOR DE ENTRADA - DINHEIRO
+		                        changeValueSale, // TROCO - DINHEIRO
+		                        typeCard, // TIPO DE CARTÃO - CRÉDITO OU DÉBITO
+		                        cardNumber, // NÚMERO DO CARTÃO
+		                        cardFlag, // BANDEIRA DO CARTÃO
+		                        expirationCard, // DATA DE VALIDADE DO CARTÃO
+		                        cvccwCard, // CÓDIGO DE SEGURANÇA
+		                        cardName, // NOME DO CARTÃO
+		                        cpfcnpjCard, // CPF/CNPJ DO CARTÃO	
+		                        fieldValueSale,	// QRCODE - PIS
+		                        dateSystemSale, // DATA DA VENDA
+		                        hourSale, // HORA DA VENDA
+		                        statusSale // SITUAÇÃO DA VENDA
+                               }
+                               httpConfig(objSales, "POST")
+                               setIndexOpSales(0)
+                               swal({
+                                 icon: "success",
+                                 title: "REI DOS LANCHES",
+                                 text: "Venda efetivada com sucesso!"
+                                 })
+                                 if (btnSaveSale === false){
+
+                                 }
+                }
+                }))}
+            }
+          }
 
          }
 
