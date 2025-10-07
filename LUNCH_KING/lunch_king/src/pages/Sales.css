@@ -166,7 +166,7 @@
     flex-direction: column;
     background-color: #086d9c9f;
     width: 70vw; /* TAMANHO DA LARGURA PARA OS ELEMENTOS NA TELA */
-    height: 200px;
+    height: 360px;
     
 }
 
@@ -191,6 +191,34 @@
     color: #fff;
     font-size: 1.3rem;
     margin-right: 6px;
+}
+
+.btnConfirm-product {
+    background-color: #016b07;
+    color: #ddd;
+    font-size: .9rem;
+    width: 140px;
+    height: 27px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 7px;
+    border: none;
+    padding: 1.5px;
+    margin-top: 3px;
+    font-style: italic;
+    position: relative;
+    text-shadow: .7px .7px 2px #000;
+    cursor: pointer;
+}
+
+.btnConfirm-product:hover {
+    background-color: #016b06ab;
+}
+
+.icon-btnConfirm-product {
+    font-size: 1.1rem;
+    position: absolute;
+    left: 4px;
+    top: 4px;
 }
 /*---------------DADOS DE ENDEREÇO----------------------------*/
 .data-address-sales {
@@ -751,6 +779,11 @@
     overflow-y: auto;
     width: 72vw;
     height: 57vh;
+}
+
+.icon-list-pix {
+    font-size: 3rem;
+    margin-top: -8px;
 }
 
 .general-management-list-sales { /* UL */

@@ -18,7 +18,8 @@ import { MdCreateNewFolder } from "react-icons/md"
 import { TiCancel } from "react-icons/ti"
 import { BiBullseye, BiSolidSave,BiSolidSearch } from "react-icons/bi"
 import { GrMoney } from "react-icons/gr";
-import { data, useViewTransitionState } from "react-router-dom";
+import { data, useLinkClickHandler, useViewTransitionState } from "react-router-dom";
+import { BsQrCode,BsDatabaseFillAdd  } from "react-icons/bs";
 
 const url = "http://localhost:3000/sales"
 const urlCommand = "http://localhost:3000/commands"
@@ -54,9 +55,9 @@ const Sales = () => {
     const [cardName,setCardName] = useState("") // [REQUEST] NOME DO CARTÃO
     const [cpfCnpjHolder,setCpfCnpjHolder] = useState("") // [REQUEST] CPF OU CNPJ DO CARTÃO
     const [hourSale,setHourSale] = useState("") // [REQUEST] HORA DA VENDA
-    const [statusSale,setStatusSale] = useState("PENDENTE") // [REQUEST] STATUS DA VENDA
+    const [paymentStatus,setPaymentStatus] = useState("PENDENTE") // [REQUEST] STATUS DA VENDA
     const [itemsSale,setItemsSale] = useState([]) // [REQUEST] ITÉNS DO CARRINHO - VENDA
-    const [fieldValueSale,setFieldValueSale] = useState(0) // [REQUEST] GERA O QRCODE - PIX
+    const [qrCodePisSale,setQrCodePisSale] = useState(0) // [REQUEST] GERA O QRCODE - PIX
 
     const [isDisabledPaymentAll,setIsDisabledPaymentAll] = useState("none") // DESATIVA EVENTOS DA DIV DE PAGAMENTOS
     const [isDisabledIdSales,setIsDisabledIdSales] = useState(true)    // DESATIVA ID DA VENDA
@@ -196,7 +197,8 @@ const Sales = () => {
                         setIsDisabledRegister(true)
                         setIsDisabledBtnItems(true)
                         setIsDisabledCursorBtnItems("none")
-                        setControlMapCart(true)               
+                        setControlMapCart(true)    
+                        setControlCartSale("LOAD")         
                     }
                     else {
                         swal({
@@ -221,7 +223,7 @@ const Sales = () => {
             setConsumptionSaleCommand(saleList.typeConsumption) // CONSUMO DA COMANDA
             setTableCommandSale(saleList.tableCommand)
             setValueSale(saleList.totalAmount)   
-            console.log("consumo: " + saleList.typeConsumption)  
+            //console.log("consumo: " + saleList.typeConsumption)  
 
             if (saleList.typeConsumption === "LOCAL") {
                 setDeliveryAddressCep("17065-209")
@@ -369,12 +371,12 @@ const Sales = () => {
       }
 
       useEffect(() => { // COLETA DE VALOR DE QRCODE - PIX
-        setFieldValueSale(valueSale)
+        setQrCodePisSale(valueSale)
       },[valueSale])
 
       // COLETA DE DATA E HORA DO SISTEMA - VENDA
         const dateHourSystemSale = new Date()
-        const dateSystemSale = dateHourSystemSale.toLocaleDateString()
+        const dateSale = dateHourSystemSale.toLocaleDateString()
         const hourSystemSale = dateHourSystemSale.toLocaleTimeString()
         const handleHourSystemCommand = () => {
          setHourSale(hourSystemSale)
@@ -382,10 +384,10 @@ const Sales = () => {
 
       // TROCA DE STATUS DA VENDA
          const changeColorStatusSale = () => {
-           if (statusSale === "PENDENTE")
-              setStatusSale("FINALIZADO")
-           else if (statusSale === "FINALIZADO")
-              setStatusSale("PENDENTE")
+           if (paymentStatus === "PENDENTE")
+              setPaymentStatus("FINALIZADO")
+           else if (paymentStatus === "FINALIZADO")
+              setPaymentStatus("PENDENTE")
          } // ************************************
 
          const addItemCartSale = (idItem,descItem,photoItem,amountItem,valueSaleItem) => {
@@ -396,10 +398,13 @@ const Sales = () => {
                 "amountItemCartSale": amountItem,
                 "valueSaleItemCartSale": valueSaleItem
             }
-            if (controlCartSale === ""){
                 setItemsSale(prevItems => [...prevItems,newCarSale])
-                console.log(itemsSale)
-            }
+                swal({
+                    closeOnClickOutside: false,
+                    icon: "success",
+                    title: "REI DOS LANCHES",
+                    text: "O ítem foi confirmado na venda!"
+                    })  
          }
 
          //***************************BOTÕES DE AÇÃO********************************* */
@@ -486,8 +491,8 @@ const Sales = () => {
                             setIsDisabledRegister(true)
                             setIsDisabledBtnItems(true)
                             setIsDisabledCursorBtnItems("default")
-                            setConsumptionSale("")
-                            setTableSale("")
+                            setConsumptionSaleCommand("")
+                            setTableCommandSale("")
 
                             setItemsSale([]) // LIMPA O CARRINHO...
                             setControlMapCart(false) // DESATIVA A RENDERIZAÇÃO DO CARRINHO...
@@ -518,7 +523,7 @@ const Sales = () => {
                             setTypePaymentPix("DESATIVADO")
                             setInputValueSale("") // LIMPA DINHEIRO
                             setChangeValueSale("") // LIMPA DINHEIRO
-                            setTypeCard("") // LIMPA CARTÃO
+                            setTypePaymentCard("") // LIMPA CARTÃO
                             setCardFlag("") // LIMPA CARTÃO
                             setCardName("") // LIMPA CARTÃO E PIX
                             setCardNumber("") // LIMPA CARTÃO
@@ -527,7 +532,7 @@ const Sales = () => {
                             setCvcCwCard("") // LIMPA CARTÃO
                             setColorTypeCard("") // LIMPA CARTÃO
                             setColorFlagCard("") // LIMPA CARTÃO
-                            setFieldValueSale(0) // LIMPA O QRCODE
+                            setQrCodePisSale(0) // LIMPA O QRCODE
                             setValueSale(0) // LIMPA TODOS OS CAMPOS DE TOTAL DA VENDA*
 
                             setBtnHourSales("DESATIVADO")
@@ -535,7 +540,7 @@ const Sales = () => {
                             setHourSale("")
                             setBtnStatusSales("DESATIVADO")
                             setEventCursorStatusSales(optionsSales[5])    
-                            setStatusSale("PENDENTE")
+                            setPaymentStatus("PENDENTE")
 
                             setIsDisabledDelSales(false)
                             setIsCursorDelSales(optionsSales[2]) 
@@ -555,7 +560,6 @@ const Sales = () => {
                     })   
             }
             else if (paymentMethod === "DINHEIRO") {
-                alert("dinheiro")
                 if (inputValueSale === "" || changeValueSale === "") {
                         swal({
                         icon: "warning",
@@ -564,13 +568,20 @@ const Sales = () => {
                         })   
                     }
                     else {
-                        alert("DINHEIRO - GRAVA REGISTRO")
-                        loadSaveSales()
+                        if (hourSale === "") {
+                        swal({
+                        icon: "warning",
+                        title: "INFORMAÇÕES DE SISTEMA",
+                        text: "Por favor preencha o campo com a hora do sistema!"
+                        }) 
+                     }    
+                     else {
+                         loadSaveSales()
+                        }
                     }
             }
             else if (paymentMethod === "CARTÃO") {
-                alert("CARTÃO")
-                    if (typePaymentCard === "" || cardFlag === "" || cardName === "" || cardNumber === "" || cpfcnpjCard === "" || expirationCard === "" || cvccwCard === "") {
+                    if (typePaymentCard === "" || cardFlag === "" || cardName === "" || cardNumber === "" || cpfCnpjHolder === "" || expirationDateCard === "" || cvcCwCard === "") {
                         swal({
                         icon: "warning",
                         title: "INFORMAÇÕES DE PAGAMENTO EM CARTÃO",
@@ -578,14 +589,30 @@ const Sales = () => {
                         })   
                     }
                     else {
-                        alert("CARTÃO - GRAVA REGISTRO")
-                        loadSaveSales()
+                        if (hourSale === "") {
+                        swal({
+                        icon: "warning",
+                        title: "INFORMAÇÕES DE SISTEMA",
+                        text: "Por favor preencha o campo com a hora do sistema!"
+                        }) 
+                     } 
+                     else {
+                         loadSaveSales()
+                     }   
                     }
             }
             else if (paymentMethod === "PIX") {
-                alert("PIX - GRAVA REGISTRO")
-                loadSaveSales()
-            }                       
+                if (hourSale === "") {
+                        swal({
+                        icon: "warning",
+                        title: "INFORMAÇÕES DE SISTEMA",
+                        text: "Por favor preencha o campo com a hora do sistema!"
+                        }) 
+                     }  
+                     else {
+                         loadSaveSales()
+                     }  
+            }                   
          }
 
          const loadSaveSales = async (e) => { // INCLUSÃO DE VENDAS
@@ -647,10 +674,10 @@ const Sales = () => {
 		                        cvcCwCard, // CÓDIGO DE SEGURANÇA
 		                        cardName, // NOME DO CARTÃO
 		                        cpfCnpjHolder, // CPF/CNPJ DO CARTÃO	
-		                        fieldValueSale,	// QRCODE - PIS
-		                        dateSystemSale, // DATA DA VENDA
+		                        qrCodePisSale,	// QRCODE - PIS
+		                        dateSale, // DATA DA VENDA
 		                        hourSale, // HORA DA VENDA
-		                        statusSale // SITUAÇÃO DA VENDA
+		                        paymentStatus // SITUAÇÃO DA VENDA
                                }
                                httpConfig(objSales, "POST")
                                setIndexOpSales(0)
@@ -743,9 +770,7 @@ const Sales = () => {
                                     <p>{itemSS.descItemCart}</p>
                                     <p>x {itemSS.amountItemCart}</p>
                                      <p style={{color:"red", textShadow: ".2px .2px 7px white"}}>R$ {checkValue(itemSS.valueSaleItemCart) ? itemSS.valueSaleItemCart + "0" : itemSS.valueSaleItemCart}</p>
-                                      <input type="text" style={{display:"none"}} onChange={() => addItemCartSale(itemSS.idItemCart,itemSS.descItemCart,itemSS.photoItemCart,itemSS.amountItemCart,itemSS.valueSaleItemCart)}
-                                      value={controlCartSale}                          
-                                      />
+                                      <button type="button" className="btnConfirm-product" onClick={() => addItemCartSale(itemSS.idItemCart,itemSS.descItemCart,itemSS.photoItemCart,itemSS.amountItemCart,itemSS.valueSaleItemCart)}><BsDatabaseFillAdd  className="icon-btnConfirm-product"/>CONFIRMAR</button>
                                 </div>
                             </div>
                             ))}
@@ -1060,10 +1085,10 @@ const Sales = () => {
                         </label>
                         {typePaymentPix === "ATIVADO" ? <div className="hide-click-type-payment-pix">
                             <div className="qrCode-pix">
-                                {fieldValueSale && (
+                                {qrCodePisSale && (
                                     <QRCode
                                     title="qrCodePis"
-                                    value={fieldValueSale}
+                                    value={qrCodePisSale}
                                     bgColor="#ddd"
                                     fgColor="#000"
                                     size="110"
@@ -1099,7 +1124,7 @@ const Sales = () => {
                     <input type="text" style={{width:"120px",textAlign:"center"}}
                     id="id-date-sale"
                     name="n-date-sale"
-                    value={dateSystemSale}
+                    value={dateSale}
                     disabled={true}
                     required
                     />
@@ -1118,10 +1143,10 @@ const Sales = () => {
 
                 <label>
                     <button type="button" onClick={changeColorStatusSale} disabled={btnStatusSales === "DESATIVADO" ? true : false} style={{pointerEvents:eventCursorStatusSales}}>SITUAÇÃO</button>
-                    <input type="text" style={{width:"130px",textAlign:"center",backgroundColor:statusSale === "PENDENTE" ? "#ff0000" : "#018a01",color:"#ddd"}}
+                    <input type="text" style={{width:"130px",textAlign:"center",backgroundColor:paymentStatus === "PENDENTE" ? "#ff0000" : "#018a01",color:"#ddd"}}
                     id="id-status-sale"
                     name="n-status-sale"
-                    value={statusSale === "PENDENTE" ? "PENDENTE" : "FINALIZADO"}
+                    value={paymentStatus === "PENDENTE" ? "PENDENTE" : "FINALIZADO"}
                     disabled={true}
                     required
                     />
@@ -1173,15 +1198,15 @@ const Sales = () => {
                                 <div className="address-data-management">
                                      <div className="address-data-manag-initial">
                                         <p><span>CEP:</span> {sale.deliveryAddressCep}</p>
-                                        <p><span>LOGRADOURO:</span> {sale.deliveryAddressRoad}</p>
-                                        <p><span>NÚMERO:</span> {sale.deliveryAddressNumber}</p>
+                                        <p style={{textTransform:"uppercase"}}><span>LOGRADOURO:</span> {sale.deliveryAddressRoad}</p>
+                                        <p style={{textTransform:"uppercase"}}><span>NÚMERO:</span> {sale.deliveryAddressNumber}</p>
                                      </div>
                                      <div className="address-data-manag-medium">
-                                        <p><span>BAIRRO:</span> {sale.deliveryAddressHood}</p>
-                                        <p><span>CIDADE:</span> {sale.deliveryAddressCity}</p>
-                                        <p><span>ESTADO:</span> {sale.deliveryAddressState}</p>
-                                        <p><span>UF:</span> {sale.deliveryAddressUf}</p>
-                                        <p><span>REGIÃO:</span> {sale.deliveryAddressRegion}</p>
+                                        <p style={{textTransform:"uppercase"}}><span>BAIRRO:</span> {sale.deliveryAddressHood}</p>
+                                        <p style={{textTransform:"uppercase"}}><span>CIDADE:</span> {sale.deliveryAddressCity}</p>
+                                        <p style={{textTransform:"uppercase"}}><span>ESTADO:</span> {sale.deliveryAddressState}</p>
+                                        <p style={{textTransform:"uppercase"}}><span>UF:</span> {sale.deliveryAddressUf}</p>
+                                        <p style={{textTransform:"uppercase"}}><span>REGIÃO:</span> {sale.deliveryAddressRegion}</p>
                                      </div>
                                 </div>
                             </div>
@@ -1215,7 +1240,7 @@ const Sales = () => {
                                   </div>
 
                                  </div>) : (<div className="pix-sales">
-                                   <img src={sale.qrCodePisSale} alt="imagem do qrCode do pix da venda" /> 
+                                   <BsQrCode className="icon-list-pix"/> 
                                  <div className="pix-sales-data">
                                   <p><span>NOME: </span>{sale.cardName}</p>
                                   <p><span>CPF/CNPJ: </span>{sale.cpfCnpjHolder}</p>

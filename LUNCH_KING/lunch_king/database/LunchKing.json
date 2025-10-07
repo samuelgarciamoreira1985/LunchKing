@@ -832,6 +832,66 @@
       "hourSale": "18:07",
       "paymentStatus": "FINALIZADO",
       "id": "86c12"
+    },
+    {
+      "id": "f429",
+      "idSale": "5",
+      "registerSaleCommand": "8",
+      "consumptionSaleCommand": "LOCAL",
+      "tableCommandSale": "6",
+      "deliveryAddressCep": "17065-209",
+      "deliveryAddressRoad": "RUA FRANCISCO RAIMUNDO DE CARVALHO",
+      "deliveryAddressNumber": "5-62",
+      "deliveryAddressHood": "NOVA ESPERANÇA",
+      "deliveryAddressCity": "BAURU",
+      "deliveryAddressState": "SÃO PAULO",
+      "deliveryAddressUf": "SP",
+      "deliveryAddressRegion": "SUDESTE",
+      "itemsSale": [
+        {
+          "idItemCartSale": "d96f",
+          "descItemCartSale": "SPRITE 350 ML",
+          "photoItemCartSale": "/img/Sprite 350ML.png",
+          "amountItemCartSale": 2,
+          "valueSaleItemCartSale": "3.49"
+        },
+        {
+          "idItemCartSale": "f6c2",
+          "descItemCartSale": "BOLO DE CHOCOLATE",
+          "photoItemCartSale": "/img/Chocolate Cake.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": 6.29
+        },
+        {
+          "idItemCartSale": "a635",
+          "descItemCartSale": "BOLO DE MORANGO",
+          "photoItemCartSale": "/img/Strawberry cake.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": 7.45
+        },
+        {
+          "idItemCartSale": "489e",
+          "descItemCartSale": "FANTA 350 ML",
+          "photoItemCartSale": "/img/Fanta Laranja 350 ML.png",
+          "amountItemCartSale": 2,
+          "valueSaleItemCartSale": "3.49"
+        }
+      ],
+      "valueSale": 27.7,
+      "paymentMethod": "DINHEIRO",
+      "inputValueSale": "39",
+      "changeValueSale": "11.30",
+      "typePaymentCard": "NULO",
+      "cardNumber": 0,
+      "cardFlag": "NULO",
+      "expirationDateCard": "00/00",
+      "cvcCwCard": 0,
+      "cardName": "NULO",
+      "cpfCnpjHolder": 0,
+      "qrCodePisSale": 27.7,
+      "dateSale": "07/10/2025",
+      "hourSale": "17:20:13",
+      "paymentStatus": "PENDENTE"
     }
   ]
 }
