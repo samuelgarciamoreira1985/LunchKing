@@ -1225,3 +1225,55 @@
 .button-del-finally-sales:hover {
     background-color: #d805057c;
 }
+/*-------------MODAL - NOTA FISCAL DE VENDA---------*/
+#modal-rel-sales { /* ID DO COMPONENTE MODAL */
+    width: 39vw;
+    height: 95vh;
+    align-self: center;
+    justify-self: center;
+    border-radius: 10px;
+    background-color: green;
+}
+
+.container-modal { /*CONTAINER PRINCIPAL DO MODAL*/
+    display: flex;
+    flex-direction: column;
+}
+
+.title-modal-rel { /* ELEMENTOS GERIAS DO TITULO */
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.title-modal-rel img { /* LOGOTIPO DA EMPRESA - TÍTULO */
+    width: 100px;
+    height: 80px;
+    background-color: #000;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.data-title-modal-rel { /* DADOS ESCRITOS DO TÍTULO */
+    display: flex;
+    flex-direction: column;
+}
+
+.data-title-modal-rel p {
+    font-size: .81rem;
+    color: #000;
+    padding: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    
+} /**************************************************************/
+
+.data-value-modal-rel { /* DADOS DE VALORES */
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.data-value-modal-rel p {
+    font-family: 'Courier New', Courier, monospace;
+}

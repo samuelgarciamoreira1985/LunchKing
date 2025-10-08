@@ -1,9 +1,10 @@
 // REACT
 import { Tooltip } from "@mui/material"
-import { useState,useRef, useEffect } from "react";
+import { useState,useRef, useEffect,useId } from "react";
 import QRCode from 'react-qr-code'
 import { useRequests } from "../hooks/useRequests"
 import { useSend } from "../hooks/useSend";
+import Modal from "react-modal";
 // CSS
 import "./Sales.css"
 //ÍCONES
@@ -20,6 +21,8 @@ import { BiBullseye, BiSolidSave,BiSolidSearch } from "react-icons/bi"
 import { GrMoney } from "react-icons/gr";
 import { data, useLinkClickHandler, useViewTransitionState } from "react-router-dom";
 import { BsQrCode,BsDatabaseFillAdd  } from "react-icons/bs";
+//IMAGENS
+import logoSystemMainHeader from "../assets/images/logo-system.png"
 
 const url = "http://localhost:3000/sales"
 const urlCommand = "http://localhost:3000/commands"
@@ -110,6 +113,17 @@ const Sales = () => {
     const [cursorCancelSales, setCursorCancelSales] = useState("default")
     const [cursorSaveSales, setCursorSaveSales] = useState("default")
     const [cursorInvoiceSales, setCursorInvoiceSales] = useState("default")
+
+    const [isOpen,setIsOpen] = useState(false) // MODAL - NOTA FISCAL DA VENDA
+    //const modalIdRelSales = useId()
+
+    const openModalRel = () => {
+        setIsOpen(true)
+    }
+
+    const closeModalRel = () => {
+        setIsOpen(false)
+    }
 
     // INÍCIO - VALIDAÇÃO DE INPUT DE ID E REGISTRO DE VENDA
     const validDigitsId = (textDigitedId) => {
@@ -814,6 +828,7 @@ const Sales = () => {
   return (
 
     <div className="container-sales">
+        
         <h2>VENDAS</h2>
 
         <form className="form-register-sales">
@@ -1279,7 +1294,33 @@ const Sales = () => {
 
                     <button type="button" onClick={(e) => handleClickSaveSale(e)} disabled={btnSaveSale} style={{backgroundColor: colorSaveSales, cursor: cursorSaveSales}}><BiSolidSave className="icon-button-action-sales"/>FINALIZAR VENDA</button>
 
-                    <button type="button" disabled={btnInvoiceSale} style={{backgroundColor: colorInvoiceSales, cursor: cursorInvoiceSales}}><FaFileInvoiceDollar className="icon-button-action-sales"/>NOTA FISCAL</button>
+                    <button type="button" disabled={btnInvoiceSale} style={{backgroundColor: colorInvoiceSales, cursor: cursorInvoiceSales}} onClick={openModalRel}><FaFileInvoiceDollar className="icon-button-action-sales"/>NOTA FISCAL</button>
+                    <Modal
+                        isOpen={isOpen}
+                        onRequestClose={closeModalRel}
+                        overlayClassName="overlay-modal"
+                        id="modal-rel-sales"
+                        >
+                        <div className="container-modal">
+                            <div className="title-modal-rel">
+                                <img src={logoSystemMainHeader} alt="logotipo da empresa" />
+                                <div className="data-title-modal-rel">
+                                    <p> CNPJ: 23.654.145/0001 - 98   IE: 034346578</p>
+                                    <p>REI DOS LANCHES LTDA</p>
+                                    <p>RUA FRANCISCO RAIMUNDO DE CARVALHO, 5-62, NOVA ESPERANÇA, BAURU, SP</p>
+                                </div>
+                            </div>
+
+                            <div className="data-value-modal-rel">
+                                <p>Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica</p>
+                                <hr style={{fontWeight:"600",color:"#000"}}/>
+                            </div>    
+
+                        </div>    
+                        {/*<button className="btnPrint-rel" type="button">IMPRIMIR</button>*/}
+                        {/*<button className="btnClose-rel" type="button" onClick={closeModalRel}>FECHAR</button>*/}
+                    </Modal>     
+                  
             </div>
             {/* FIM - BOTÕES DE AÇÃO */}
 
@@ -1394,9 +1435,10 @@ const Sales = () => {
                     ))}
                 </ul>
             </div>
-            {/* FIM - GESTÃO - LISTA DE VENDAS */}                      
+            {/* FIM - GESTÃO - LISTA DE VENDAS */}                 
+                    
         </form>
-
+                    
     </div>
 
   )
