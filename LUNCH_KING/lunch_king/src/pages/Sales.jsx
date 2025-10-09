@@ -115,7 +115,12 @@ const Sales = () => {
     const [cursorInvoiceSales, setCursorInvoiceSales] = useState("default")
 
     const [isOpen,setIsOpen] = useState(false) // MODAL - NOTA FISCAL DA VENDA
-    //const modalIdRelSales = useId()
+
+    const [loadPaymentRel,setLoadPaymentRel] = useState("")
+    const [loadAmountRel,setLoadAmountRel] = useState("")
+    const [loadPaymentTypeRel,setLoadPaymentTypeRel] = useState("")
+    const [loadAmountUnitRel,setLoadAmountUnityRel] = useState("")
+    const [unitRelList,setUnityRelList] = useState([])
 
     const openModalRel = () => {
         setIsOpen(true)
@@ -338,10 +343,12 @@ const Sales = () => {
             setCvcCwCard(0) // LIMPA CARTÃO
             setColorTypeCard("") // LIMPA CARTÃO
             setColorFlagCard("") // LIMPA CARTÃO
+            setLoadPaymentTypeRel("DINHEIRO")
         }
         else if (valuePayment === "CARTÃO") {
             setInputValueSale(0) // LIMPA DINHEIRO
             setChangeValueSale(0) // LIMPA DINHEIRO
+            setLoadPaymentTypeRel("CARTÃO DE ")
         }
         else if (valuePayment === "PIX") {
             setInputValueSale(0) // LIMPA DINHEIRO
@@ -355,6 +362,7 @@ const Sales = () => {
             setCvcCwCard(0) // LIMPA CARTÃO
             setColorTypeCard("") // LIMPA CARTÃ
             setColorFlagCard("") // LIMPA CARTÃ
+            setLoadPaymentTypeRel("PIX")
         }
       }
 
@@ -362,9 +370,11 @@ const Sales = () => {
         setTypePaymentCard(e.target.value)
         if (e.target.value === "CRÉDITO") {
             setColorTypeCard("COLOR_CRÉDITO")
+            setLoadPaymentRel("CRÉDITO")
         }
         else if (e.target.value === "DÉBITO") {
             setColorTypeCard("COLOR_DÉBITO")
+            setLoadPaymentRel("DÉBITO")
         }
       }
 
@@ -824,6 +834,25 @@ const Sales = () => {
                      }
                     }))   
             }
+
+            useEffect(() => {
+                commandSale && commandSale?.map(saleCom => {
+                    setLoadAmountRel(saleCom.totalAmount)
+                    saleCom && saleCom.item?.map(itemSaleCom => { // QUANTIDADE TOTAL DE ÍTENNS
+                            setUnityRelList([
+                                {
+                                "idItemCart": itemSaleCom.idItemCart,
+                                "descItemCart": itemSaleCom.descItemCart,
+                                "photoItemCart": itemSaleCom.photoItemCart,
+                                "amountItemCart": itemSaleCom.amountItemCart,
+                                "valueSaleItemCart": itemSaleCom.valueSaleItemCart
+                            }
+                        ])
+                        setLoadAmountUnityRel(unitRelList.length.valueOf())
+
+                    })
+                })
+            },[commandSale])
 
   return (
 
@@ -1299,6 +1328,7 @@ const Sales = () => {
                         isOpen={isOpen}
                         onRequestClose={closeModalRel}
                         overlayClassName="overlay-modal"
+                        ariaHideApp={false}
                         id="modal-rel-sales"
                         >
                         <div className="container-modal">
@@ -1326,9 +1356,9 @@ const Sales = () => {
                                         </tr>
                                     </thead>
                                             {commandSale && commandSale?.map((saleModal) => (   
-                                    <tbody>
+                                    <tbody key={saleModal.id}>
                                                     {saleModal && saleModal.item?.map((itemModal) => (
-                                                <tr>  
+                                                <tr key={itemModal.idItemCart}>  
                                                     <td>{itemModal.idItemCart}</td>
                                                     <td>{itemModal.descItemCart}</td>
                                                     <td>{itemModal.amountItemCart}</td>
@@ -1342,27 +1372,30 @@ const Sales = () => {
                                 </table>
                                  <hr style={{fontWeight:"600",color:"#000"}}/>
                                
-                                 <ul className="list-modal-finally">                      
-                                    <div className="item-ini">
-                                        <li>
-                                            <p>Qtdade. total de itens</p>
-                                            <p style={{marginLeft:"310px"}}>15</p>
-                                        </li>
-                                        <li>
-                                            <p>Valor Total</p>
-                                            <p style={{marginLeft:"358px"}}>R$ 23.45</p>
-                                        </li>
-                                    </div>
-                                    <div className="item-fin">
-                                        <li>
-                                            <p>FORMA DE PAGAMENTO</p>
-                                            <p>CARTÃO DE CRÉDITO</p>
-                                        </li>
-                                        <li>
-                                            <p style={{marginLeft:"288px"}}>VALOR PAGO</p>
-                                            <p style={{marginLeft:"288px"}}>R$ 12.34</p>
-                                        </li>
-                                    </div>
+                                 <ul className="list-modal-finally">                                              
+                                    <div>
+                                        <div className="item-ini">
+                                                <li>
+                                                    <p>Qtdade. total de itens</p>
+                                                    <p style={{marginLeft:"310px"}}>{loadAmountUnitRel}</p>
+                                                </li>
+                                                <li>
+                                                    <p>Valor Total</p>
+                                                    <p style={{marginLeft:"358px"}}>R$ {checkValue(loadAmountRel) ? loadAmountRel + "0" : loadAmountRel}</p>
+                                                </li>                                                       
+                                        </div>
+
+                                        <div className="item-fin">
+                                            <li>
+                                                <p>FORMA DE PAGAMENTO</p>
+                                                <p>{loadPaymentTypeRel}{loadPaymentRel}</p>
+                                            </li>
+                                            <li>
+                                                <p style={{marginLeft:"288px"}}>VALOR PAGO</p>
+                                                <p style={{marginLeft:"288px"}}>R$ {checkValue(loadAmountRel) ? loadAmountRel + "0" : loadAmountRel}</p>
+                                            </li>
+                                        </div>
+                                    </div>                                      
                                  </ul>
                                  <hr style={{fontWeight:"600",color:"#000"}}/>
                                        
