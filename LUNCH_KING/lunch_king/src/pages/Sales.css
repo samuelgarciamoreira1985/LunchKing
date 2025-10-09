@@ -1277,3 +1277,59 @@
 .data-value-modal-rel p {
     font-family: 'Courier New', Courier, monospace;
 }
+
+.table-rel {
+    border: none;
+    background-color: transparent;
+}
+
+.table-rel tr:nth-child(even) {
+    background-color: transparent;
+}
+
+.table-rel th {
+    background-color: transparent;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-width: 0;
+    border-bottom: 1px solid #020202;
+}
+
+.table-rel td {
+    background-color: transparent;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: none;
+    height: 20px;
+    padding: 1px 10px;
+    text-align: justify;
+}
+
+.list-modal-finally {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-ini {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-ini li {
+    display: flex;
+    flex-direction: row;
+}
+
+.item-ini li p {
+    font-weight: 500;
+}
+
+.item-fin {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3px;
+}
+
+.item-fin li p {
+    font-weight: 500;
+}
+

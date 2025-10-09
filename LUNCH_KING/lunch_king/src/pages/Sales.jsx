@@ -1314,9 +1314,61 @@ const Sales = () => {
                             <div className="data-value-modal-rel">
                                 <p>Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica</p>
                                 <hr style={{fontWeight:"600",color:"#000"}}/>
+                                <table className="table-rel">
+                                    <thead>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Descrição</th>
+                                            <th>Qtde</th>
+                                            <th>Un</th>
+                                            <th>Vl.Unit</th>
+                                            <th>Vl.Total</th>
+                                        </tr>
+                                    </thead>
+                                            {commandSale && commandSale?.map((saleModal) => (   
+                                    <tbody>
+                                                    {saleModal && saleModal.item?.map((itemModal) => (
+                                                <tr>  
+                                                    <td>{itemModal.idItemCart}</td>
+                                                    <td>{itemModal.descItemCart}</td>
+                                                    <td>{itemModal.amountItemCart}</td>
+                                                    <td style={{textAlign:"center"}}>x</td>
+                                                    <td>R$ {checkValue(itemModal.valueSaleItemCart) ? itemModal.valueSaleItemCart + "0" : itemModal.valueSaleItemCart}</td>
+                                                    <td>R$ {itemModal.amountItemCart * itemModal.valueSaleItemCart}</td>                                                                                                        
+                                                </tr>
+                                                    ))}
+                                    </tbody>
+                                            ))}
+                                </table>
+                                 <hr style={{fontWeight:"600",color:"#000"}}/>
+                               
+                                 <ul className="list-modal-finally">                      
+                                    <div className="item-ini">
+                                        <li>
+                                            <p>Qtdade. total de itens</p>
+                                            <p style={{marginLeft:"310px"}}>15</p>
+                                        </li>
+                                        <li>
+                                            <p>Valor Total</p>
+                                            <p style={{marginLeft:"358px"}}>R$ 23.45</p>
+                                        </li>
+                                    </div>
+                                    <div className="item-fin">
+                                        <li>
+                                            <p>FORMA DE PAGAMENTO</p>
+                                            <p>CARTÃO DE CRÉDITO</p>
+                                        </li>
+                                        <li>
+                                            <p style={{marginLeft:"288px"}}>VALOR PAGO</p>
+                                            <p style={{marginLeft:"288px"}}>R$ 12.34</p>
+                                        </li>
+                                    </div>
+                                 </ul>
+                                 <hr style={{fontWeight:"600",color:"#000"}}/>
+                                       
                             </div>    
 
-                        </div>    
+                            </div>    
                         {/*<button className="btnPrint-rel" type="button">IMPRIMIR</button>*/}
                         {/*<button className="btnClose-rel" type="button" onClick={closeModalRel}>FECHAR</button>*/}
                     </Modal>     
