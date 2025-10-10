@@ -646,6 +646,60 @@
       "hourCommand": "20:50:37",
       "statusCommand": "PENDENTE",
       "id": "af7b"
+    },
+    {
+      "id": "1e04",
+      "idCommand": "15",
+      "tableCommand": "00",
+      "typeConsumption": "DELIVERY",
+      "item": [
+        {
+          "idItemCart": "2e90",
+          "descItemCart": "X-SALADA",
+          "photoItemCart": "/img/X-Salada.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "15.98"
+        },
+        {
+          "idItemCart": "8ffd",
+          "descItemCart": "X-BURGER FRANGO",
+          "photoItemCart": "/img/X Burguer Frango.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "16.99"
+        },
+        {
+          "idItemCart": "d96f",
+          "descItemCart": "SPRITE 350 ML",
+          "photoItemCart": "/img/Sprite 350ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "3.49"
+        },
+        {
+          "idItemCart": "be55",
+          "descItemCart": "FANTA UVA 350 ML",
+          "photoItemCart": "/img/Fanta Uva 350 ML.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": "3.49"
+        },
+        {
+          "idItemCart": "f6c2",
+          "descItemCart": "BOLO DE CHOCOLATE",
+          "photoItemCart": "/img/Chocolate Cake.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 6.29
+        },
+        {
+          "idItemCart": "a635",
+          "descItemCart": "BOLO DE MORANGO",
+          "photoItemCart": "/img/Strawberry cake.png",
+          "amountItemCart": 1,
+          "valueSaleItemCart": 7.45
+        }
+      ],
+      "totalAmount": 53.69,
+      "dateSystemCommand": "10/10/2025",
+      "hourCommand": "14:36:24",
+      "statusCommand": "FINALIZADO"
     }
   ],
   "sales": [
@@ -832,6 +886,80 @@
       "hourSale": "18:07",
       "paymentStatus": "FINALIZADO",
       "id": "86c12"
+    },
+    {
+      "id": "1e86",
+      "idSale": "5",
+      "registerSaleCommand": "15",
+      "consumptionSaleCommand": "DELIVERY",
+      "tableCommandSale": "00",
+      "deliveryAddressCep": "01010000",
+      "deliveryAddressRoad": "Rua São Bento",
+      "deliveryAddressNumber": "até 318 - lado par",
+      "deliveryAddressHood": "Centro",
+      "deliveryAddressCity": "São Paulo",
+      "deliveryAddressState": "São Paulo",
+      "deliveryAddressUf": "SP",
+      "deliveryAddressRegion": "Sudeste",
+      "itemsSale": [
+        {
+          "idItemCartSale": "2e90",
+          "descItemCartSale": "X-SALADA",
+          "photoItemCartSale": "/img/X-Salada.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": "15.98"
+        },
+        {
+          "idItemCartSale": "8ffd",
+          "descItemCartSale": "X-BURGER FRANGO",
+          "photoItemCartSale": "/img/X Burguer Frango.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": "16.99"
+        },
+        {
+          "idItemCartSale": "d96f",
+          "descItemCartSale": "SPRITE 350 ML",
+          "photoItemCartSale": "/img/Sprite 350ML.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": "3.49"
+        },
+        {
+          "idItemCartSale": "be55",
+          "descItemCartSale": "FANTA UVA 350 ML",
+          "photoItemCartSale": "/img/Fanta Uva 350 ML.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": "3.49"
+        },
+        {
+          "idItemCartSale": "f6c2",
+          "descItemCartSale": "BOLO DE CHOCOLATE",
+          "photoItemCartSale": "/img/Chocolate Cake.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": 6.29
+        },
+        {
+          "idItemCartSale": "a635",
+          "descItemCartSale": "BOLO DE MORANGO",
+          "photoItemCartSale": "/img/Strawberry cake.png",
+          "amountItemCartSale": 1,
+          "valueSaleItemCartSale": 7.45
+        }
+      ],
+      "valueSale": 53.69,
+      "paymentMethod": "DINHEIRO",
+      "inputValueSale": "55",
+      "changeValueSale": "1.31",
+      "typePaymentCard": "NULO",
+      "cardNumber": 0,
+      "cardFlag": "NULO",
+      "expirationDateCard": "00/00",
+      "cvcCwCard": 0,
+      "cardName": "NULO",
+      "cpfCnpjHolder": 0,
+      "qrCodePisSale": 53.69,
+      "dateSale": "10/10/2025",
+      "hourSale": "14:37:55",
+      "paymentStatus": "FINALIZADO"
     }
   ]
 }

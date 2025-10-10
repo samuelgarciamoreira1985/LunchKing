@@ -1376,3 +1376,28 @@
     font-size: 1.1rem;
 }
 
+.modal-btn {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 12px;
+    justify-content: center;
+}
+
+.modal-btn button {
+    height: 27px;
+    width: 90px;
+    border-radius: 7px;
+    border: none;
+    background-color: rgba(50, 133, 172, 0.966);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: .9rem;
+    text-shadow: .2px .2px 3px black;
+    cursor: pointer;
+}
+
+.modal-btn button:hover {
+    background-color: #3285aca2;
+}
+

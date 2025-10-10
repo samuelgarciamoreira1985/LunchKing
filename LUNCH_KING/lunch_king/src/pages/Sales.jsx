@@ -345,11 +345,15 @@ const Sales = () => {
             setColorTypeCard("") // LIMPA CARTÃO
             setColorFlagCard("") // LIMPA CARTÃO
             setLoadPaymentTypeRel("DINHEIRO")
+            setBtnHourSales("ATIVADO")
+            setEventCursorHourSales(optionsSales[4])
         }
         else if (valuePayment === "CARTÃO") {
             setInputValueSale(0) // LIMPA DINHEIRO
             setChangeValueSale(0) // LIMPA DINHEIRO
             setLoadPaymentTypeRel("CARTÃO DE ")
+            setBtnHourSales("ATIVADO")
+            setEventCursorHourSales(optionsSales[4])
         }
         else if (valuePayment === "PIX") {
             setInputValueSale(0) // LIMPA DINHEIRO
@@ -364,6 +368,8 @@ const Sales = () => {
             setColorTypeCard("") // LIMPA CARTÃ
             setColorFlagCard("") // LIMPA CARTÃ
             setLoadPaymentTypeRel("PIX")
+            setBtnHourSales("ATIVADO")
+            setEventCursorHourSales(optionsSales[4])
         }
       }
 
@@ -405,6 +411,8 @@ const Sales = () => {
         const hourSystemSale = dateHourSystemSale.toLocaleTimeString()
         const handleHourSystemCommand = () => {
          setHourSale(hourSystemSale)
+         setBtnStatusSales("ATIVADO")
+         setEventCursorStatusSales(optionsSales[4])
         }
 
       // TROCA DE STATUS DA VENDA
@@ -469,10 +477,10 @@ const Sales = () => {
                setIsDisabledBtnItems(false)
                setIsDisabledCursorBtnItems("pointer")
 
-               setBtnHourSales("ATIVADO")
-               setEventCursorHourSales(optionsSales[4])
-               setBtnStatusSales("ATIVADO")
-               setEventCursorStatusSales(optionsSales[4])
+               setBtnHourSales("DESATIVADO")
+               setEventCursorHourSales(optionsSales[5])
+               setBtnStatusSales("DESATIVADO")
+               setEventCursorStatusSales(optionsSales[5])
 
                setIsDisabledDelSales(true)
                setIsCursorDelSales(optionsSales[3]) 
@@ -1318,7 +1326,6 @@ const Sales = () => {
                     <Modal
                         isOpen={isOpen}
                         onRequestClose={closeModalRel}
-                        overlayClassName="overlay-modal"
                         ariaHideApp={false}
                         id="modal-rel-sales"
                         >
@@ -1425,15 +1432,16 @@ const Sales = () => {
 
                                 <div className="modal-list-fin">
                                     <p>Pedido 188 3A TECNOLOGIA  81 3126 5220/3223  4083 Aplicativo sistêmico</p>
-                                    <p>REI DOS LANCHES V 1.0.0 Série 96708033 Valor monetário aproximado</p>
-                                    <p>aos tributos referentes a taxas de estipuladas por lei.</p>
+                                    <p>REI DOS LANCHES V 1.0.0 Série 96708033 Valor aproximado aos tributos.</p>
                                 </div>
 
                             </div>    
 
                             </div>    
-                        {/*<button className="btnPrint-rel" type="button">IMPRIMIR</button>*/}
-                        {/*<button className="btnClose-rel" type="button" onClick={closeModalRel}>FECHAR</button>*/}
+                            <div className="modal-btn">
+                                <button className="btnPrint-rel" type="button" onClick={window.print}>IMPRIMIR</button>
+                                <button className="btnClose-rel" type="button" onClick={closeModalRel}>FECHAR</button>
+                            </div>
                     </Modal>     
                   
             </div>

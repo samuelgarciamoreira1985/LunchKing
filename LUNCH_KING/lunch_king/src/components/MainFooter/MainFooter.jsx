@@ -36,7 +36,6 @@ const MainFooter = () => {
 
         <div className="system-map-footer"> 
             <h3>Mapa do sistema</h3>
-            <a href="#">Usuários</a>
             <Link to="/listproducts">Produtos</Link>
             <Link to="/listcommands">Comandas</Link>
             <Link to="/listsales">Vendas</Link>
