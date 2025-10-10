@@ -217,7 +217,8 @@ const Sales = () => {
                         setIsDisabledBtnItems(true)
                         setIsDisabledCursorBtnItems("none")
                         setControlMapCart(true)    
-                        setControlCartSale("LOAD")         
+                        setControlCartSale("LOAD")    
+                        setUnityRelList(dataResponse)     
                     }
                     else {
                         swal({
@@ -838,19 +839,9 @@ const Sales = () => {
             useEffect(() => {
                 commandSale && commandSale?.map(saleCom => {
                     setLoadAmountRel(saleCom.totalAmount)
-                    saleCom && saleCom.item?.map(itemSaleCom => { // QUANTIDADE TOTAL DE ÍTENNS
-                            setUnityRelList([
-                                {
-                                "idItemCart": itemSaleCom.idItemCart,
-                                "descItemCart": itemSaleCom.descItemCart,
-                                "photoItemCart": itemSaleCom.photoItemCart,
-                                "amountItemCart": itemSaleCom.amountItemCart,
-                                "valueSaleItemCart": itemSaleCom.valueSaleItemCart
-                            }
-                        ])
-                        setLoadAmountUnityRel(unitRelList.length.valueOf())
-
-                    })
+                })
+                unitRelList && unitRelList?.map(itemRel => {
+                setLoadAmountUnityRel(itemRel.item.length)
                 })
             },[commandSale])
 
@@ -1342,7 +1333,7 @@ const Sales = () => {
                             </div>
 
                             <div className="data-value-modal-rel">
-                                <p>Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica</p>
+                                <p style={{fontSize:".97rem"}}>Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica</p>
                                 <hr style={{fontWeight:"600",color:"#000"}}/>
                                 <table className="table-rel">
                                     <thead>
@@ -1376,29 +1367,68 @@ const Sales = () => {
                                     <div>
                                         <div className="item-ini">
                                                 <li>
-                                                    <p>Qtdade. total de itens</p>
+                                                    <p style={{fontWeight:"600"}}>Qtdade. total de itens</p>
                                                     <p style={{marginLeft:"310px"}}>{loadAmountUnitRel}</p>
                                                 </li>
                                                 <li>
-                                                    <p>Valor Total</p>
+                                                    <p style={{fontWeight:"600"}}>Valor Total</p>
                                                     <p style={{marginLeft:"358px"}}>R$ {checkValue(loadAmountRel) ? loadAmountRel + "0" : loadAmountRel}</p>
                                                 </li>                                                       
                                         </div>
 
                                         <div className="item-fin">
                                             <li>
-                                                <p>FORMA DE PAGAMENTO</p>
+                                                <p style={{fontWeight:"600"}}>FORMA DE PAGAMENTO</p>
                                                 <p>{loadPaymentTypeRel}{loadPaymentRel}</p>
                                             </li>
                                             <li>
-                                                <p style={{marginLeft:"288px"}}>VALOR PAGO</p>
+                                                <p style={{marginLeft:"288px",fontWeight:"600"}}>VALOR PAGO</p>
                                                 <p style={{marginLeft:"288px"}}>R$ {checkValue(loadAmountRel) ? loadAmountRel + "0" : loadAmountRel}</p>
                                             </li>
                                         </div>
                                     </div>                                      
                                  </ul>
                                  <hr style={{fontWeight:"600",color:"#000"}}/>
-                                       
+                                
+                                 <div className="modal-list-dataAdd">
+                                    <p style={{fontWeight:"600"}}>Consulta pela Chave de Acesso em</p>
+                                    <p>http://nfce.sefaz.pe.gov.br/nfce/consulta</p>
+                                    <p>26.18.1212263187000103850020000343871054717914</p>
+                                </div>
+
+                                <div className="modal-list-dataQrCode">
+                                    {qrCodePisSale && (
+                                    <QRCode 
+                                    className="qrCode-modal"
+                                    title="qrCodePis"
+                                    value={qrCodePisSale}
+                                    bgColor="#fffcfcff"
+                                    fgColor="#000"
+                                    size="160"
+                                    />
+                                )}
+                                    <div className="modal-sublist-dataQrCode">
+                                            <p style={{fontWeight:"600"}}>CONSUMIDOR NÃO IDENTIFICADO</p>
+                                        <div className="modal-proc">
+                                            <p style={{fontWeight:"600"}}>NFC-e nº 34387 Série 2</p>
+                                            <p style={{fontWeight:"600"}}>{dateSale} {hourSale}</p>
+                                            <p style={{fontWeight:"600"}}>Via Consumidor</p>
+                                            <p style={{fontWeight:"600"}}>Protocolo de autorização</p>
+                                            <p>326180658469666</p>
+                                            <p style={{fontWeight:"600"}}>Data de autorização</p>
+                                            <p>{dateSale} {hourSale}</p>
+                                        </div>
+                                    </div>
+                                </div>      
+                                <br />
+                                <hr style={{fontWeight:"600",color:"#000"}}/>      
+
+                                <div className="modal-list-fin">
+                                    <p>Pedido 188 3A TECNOLOGIA  81 3126 5220/3223  4083 Aplicativo sistêmico</p>
+                                    <p>REI DOS LANCHES V 1.0.0 Série 96708033 Valor monetário aproximado</p>
+                                    <p>aos tributos referentes a taxas de estipuladas por lei.</p>
+                                </div>
+
                             </div>    
 
                             </div>    

@@ -1333,3 +1333,46 @@
     font-weight: 500;
 }
 
+.modal-list-dataAdd {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    align-self: center;
+}
+
+.modal-list-dataAdd p {
+    align-self: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.1rem;
+}
+
+.modal-list-dataQrCode {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.modal-sublist-dataQrCode {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-proc {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-list-fin {
+    display: flex;
+    flex-direction: column;
+    margin-top: 7px;
+}
+
+.modal-list-fin p {
+    font-weight: 500;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.1rem;
+}
+
