@@ -90,7 +90,7 @@
     border-radius: 10px;
 }
 
- .contact-footer h3 {
+ .contact-footer button {
     color: #fff;
     text-shadow: .9px .8px 2px #020202b2;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -101,9 +101,11 @@
     margin-left: 76px;
     font-style: italic;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
 }
 
-.contact-footer h3:hover {
+.contact-footer button:hover {
     color: #fffefecc;
 }
 
@@ -134,8 +136,114 @@
     border-radius: 10px;
     border: 2px solid white;
 }
+/* MODAL - EMAIL */
 
+#modal-email-footer {
+    width: 38vw;
+    height: 58vh;
+    align-self: center;
+    justify-self: center;
+    border-radius: 10px;
+}
 
+.modal-name-email {
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    margin-top: 10px;
+    
+}
+
+.modal-name-email label {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.modal-name-email label input {
+    box-sizing: border-box;
+    width: 17.5vw;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    position: relative;
+    text-align: center;
+}
+
+.icon-name-email {
+    position: absolute;
+    left: 17vw;
+    top: 80px;
+    font-size: 1.3rem;
+}
+
+.icon-descricao-email {
+    position: absolute;
+    left: 34.6vw;
+    top: 77px;
+    font-size: 1.8rem;
+}
+
+.modal-subject-messenger-btnSend {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-subject {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.modal-subject input {
+    box-sizing: border-box;
+    height: 30px;
+    width: 35.4vw;
+    border-radius: 5px;
+    border: 1px solid #000;
+    position: relative;
+    text-align: center;
+}
+
+.modal-messenger {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.modal-messenger textarea {
+    box-sizing: border-box;
+    height: 21.9vh;
+    width: 35.4vw;
+    border-radius: 5px;
+    border: 1px solid #000;
+    position: relative;
+    font-size: 1.1rem;
+}
+
+.btnSendMessenger {
+    height: 30px;
+    width: 35.4vw;
+    margin-top: 10px;
+    border-radius: 7px;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 600;
+    text-shadow: .5px .5px 2px #000;
+    background-color: #0d9caf;
+    cursor: pointer;
+}
+
+.btnSendMessenger:hover {
+    background-color: #0d9cafd5;
+}
+
+.icon-btnSendMessenger {
+    font-size: 1.3rem;
+    margin-right: 5px;
+}
 
 
 
