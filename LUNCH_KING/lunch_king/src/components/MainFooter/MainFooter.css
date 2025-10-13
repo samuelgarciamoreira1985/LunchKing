@@ -1,6 +1,6 @@
 .footer-main-container { /* Classe pai */
     background-image: linear-gradient(to left, #b22222,#ff8383 );
-    height: 20vh;
+    height: 15vh;
     width: 80vw;
     position: fixed;
     bottom: 0;
@@ -44,8 +44,8 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    border-left: 2px dashed #fff;
-    border-right: 2px dashed #fff;
+    margin-left: 100px;
+    margin-top: 7px;
 }
 
 .system-map-footer h3 {
@@ -79,6 +79,8 @@
 /**************************FORMULÁRIO DE CONTATO*********************/
 .contact-footer { /* container principal do footer */
     width: 45vw;
+    margin-left: 100px;
+    margin-top: 16px;
 }
 
 .form-contact-footer {
@@ -105,7 +107,7 @@
 .container-name-email {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 5px;
     padding: .5px;
 }
@@ -132,7 +134,7 @@
 }
 
 #btn-enviar-contato {
-    width: 270px;
+    width: 100px;
     height: 30px;
     border-radius: 7px;
     background-color: #0071ce;
@@ -147,22 +149,39 @@
 .icon-form-name {
     font-size: 1.4rem;
     margin-left: 3px;
-    color: #fff;
+    color: #000;
     position: absolute;
-    left: -22px;
+    left: 250px;
     top: 5px;
 }
 
 .icon-form-email {
     font-size: 2rem;
     margin-left: 3px;
-    color: #fff;
+    color: #000;
     position: absolute;
-    left: -28px;
-    top: 37px;
+    left: 527px;
+    top: 1px;
 }
 
+.list-rel-system {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 7px;
+    margin-top: 1px;
+}
 
+.link-rel-system {
+    padding: 3px;
+    margin-top: -4px;
+    font-size: 1rem;
+}
+
+.field-Rel {
+    border-radius: 10px;
+    border: 2px solid white;
+}
 
 
 

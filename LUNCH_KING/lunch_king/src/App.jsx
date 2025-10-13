@@ -15,7 +15,6 @@ function App() {
     <div className='App'>
       <FastMenu/>
       <div className="app-width">
-        <MainHeader/>
         <NavMainHeader/>
         <Outlet/>
         <MainFooter/>

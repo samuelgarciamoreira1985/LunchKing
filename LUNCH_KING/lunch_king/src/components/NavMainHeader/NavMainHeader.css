@@ -1,13 +1,14 @@
 .nav-main-container {
     background-image: linear-gradient(to right, #b22222,#ff8383 );
     padding: 10px;
-    height: 9vh;
+    height: 11vh;
 }
 
 .nav-details {
     display: flex;
     flex-direction: row;
-    margin-left: 25%;
+    margin-left: 40%;
+    padding: 5px;
 }
 
 .nav-main-container a {
