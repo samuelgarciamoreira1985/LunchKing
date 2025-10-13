@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     height: 80vh;
+    width: 80vw;
 }
 
 .img-system-home {
@@ -17,21 +18,4 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-#btn-logout {
-    margin-top: 150px;
-    margin-left: 15px;
-    width: 200px;
-    height: 50px;
-    text-align: center;
-    color: #fff;
-    border: 2px solid #fff;
-    background-image: linear-gradient(to right, #8435de, #d3cece);
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1.6rem;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    cursor:  pointer;
-    font-style: italic;
 }

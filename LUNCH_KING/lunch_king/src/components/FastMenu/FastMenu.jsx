@@ -26,7 +26,7 @@ const FastMenu = () => {
 
     <div className="fast-menu-container">
         <div className="icom-fast-menu">
-            <img src={logoSystem} alt="icone do sistema"/>
+            <Link to="/"><img src={logoSystem} alt="icone do sistema" className="img-home"/></Link>
             <h3>Cardápio</h3>
         </div>
 

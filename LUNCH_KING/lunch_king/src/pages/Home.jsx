@@ -10,7 +10,6 @@ const Home = () => {
     <div className="home-container">
         
         <img src={iconSystem} className="img-system-home" alt="imagem do sistema" />
-        <button id="btn-logout">Deslogar</button>
     </div>
 
   )

@@ -14,7 +14,8 @@
 .icom-fast-menu img {
     width: 60%;
     background-repeat: no-repeat;
-    margin-top: 10px;
+    margin-top: 0px;
+    margin-left: 60px;
 }
 .icom-fast-menu h3 {
     color: #fff;
