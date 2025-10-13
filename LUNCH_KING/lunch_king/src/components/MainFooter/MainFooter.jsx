@@ -1,7 +1,8 @@
 // REACT
 import { Link } from "react-router-dom"
-import { useState } from "react";
+import { useState,useRef } from "react";
 import Modal from "react-modal";
+import emailjs from '@emailjs/browser';
 // CSS
 import "./MainFooter.css"
 // ÍCONES
@@ -13,6 +14,19 @@ import { RiMailSendFill } from "react-icons/ri";
 const MainFooter = () => {
 
     const [isOpenEmail,setIsOpenEmail] = useState(false) // MODAL - EMAIL
+    const formEmail = useRef(); // REFERÊNCIA AO FORMULÁRIO DO EMAIL
+    const refName = useRef()
+    const [name,setName] = useState("")
+    const [email,setEmail] = useState("")
+    const [subject,setSubject] = useState("")
+    const [messenger,setMessenger] = useState("")
+
+    const formData = {
+        name: name,
+        email: email,
+        subject: subject,
+        message: messenger
+    }
 
     const openModalEmail = () => {
         setIsOpenEmail(true)
@@ -21,7 +35,23 @@ const MainFooter = () => {
     const closeModalEmail = () => {
         setIsOpenEmail(false)
     }
+    
+    emailjs.init('9rYcJkJt0nAC70YTO') // PUBLIC ID
 
+    const sendEmail = (e) => {
+        e.preventDefault()
+        emailjs.send("service_zjfrp84","template_jygzekd",formData) // SERVICE ID.TEMPLATE ID
+        .then(() => {
+            swal({
+                closeOnClickOutside: false,
+                icon: "success",
+                title: "REI DOS LANCHES",
+                text: "Email enviado com sucesso!"
+                })  
+            })
+            document.getElementById("form_contact").reset()
+            refName.current.focus()
+    }
 
   return (
 
@@ -49,7 +79,7 @@ const MainFooter = () => {
                 id="modal-email-footer"
                 >
                     <div className="container-modal-email">
-                        <form>
+                        <form ref={formEmail} onSubmit={sendEmail} id="form_contact">
                             <h2>Contatar</h2>
 
                             <div className="modal-name-email">
@@ -57,6 +87,8 @@ const MainFooter = () => {
                                     <span>Nome</span>
                                     <input type="text"
                                     name="name-email"
+                                    onChange={(e) => setName(e.target.value)}
+                                    ref={refName}
                                     />
                                     <FaUserAlt className="icon-name-email"/>
                                 </label>
@@ -65,6 +97,7 @@ const MainFooter = () => {
                                     <span>Email</span>
                                     <input type="email"
                                     name="descricao-email"
+                                    onChange={(e) => setEmail(e.target.value)}
                                     />
                                     <MdEmail className="icon-descricao-email"/>
                                 </label>
@@ -75,16 +108,19 @@ const MainFooter = () => {
                                     <span>Assunto</span>
                                     <input type="text"
                                     name="subject-email"
+                                    onChange={(e) => setSubject(e.target.value)}
                                     />
                                 </label>
                                 <label className="modal-messenger">
                                     <span>Mensagem</span>
                                     <textarea 
                                     name="messenger-email" 
-                                    id="id-messenger-email">
+                                    id="id-messenger-email"
+                                    onChange={(e) => setMessenger(e.target.value)}                                 
+                                    >
                                     </textarea>
                                 </label>
-                                <button type="button" className="btnSendMessenger"><RiMailSendFill className="icon-btnSendMessenger"/>Enviar mensagem</button>
+                                <button type="submit" className="btnSendMessenger"><RiMailSendFill className="icon-btnSendMessenger"/>Enviar mensagem</button>
                             </div>
 
                         </form>
