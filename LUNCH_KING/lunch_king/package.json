@@ -1,5 +1,4 @@
 {
-  "homepage": "https://samuelgarciamoreira1985.github.io/lunch_king_deploy/",
   "name": "lunch_king",
   "private": true,
   "version": "0.0.0",
@@ -9,9 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "Json-server --watch database/LunchKing.json",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "server": "Json-server --watch database/LunchKing.json"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
